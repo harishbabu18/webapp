@@ -1,17 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route,Redirect,BrowserRouter , Switch} from 'react-router-dom'
-
 import App from './App';
 import Dashboard from './pages/Dashboard'
 import UserDashboard from './pages/UserDashboard'
 import CompanyDashboard from './pages/CompanyDashboard';
 import Login from './pages/Login';
-// import * as serviceWorker from './serviceWorker';
 
 
-const routing = (
-    <BrowserRouter>
+
+class Index extends React.Component {
+  constructor(prop) {
+    super();
+  }
+
+  render() {
+    return (
+      <BrowserRouter>
       <div>
       <Switch>
         <Route  exact path="/" >
@@ -32,7 +37,10 @@ const routing = (
         </Switch>
       </div>
     </BrowserRouter>
-  )
+    );
+  }
+}
+
   
 
   function PrivateRoute({ component: Component }){
@@ -42,6 +50,6 @@ const routing = (
 
   }
   
-ReactDOM.render(routing, document.getElementById('root'));
+ReactDOM.render(<Index />, document.getElementById('root'));
 
 // serviceWorker.unregister();
