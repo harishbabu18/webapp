@@ -10,7 +10,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import logo from "../besspplicon.png"
+import logo from "../besspplicon.png";
 import {SERVER_URL} from '../config';
 import {defaultErrorHandler} from '../handlers/errorHandlers';
 import {checkResponseStatus, loginResponseHandler} from '../handlers/responseHandlers';
@@ -66,46 +66,31 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userDetails: {
         username: '',
-        password: ''
-      },
-      error:null
+        password: '',
+        error:null
       
         
     }
   }
    
-    //tag::login[]
-    LoginSubmit = (e) => {
-      console.log('login');
-      e.preventDefault(); 
-  
-      fetch(`${SERVER_URL}/api/login`, { 
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(this.state.userDetails)
-      }).then(checkResponseStatus) 
-        .then(response => loginResponseHandler(response, this.customLoginHandler)) 
-        .catch(error => defaultErrorHandler(error, this.customErrorHandler)); 
-    };
-    //end::login[]
+    
+    //get Username
+    _usernameValue = (e) =>{
+      this.setState({
+        username: e.target.value
+    });
 
-      //tag::inputChangeHandler[]
-  inputChangeHandler = (event) => {
-    let {userDetails} = this.state;
-    const target = event.target;
+    }
+    //end get Username
+     //get Password
+     _passwordValue = (e) =>{
+      this.setState({
+        password: e.target.value
+    });
 
-    userDetails[target.name] = target.value; //<1>
-
-    this.setState({userDetails});
-  };
-  //end::inputChangeHandler[]
-
-  
+    }
+    //end get Password
 
 
   render() {
@@ -122,9 +107,9 @@ class Login extends React.Component {
             <div className={classes.paper}>
                 <img src={logo} alt="Bessppl"/>
               <Typography component="h1" variant="h5">
-                Login {this.state.error}
+                Login
               </Typography>
-              <form className={classes.form}  onSubmit={(event) => this.LoginSubmit(event)}>
+              <form className={classes.form}  onSubmit={(event) => this.props.LoginSubmit(event)}>
                 <TextField
                   variant="outlined"
                   margin="normal"
@@ -135,8 +120,8 @@ class Login extends React.Component {
                   name="email"
                   autoComplete="username"
                   autoFocus
-                  //value={this.userDetails.username}
-                  onChange={this.inputChangeHandler}
+                  value={this.state.username}
+                  onChange = {this._usernameValue}
                 />
                 <TextField
                   variant="outlined"
@@ -148,8 +133,8 @@ class Login extends React.Component {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  //value={this.userDetails.username}
-                  onChange={this.inputChangeHandler}
+                  value={this.state.password} 
+                  onChange = {this._passwordValue}
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
