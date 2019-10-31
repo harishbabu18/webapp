@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route,Redirect,BrowserRouter , Switch} from 'react-router-dom'
+import { Route,Redirect,BrowserRouter,Switch} from 'react-router-dom'
 import App from './App';
 import Dashboard from './pages/Dashboard'
 import UserDashboard from './pages/UserDashboard'
@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Auth from './security/auth';
 
 import {SERVER_URL} from './config';
+import history from './history';
 import {defaultErrorHandler} from './handlers/errorHandlers';
 import {checkResponseStatus, loginResponseHandler} from './handlers/responseHandlers';
 
@@ -19,27 +20,41 @@ class Index extends React.Component {
   constructor() {
     super();
     this.state = {
-      userDetails: {
         username: '',
-        password: ''
-      },
-      route: '',
-      error: null
+        password: '',
+        from: '',
+        loggedIn:false,
+        error: null
     }
   }
 
 
   reset = () => { //<1>
     this.setState({
-      userDetails: {
+      
         username: '',
-        password: ''
-      },
-      route: 'login',
+        password: '',
+      from: '',
       error: null
     });
   };
   //end::state[]
+
+     //get Username
+     _usernameValue = (e) =>{
+      this.setState({
+        username: e.target.value
+    });
+
+    }
+    //end get Username
+     //get Password
+     _passwordValue = (e) =>{
+      this.setState({
+        password: e.target.value
+    });
+    }
+    //end get Password
 
   //tag::login[]
   LoginSubmit = (e) => {
@@ -57,8 +72,9 @@ class Index extends React.Component {
       body: JSON.stringify({'username':this.state.username,'password':this.state.password})
     }).then(checkResponseStatus) //<3>
     .then(response => loginResponseHandler(response, this.customLoginHandler)) //<4>
-    .catch(error => defaultErrorHandler(error, this.customErrorHandler)); 
-  };
+    .catch(error => defaultErrorHandler(error, this.customErrorHandler));
+       
+    };
   //end::login[]
 
 
@@ -70,52 +86,40 @@ class Index extends React.Component {
 
     (async () => {
       if (await Auth.loggedIn()) {
-        this.setState({route: 'garage'})
+        //this.setState({from:{} })
       } else {
-        this.setState({route: 'login'});
+        this.setState({from: ''});
       }
     })();
   }
 
   componentDidUpdate() {
-    if (this.state.route !== 'login' && !Auth.loggedIn()) {
-      this.setState({route: 'login'})
+    if (this.state.from !== 'login' && !Auth.loggedIn()) {
+     // this.setState({from: 'login'})
     }
   }
   //end::lifecycle[]
 
   //tag::inputChangeHandler[]
-  inputChangeHandler = (event) => {
-    let {userDetails} = this.state;
-    const target = event.target;
+  // inputChangeHandler = (event) => {
+  //   let {userDetails} = this.state;
+  //   const target = event.target;
 
-    userDetails[target.name] = target.value; //<1>
+  //   userDetails[target.name] = target.value; //<1>
 
-    this.setState({userDetails});
-  };
+  //   this.setState({userDetails});
+  // };
   //end::inputChangeHandler[]
-
-  //tag::login[]
-  login = (e) => {
-    console.log('login');
-    e.preventDefault(); //<1>
-
-    fetch(`${SERVER_URL}/api/login`, { //<2>
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(this.state.userDetails)
-    }).then(checkResponseStatus) //<3>
-      .then(response => loginResponseHandler(response, this.customLoginHandler)) //<4>
-      .catch(error => defaultErrorHandler(error, this.customErrorHandler)); //<5>
-  };
-  //end::login[]
 
   //tag::handler[]
   customLoginHandler = () => { //<1>
-    this.setState({route: 'garage'});
+    //this.setState({route: 'garage'});
+   // return <Redirect to={this.state.from} />
+    //return <Redirect to='/dashboard' />
+    history.push(this.state.from);
+    window.location.href = window.location.href;
+   //this.context.history.push(this.state.from)
+
   };
 
   customErrorHandler = (error) => { //<2>
@@ -141,7 +145,7 @@ class Index extends React.Component {
             <App />
         </Route>
         <Route  exact path="/login" >
-            <Login LoginSubmit={this.LoginSubmit}/>
+            <Login LoginSubmit={this.LoginSubmit} _usernameValue={this._usernameValue} _passwordValue={this._passwordValue}/>
         </Route>
         <PrivateRoute path="/dashboard">
             <Dashboard logoutHandler={this.logoutHandler}/>
@@ -152,6 +156,7 @@ class Index extends React.Component {
         <PrivateRoute path="/userdashboard">
             <UserDashboard />
         </PrivateRoute>
+        <Redirect to={this.state.from} />
         </Switch>
       </div>
     </BrowserRouter>

@@ -11,9 +11,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import logo from "../besspplicon.png";
-import {SERVER_URL} from '../config';
-import {defaultErrorHandler} from '../handlers/errorHandlers';
-import {checkResponseStatus, loginResponseHandler} from '../handlers/responseHandlers';
 
 function Copyright() {
   return (
@@ -75,22 +72,7 @@ class Login extends React.Component {
   }
    
     
-    //get Username
-    _usernameValue = (e) =>{
-      this.setState({
-        username: e.target.value
-    });
-
-    }
-    //end get Username
-     //get Password
-     _passwordValue = (e) =>{
-      this.setState({
-        password: e.target.value
-    });
-
-    }
-    //end get Password
+ 
 
 
   render() {
@@ -120,8 +102,8 @@ class Login extends React.Component {
                   name="email"
                   autoComplete="username"
                   autoFocus
-                  value={this.state.username}
-                  onChange = {this._usernameValue}
+                  value={this.props.username}
+                  onChange = {this.props._usernameValue}
                 />
                 <TextField
                   variant="outlined"
@@ -133,8 +115,8 @@ class Login extends React.Component {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  value={this.state.password} 
-                  onChange = {this._passwordValue}
+                  value={this.props.password} 
+                  onChange = {this.props._passwordValue}
                 />
                 <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}

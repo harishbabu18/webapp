@@ -1,6 +1,6 @@
 import {SERVER_URL} from './../config';
 import {checkResponseStatus} from './../handlers/responseHandlers';
-import headers from './../security/headers';
+//import headers from './../security/headers';
 import 'whatwg-fetch';
 import qs from 'qs';
 
@@ -32,12 +32,14 @@ export default {
   },
 
   loggedIn() {  //<6>
-    return localStorage.auth && fetch(
-        `${SERVER_URL}/api/vehicle`, //<7>
-        {headers: headers()})
-        .then(checkResponseStatus)
-        .then(() => { return true })
-        .catch(this.refreshToken)
-        .catch(() => { return false });
+    return localStorage.auth 
+
+    // && fetch(
+    //     `${SERVER_URL}/api/vehicle`, //<7>
+    //     {headers: headers()})
+    //     .then(checkResponseStatus)
+    //     .then(() => { return true })
+    //     .catch(this.refreshToken)
+    //     .catch(() => { return false });
   }
 };

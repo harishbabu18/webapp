@@ -6,8 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import logo from "../besspplicon.png";
-//import Auth from '../security/auth';
-
 
 const useStyles = theme => ({
   root: {
@@ -26,14 +24,6 @@ const useStyles = theme => ({
     constructor(props) {
       super(props);
     }
-
-  //tag::logout[]
-  //  logoutHandler = async() => {
-  //   Auth.logOut();
-  //   console.log("Logout");
-  //   props.history.push("/login");
-  // };
-  //end::logout[]
 
     render(){
       const { classes } = this.props;
