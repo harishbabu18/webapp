@@ -1,13 +1,12 @@
 import React from 'react';
 import StatusBox from '../components/StatusBox';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import ButtonAppBar from '../components/ButtonAppBar'
+import {SERVER_URL} from '../config';
 
 
 
-
-const useStyles = makeStyles(theme => ({
+const useStyles = theme => ({
   root: {
     flexGrow: 1,
   },
@@ -16,29 +15,53 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-}));
+});
 
+class Dashboard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dashboards: {
+        compainesRegistered :'',
+        userRegisterd:'',
+        companyusersOnline:'',
+        usersOnline:'',
+        compainesVerified:'',
+        compainesUnVerified:'',
+        usersVerfified:'',
+        usersUnVerfified:''
+      }
+    }
+  }
+  componentDidMount() {
+    fetch(SERVER_URL+'/admindashboard')
+    .then(r => r.json())
+    .then(json => this.setState({dashboards:{
+    compainesRegistered :json.compainesRegistered,
+        userRegisterd:json.userRegisterd,
+        companyusersOnline:json.companyusersOnline,
+        usersOnline:json.usersOnline,
+        compainesVerified:json.compainesVerified,
+        compainesUnVerified:json.compainesUnVerified,
+        usersVerfified:json.usersVerfified,
+        usersUnVerfified:json.usersUnVerfified} }))
+    .catch(error => console.error('Error retrieving Companies: ' + error));
+  }
 
-function Dashboard(props) {
-  const classes = useStyles();
+  render(){
+    const { classes } = this.props;
 
-  return (
-    
+    return (<div className={classes.root}>
+      <Grid container spacing={3}>
+<StatusBox name="Companies Registered" count={this.state.dashboards.compainesRegistered}/>
+<StatusBox  name="Users Regsitered" count={this.state.dashboards.userRegisterd}/>
+<StatusBox  name="Companies Online" count={this.state.dashboards.companyusersOnline}/>
+<StatusBox  name="Users Online" count={this.state.dashboards.usersOnline}/>
+<StatusBox  name="Companies Verified" count={this.state.dashboards.compainesVerified}/>
+<StatusBox  name="Companies UnVerified" count={this.state.dashboards.compainesUnVerified}/>
+<StatusBox  name="Users Verified" count={this.state.dashboards.usersVerfified}/>
+<StatusBox  name="Users UnVerified" count={this.state.dashboards.usersUnVerfified}/>
+</Grid>
+</div>)}}
 
-    <div className={classes.root}>
-      <ButtonAppBar logoutHandler={props.logoutHandler} />
-            <Grid container spacing={3}>
-      <StatusBox name="harish" count="4"/>
-      <StatusBox  name="Akshitha" count="1"/>
-      <StatusBox  name="Sharmila" count="1"/>
-      <StatusBox  name="Na pa Pon" count="1"/>
-      <StatusBox  name="Chrissy" count="1"/>
-      <StatusBox  name="Chrissy" count="1"/>
-      <StatusBox  name="Chrissy" count="1"/>
-      <StatusBox  name="Chrissy" count="1"/>
-      </Grid>
-    </div>
-  );
-}
-
-export default Dashboard;
+export default  withStyles(useStyles)(Dashboard);

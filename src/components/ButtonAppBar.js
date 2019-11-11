@@ -4,7 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
 import logo from "../besspplicon.png";
 
 const useStyles = theme => ({
@@ -30,13 +29,11 @@ const useStyles = theme => ({
 
       return (
         <div className={classes.root}>
-          <AppBar position="static">
+          <AppBar position="static" style={{ backgroundColor: '#fff',color:'#f00' }}>
             <Toolbar>
-              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                 <img src={logo} alt="Bessppl" />
-              </IconButton>
               <Typography variant="h6" className={classes.title}>
-                Dashboard
+                {this.props.title}
               </Typography>
               <Button color="inherit" onClick={(event) => this.props.logoutHandler(event)}>Logout</Button>
             </Toolbar>

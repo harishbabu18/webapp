@@ -12,6 +12,13 @@ import {SERVER_URL} from './config';
 import history from './history';
 import {defaultErrorHandler} from './handlers/errorHandlers';
 import {checkResponseStatus, loginResponseHandler} from './handlers/responseHandlers';
+import Company from './pages/Company';
+import User from './pages/User';
+import ButtonAppBar from './components/ButtonAppBar';
+import Role from './pages/Role';
+import LayoutTextFields from './pages/LayoutTextField';
+import CreateCompany from './pages/CreateCompany';
+//import Role from './pages/Role';
 
 
 
@@ -73,7 +80,6 @@ class Index extends React.Component {
     }).then(checkResponseStatus) //<3>
     .then(response => loginResponseHandler(response, this.customLoginHandler)) //<4>
     .catch(error => defaultErrorHandler(error, this.customErrorHandler));
-       
     };
   //end::login[]
 
@@ -84,20 +90,20 @@ class Index extends React.Component {
   componentDidMount() {
     console.log('app mounting...');
 
-    (async () => {
-      if (await Auth.loggedIn()) {
-        //this.setState({from:{} })
-      } else {
-        this.setState({from: ''});
-      }
-    })();
+    // (async () => {
+    //   if (await Auth.loggedIn()) {
+    //     this.setState({loggedIn:true })
+    //   } else {
+    //     this.setState({loggedIn:false })
+    //   }
+    // })();
   }
 
-  componentDidUpdate() {
-    if (this.state.from !== 'login' && !Auth.loggedIn()) {
-     // this.setState({from: 'login'})
-    }
-  }
+  // componentDidUpdate() {
+  //    if (this.state.from !== 'login' && !Auth.loggedIn()) {
+  //     // this.setState({loggedIn: false})
+  //    }
+  // }
   //end::lifecycle[]
 
   //tag::inputChangeHandler[]
@@ -112,14 +118,10 @@ class Index extends React.Component {
   //end::inputChangeHandler[]
 
   //tag::handler[]
-  customLoginHandler = () => { //<1>
-    //this.setState({route: 'garage'});
-   // return <Redirect to={this.state.from} />
-    //return <Redirect to='/dashboard' />
-    history.push(this.state.from);
+  customLoginHandler = () => { 
+   console.log("From "+this.state.from);
+   history.push(this.state.from);
     window.location.href = window.location.href;
-   //this.context.history.push(this.state.from)
-
   };
 
   customErrorHandler = (error) => { //<2>
@@ -142,21 +144,48 @@ class Index extends React.Component {
       <div>
       <Switch>
         <Route  exact path="/" >
+        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
             <App />
         </Route>
-        <Route  exact path="/login" >
+
+        {/* <Route  exact path="/login" >
             <Login LoginSubmit={this.LoginSubmit} _usernameValue={this._usernameValue} _passwordValue={this._passwordValue}/>
-        </Route>
-        <PrivateRoute path="/dashboard">
-            <Dashboard logoutHandler={this.logoutHandler}/>
+        </Route> */}
+
+        <LoggedInRedirect  exact path="/login" >
+        <Login LoginSubmit={this.LoginSubmit} _usernameValue={this._usernameValue} _passwordValue={this._passwordValue}/>
+        </LoggedInRedirect>
+        <PrivateRoute  exact path="/dashboard">
+        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
+        <Dashboard/>
         </PrivateRoute>
-        <PrivateRoute path="/companydashboard">
+        <PrivateRoute  exact  path="/inputform">
+        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
+          <LayoutTextFields />
+        </PrivateRoute>
+        <PrivateRoute  exact  path="/companydashboard">
             <CompanyDashboard />
         </PrivateRoute>
-        <PrivateRoute path="/userdashboard">
+        <PrivateRoute  exact  path="/createcompany">
+        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
+          <CreateCompany />
+        </PrivateRoute>
+        <PrivateRoute  exact  path="/company">
+        <ButtonAppBar title="Company" logoutHandler={this.logoutHandler} />
+        <Company />  
+        </PrivateRoute>
+        <PrivateRoute exact path="/userdashboard">
+        <ButtonAppBar title="User Dashboard" logoutHandler={this.logoutHandler} />
             <UserDashboard />
         </PrivateRoute>
-        <Redirect to={this.state.from} />
+        <PrivateRoute exact path="/user">
+        <ButtonAppBar title="User" logoutHandler={this.logoutHandler} />
+        <User/>
+        </PrivateRoute>
+        <PrivateRoute exact path="/role">
+        <ButtonAppBar title="User" logoutHandler={this.logoutHandler} />
+        <Role/>
+        </PrivateRoute>  
         </Switch>
       </div>
     </BrowserRouter>
@@ -167,23 +196,47 @@ class Index extends React.Component {
   
 
 function PrivateRoute({ children, ...rest }) {
+  console.log("The location is "+window.location);
   return (
     <Route
       {...rest}
       render={({ location }) =>
-       localStorage.auth ? (
+      Auth.loggedIn() ? (
           children
         ) : (
           <Redirect
             to={{
               pathname: "/login",
-              state: { from: location }
+              state :{ from: location }
             }}
           />
         )
+        
       }
     />
   );
+}
+
+function LoggedInRedirect({ children, ...rest }){
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+      Auth.loggedIn() ? (
+        <Redirect
+        to={{
+          pathname: "/",
+          state :{ from: location }
+        }}
+      />
+        ) : (
+          children
+        )
+        
+      }
+    />
+  );
+
 }
   
 ReactDOM.render(<Index />, document.getElementById('root'));
