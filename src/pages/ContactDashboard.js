@@ -40,7 +40,7 @@ class ContactDashboard extends React.Component {
       super();
   
       this.state = {
-        companies: []
+        contacts: []
       }
     }
     render() {

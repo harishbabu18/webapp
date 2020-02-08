@@ -24,13 +24,13 @@ class Contact extends React.Component {
         super();
     
         this.state = {
-          companies: []
+          contacts: []
         }
       }
       componentDidMount() {
         fetch(SERVER_URL+'/contact')
         .then(r => r.json())
-        .then(json => this.setState({companies: json}))
+        .then(json => this.setState({contacts: json}))
         .catch(error => console.error('Error retrieving Companies: ' + error));
       }
     
@@ -59,16 +59,16 @@ class Contact extends React.Component {
           
           
 
-          function renderCompanyRow(company) {
+          function renderCompanyRow(contacts) {
 
-            return (<StyledTableRow key={company.id}>
+            return (<StyledTableRow key={contacts.id}>
               <StyledTableCell component="th" scope="row">
-                {company.name}
+                {contacts.firstName}
               </StyledTableCell>
-              <StyledTableCell align="right">{company.description}</StyledTableCell>
-              <StyledTableCell align="right">{company.address}</StyledTableCell>
-              <StyledTableCell align="right">{company.website}</StyledTableCell>
-              <StyledTableCell align="right">{company.mobile}</StyledTableCell>
+              <StyledTableCell align="right">{contacts.lastName}</StyledTableCell>
+              <StyledTableCell align="right">{contacts.dob}</StyledTableCell>
+              {/* <StyledTableCell align="right">{contacts.website}</StyledTableCell>
+              <StyledTableCell align="right">{contacts.mobile}</StyledTableCell> */}
             </StyledTableRow>);
           }
       
@@ -81,13 +81,14 @@ class Contact extends React.Component {
             <StyledTableCell>First Name</StyledTableCell>
             <StyledTableCell align="right">Last Name</StyledTableCell>
             <StyledTableCell align="right">Address</StyledTableCell>
-            <StyledTableCell align="right">Website</StyledTableCell>
             <StyledTableCell align="right">E-mail</StyledTableCell>
             <StyledTableCell align="right">Phone</StyledTableCell>
+            <StyledTableCell align="right">Fax</StyledTableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
-        {this.state.companies.map(renderCompanyRow)}
+        {this.state.contacts.map(renderCompanyRow)}
         </TableBody>
       </Table>
     </Paper>
