@@ -68,6 +68,7 @@ class Company extends React.Component {
               <StyledTableCell align="right">{company.description}</StyledTableCell>
               <StyledTableCell align="right">{company.address}</StyledTableCell>
               <StyledTableCell align="right">{company.website}</StyledTableCell>
+              <StyledTableCell align="right">{company.email}</StyledTableCell>
               <StyledTableCell align="right">{company.mobile}</StyledTableCell>
             </StyledTableRow>);
           }
