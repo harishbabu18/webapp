@@ -68,7 +68,6 @@ class Company extends React.Component {
               <StyledTableCell align="right">{company.description}</StyledTableCell>
               <StyledTableCell align="right">{company.address}</StyledTableCell>
               <StyledTableCell align="right">{company.website}</StyledTableCell>
-              <StyledTableCell align="right">{company.mobile}</StyledTableCell>
             </StyledTableRow>);
           }
       
@@ -78,12 +77,11 @@ class Company extends React.Component {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
-            <StyledTableCell align="right">Description</StyledTableCell>
-            <StyledTableCell align="right">Address</StyledTableCell>
-            <StyledTableCell align="right">Website</StyledTableCell>
-            <StyledTableCell align="right">E-mail</StyledTableCell>
-            <StyledTableCell align="right">Phone</StyledTableCell>
+            <StyledTableCell>Task</StyledTableCell>
+            <StyledTableCell align="right">Ticket Id</StyledTableCell>
+            <StyledTableCell align="right">Assigned to</StyledTableCell>
+            <StyledTableCell align="right">Assigned By</StyledTableCell>
+            <StyledTableCell align="right">Status</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>

@@ -1,26 +1,27 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import { Button } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import SelectText from '../components/SelectText'
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Typography from '@material-ui/core/Typography';
 import SaveIcon from '@material-ui/icons/Save';
 import clsx from 'clsx';
 import IconButton from '@material-ui/core/IconButton';
 import AddBox from '@material-ui/icons/AddBox';
 import Email from '@material-ui/icons/Email';
 import PhoneAndroid from '@material-ui/icons/PhoneAndroid';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Web from '@material-ui/icons/Web';
+import NoteIcon from '@material-ui/icons/Note';
 import CountrySelect from '../components/CountrySelect'
-
+import Task from './Task'
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-    padding:theme.spacing(2),
+    padding:theme.spacing(2)
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -29,70 +30,74 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CreateCompany() {
+export default function CreateContact() {
   const classes = useStyles();
 
   return (
-    <div>
-      <Grid container component="main" className={classes.root}>
-      <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
-        <div  className={classes.container}>
-        <Typography component="h1" variant="h5" inline>
+      <div>    
+    <Grid container component="main" className={classes.root}>
+    <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
+    <div className={classes.container}>
+     
+    <Typography component="h1" variant="h5" inline>
                 Create Contact Profile
               </Typography>
-      <TextField
-          id="outlined-full-width"
-          label="Name"
-          style={{ margin: 8 }}
-          placeholder="Name"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-full-width"
-          label="Description"
-          style={{ margin: 8 }}
-          placeholder="Description"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-        />
-         <TextField
-                          // onChange={this.handleChange}
-                          id="outlined-multiline-flexible"
-                          label="Established Date"
-                          type="date"
-                          defaultValue="2017-05-24"
-                          variant="outlined"
-                          className={classes.textField}
-                          InputLabelProps={{
-                          shrink: true,
-                          }}
-                        />
-        <TextField
-          id="outlined-full-width"
-          label="Website"
-          style={{ margin: 8 }}
-          placeholder="Website"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-        />
-        <Button>Save</Button>
-        </div>
-
-      </Grid>
-      <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
+      
+   <TextField
+     id="outlined-full-width"
+     label="First Name"
+     style={{ margin: 8 }}
+     placeholder="First Name"
+     fullWidth
+     margin="normal"
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        <AccountCircle />
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+   <TextField
+     id="outlined-full-width"
+     label="Last Name"
+     style={{ margin: 8 }}
+     placeholder="Last Name"
+     fullWidth
+     margin="normal"
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        <AccountCircle />
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+   <TextField
+     id="outlined-full-width"
+     label="Note"
+     style={{ margin: 8 }}
+     placeholder="Note"
+     fullWidth
+     margin="normal"
+     InputLabelProps={{
+       shrink: true,
+     }}
+     variant="outlined"
+   />
+   <SelectText />
+   <SelectText />
+   <Button variant="contained" size="small"  color="primary">
+        <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
+        Save
+      </Button>
+    </div>
+    </Grid>
+    <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
     <div className={classes.container}>
     <Typography component="h1" variant="h5" inline>
                 Create Contact
@@ -174,42 +179,18 @@ export default function CreateCompany() {
     }}
      variant="outlined"
    />
-   <TextField
-     id="outlined-full-width"
-     label="Website"
-     style={{ margin: 8 }}
-     placeholder="Website"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     InputProps={{
-      startAdornment: <InputAdornment position="start">
-        <Web />
-        </InputAdornment>,
-        endAdornment:<InputAdornment position='end'>
-        <IconButton
-          aria-label='toggle password visibility'
-          >
-            <AddBox /> 
-        </IconButton>
-      </InputAdornment>
-    }}
-     variant="outlined"
-   />
    </div>
    
     </Grid>
-      <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
-      <div className={classes.container}>
-      <Typography component="h1" variant="h5" inline>
-            Contact List
-          </Typography>
-          </div>
-        
-      </Grid>
-      <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
+    <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
+    <div className={classes.container}>
+
+    <Typography component="h1" variant="h5" inline>
+                Contact List
+              </Typography>
+              </div>
+    </Grid>
+    <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
     <div className={classes.container}>
     <Typography component="h1" variant="h5" inline>
                 Create Address
@@ -269,8 +250,42 @@ export default function CreateCompany() {
       </Button>
    </div>
     </Grid>
-      </Grid>
-      
+    <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
+    <div className={classes.container}>
+    <Typography component="h1" variant="h5" inline>
+                Address List
+              </Typography>
+   </div>
+    </Grid>
+    <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
+    <div className={classes.container}>
+    <Typography component="h1" variant="h5" inline>
+                Create Task
+              </Typography>
+    <TextField
+     id="outlined-full-width"
+     label="Task"
+     style={{ margin: 8 }}
+     placeholder="Task"
+     fullWidth
+     margin="normal"
+     InputLabelProps={{
+       shrink: true,
+     }}
+     variant="outlined"
+   />
+   <SelectText />
+</div>
+              
+   
+    </Grid>
+    <Grid item  sm={12} component={Paper} elevation={6} square>
+      <Task />
+
+    </Grid>
+
+    
+    </Grid>
     </div>
   );
 }

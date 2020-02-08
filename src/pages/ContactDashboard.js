@@ -1,11 +1,9 @@
 import React from 'react';
-import Company from './Company'
-import CreateCompany from './CreateCompany';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-
-
+import Contact from './Contact';
+import CreateContact from './CreateContact';
 
 
 const useStyles = theme => ({
@@ -37,7 +35,7 @@ const useStyles = theme => ({
   },
 });
 
-class CompanyDashboard extends React.Component {
+class ContactDashboard extends React.Component {
   constructor() {
       super();
   
@@ -51,11 +49,8 @@ class CompanyDashboard extends React.Component {
   return (
     <div>
       <Grid container component="main" className={classes.root}>
-      <Grid item  sm={12} md={8} component={Paper} elevation={6} square>
-      <Company />
-      </Grid>
-      <Grid item  sm={12} md={4} component={Paper} elevation={6} square>
-      <CreateCompany /> 
+      <Grid item  sm={12} component={Paper} elevation={6} square>
+      <Contact />
       </Grid> 
       </Grid>
     </div>
@@ -63,4 +58,4 @@ class CompanyDashboard extends React.Component {
 }
 }
 
-export default   withStyles(useStyles)(CompanyDashboard);
+export default   withStyles(useStyles)(ContactDashboard);

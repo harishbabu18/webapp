@@ -18,6 +18,9 @@ import ButtonAppBar from './components/ButtonAppBar';
 import Role from './pages/Role';
 import LayoutTextFields from './pages/LayoutTextField';
 import CreateCompany from './pages/CreateCompany';
+import ContactDashboard from './pages/ContactDashboard';
+import FreeSolo from './components/SelectText';
+import CreateContact from './pages/CreateContact';
 //import Role from './pages/Role';
 
 
@@ -90,13 +93,13 @@ class Index extends React.Component {
   componentDidMount() {
     console.log('app mounting...');
 
-    // (async () => {
-    //   if (await Auth.loggedIn()) {
-    //     this.setState({loggedIn:true })
-    //   } else {
-    //     this.setState({loggedIn:false })
-    //   }
-    // })();
+    (async () => {
+      if (await Auth.loggedIn()) {
+        this.setState({loggedIn:true })
+      } else {
+        this.setState({loggedIn:false })
+      }
+    })();
   }
 
   // componentDidUpdate() {
@@ -164,15 +167,24 @@ class Index extends React.Component {
           <LayoutTextFields />
         </PrivateRoute>
         <PrivateRoute  exact  path="/companydashboard">
+        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
             <CompanyDashboard />
         </PrivateRoute>
-        <PrivateRoute  exact  path="/createcompany">
+        <PrivateRoute  exact  path="/company/create">
         <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
           <CreateCompany />
         </PrivateRoute>
-        <PrivateRoute  exact  path="/company">
+        <PrivateRoute  exact  path="/company/list">
         <ButtonAppBar title="Company" logoutHandler={this.logoutHandler} />
         <Company />  
+        </PrivateRoute>
+        <PrivateRoute exact path="/contact/list">
+        <ButtonAppBar title="User Dashboard" logoutHandler={this.logoutHandler} />
+            <ContactDashboard />
+        </PrivateRoute>
+        <PrivateRoute exact path="/contact/create">
+        <ButtonAppBar title="Contact Create" logoutHandler={this.logoutHandler} />
+            <CreateContact />
         </PrivateRoute>
         <PrivateRoute exact path="/userdashboard">
         <ButtonAppBar title="User Dashboard" logoutHandler={this.logoutHandler} />
@@ -182,6 +194,11 @@ class Index extends React.Component {
         <ButtonAppBar title="User" logoutHandler={this.logoutHandler} />
         <User/>
         </PrivateRoute>
+        <PrivateRoute exact path="/free">
+        <ButtonAppBar title="User" logoutHandler={this.logoutHandler} />
+        <FreeSolo/>
+        </PrivateRoute>
+        
         <PrivateRoute exact path="/role">
         <ButtonAppBar title="User" logoutHandler={this.logoutHandler} />
         <Role/>

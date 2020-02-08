@@ -19,7 +19,7 @@ const useStyles = theme => ({
   },
 });
 
-class Company extends React.Component {
+class Contact extends React.Component {
     constructor() {
         super();
     
@@ -28,7 +28,7 @@ class Company extends React.Component {
         }
       }
       componentDidMount() {
-        fetch(SERVER_URL+'/company')
+        fetch(SERVER_URL+'/contact')
         .then(r => r.json())
         .then(json => this.setState({companies: json}))
         .catch(error => console.error('Error retrieving Companies: ' + error));
@@ -78,8 +78,8 @@ class Company extends React.Component {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
-            <StyledTableCell align="right">Description</StyledTableCell>
+            <StyledTableCell>First Name</StyledTableCell>
+            <StyledTableCell align="right">Last Name</StyledTableCell>
             <StyledTableCell align="right">Address</StyledTableCell>
             <StyledTableCell align="right">Website</StyledTableCell>
             <StyledTableCell align="right">E-mail</StyledTableCell>
@@ -95,4 +95,4 @@ class Company extends React.Component {
     }
 }
 
-export default  withStyles(useStyles)(Company);
+export default  withStyles(useStyles)(Contact);
