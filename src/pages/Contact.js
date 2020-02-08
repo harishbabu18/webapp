@@ -80,7 +80,7 @@ class Contact extends React.Component {
           <TableRow>
             <StyledTableCell>First Name</StyledTableCell>
             <StyledTableCell align="right">Last Name</StyledTableCell>
-            <StyledTableCell align="right">Address</StyledTableCell>
+            <StyledTableCell align="right">Date of Birth</StyledTableCell>
             <StyledTableCell align="right">E-mail</StyledTableCell>
             <StyledTableCell align="right">Phone</StyledTableCell>
             <StyledTableCell align="right">Fax</StyledTableCell>
