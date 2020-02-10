@@ -21,6 +21,7 @@ import CreateCompany from './pages/CreateCompany';
 import ContactDashboard from './pages/ContactDashboard';
 import FreeSolo from './components/SelectText';
 import CreateContact from './pages/CreateContact';
+import TicketCreate from './pages/TicketCreate';
 //import Role from './pages/Role';
 
 
@@ -169,6 +170,10 @@ class Index extends React.Component {
         <PrivateRoute  exact  path="/companydashboard">
         <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
             <CompanyDashboard />
+        </PrivateRoute>
+        <PrivateRoute  exact  path="/ticket/create">
+        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
+            <TicketCreate />
         </PrivateRoute>
         <PrivateRoute  exact  path="/company/create">
         <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
