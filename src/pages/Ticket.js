@@ -63,11 +63,15 @@ class Ticket extends React.Component {
 
             return (<StyledTableRow key={Ticket.id}>
               <StyledTableCell component="th" scope="row">
-                {Ticket.name}
+                {Ticket.ticket}
               </StyledTableCell>
               <StyledTableCell align="right">{Ticket.description}</StyledTableCell>
-              <StyledTableCell align="right">{Ticket.address}</StyledTableCell>
-              <StyledTableCell align="right">{Ticket.website}</StyledTableCell>
+              <StyledTableCell align="right">{Ticket.contact}</StyledTableCell>
+              <StyledTableCell align="right">{Ticket.ticketStatus}</StyledTableCell>
+              <StyledTableCell align="right">{Ticket.ticketSource}</StyledTableCell>
+              <StyledTableCell align="right">{Ticket.createdBy}</StyledTableCell>
+              <StyledTableCell align="right">{Ticket.assignedTo}</StyledTableCell>
+
             </StyledTableRow>);
           }
       
@@ -78,15 +82,17 @@ class Ticket extends React.Component {
         <TableHead>
           <TableRow>
             <StyledTableCell>Ticket ID</StyledTableCell>
-            <StyledTableCell align="right"> Company Name </StyledTableCell>
-            <StyledTableCell align="right"> Employee Name</StyledTableCell>
-            <StyledTableCell align="right"> Reporter </StyledTableCell>
-            <StyledTableCell align="right"> Ticket Status</StyledTableCell>
-            <StyledTableCell align="right">Description</StyledTableCell>
+            <StyledTableCell align="right"> Description </StyledTableCell>
+            <StyledTableCell align="right"> Contact</StyledTableCell>
+            <StyledTableCell align="right"> Status </StyledTableCell>
+            <StyledTableCell align="right"> Sources </StyledTableCell>
+            <StyledTableCell align="right"> Created By </StyledTableCell>
+            <StyledTableCell align="right"> Assigned To </StyledTableCell>
+
           </TableRow>
         </TableHead>
         <TableBody>
-        {this.state.companies.map(renderTicketRow)}
+        {this.state.ticket.map(renderTicketRow)}
         </TableBody>
       </Table>
     </Paper>

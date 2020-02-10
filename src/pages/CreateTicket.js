@@ -58,9 +58,8 @@ class CreateTicket extends React.Component {
       employee:[],
       employeeValue:'',
       contact:[],
-      contactValue:''
-
-
+      contactValue:'',
+      updatedValue:[],
     }
   }
   componentDidMount() {
@@ -119,6 +118,12 @@ class CreateTicket extends React.Component {
 
   }
 
+  handleSubmit(event){
+    event.preventDefault()
+
+
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -141,9 +146,8 @@ class CreateTicket extends React.Component {
 
   return (
     <div>
-      <Grid container component="main" className={classes.root}>
-      <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
         <div  className={classes.container}>
+          <form onSubmit={this.handleSubmit} >
         <Typography component="h1" variant="h5" inline>
                 Create Ticket Profile
               </Typography>
@@ -262,16 +266,12 @@ class CreateTicket extends React.Component {
           {this.state.contact.map(renderContactRow)}
         </Select>
       </FormControl>
-
-        
-
         <Button className={classes.textField}>Save</Button>
+        </form>
         </div>
 
-      </Grid>
     
    
-      </Grid>
       
     </div>
   );
