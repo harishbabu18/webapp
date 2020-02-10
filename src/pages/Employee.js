@@ -19,7 +19,7 @@ const useStyles = theme => ({
   },
 });
 
-class Ticket extends React.Component {
+class Employee extends React.Component {
     constructor() {
         super();
     
@@ -59,15 +59,15 @@ class Ticket extends React.Component {
           
           
 
-          function renderTicketRow(Ticket) {
+          function renderEmployeeRow(Employee) {
 
-            return (<StyledTableRow key={Ticket.id}>
+            return (<StyledTableRow key={Employee.id}>
               <StyledTableCell component="th" scope="row">
-                {Ticket.name}
+                {Employee.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{Ticket.description}</StyledTableCell>
-              <StyledTableCell align="right">{Ticket.address}</StyledTableCell>
-              <StyledTableCell align="right">{Ticket.website}</StyledTableCell>
+              <StyledTableCell align="right">{Employee.description}</StyledTableCell>
+              <StyledTableCell align="right">{Employee.address}</StyledTableCell>
+              <StyledTableCell align="right">{Employee.website}</StyledTableCell>
             </StyledTableRow>);
           }
       
@@ -77,16 +77,15 @@ class Ticket extends React.Component {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Ticket ID</StyledTableCell>
-            <StyledTableCell align="right"> Company Name </StyledTableCell>
-            <StyledTableCell align="right"> Employee Name</StyledTableCell>
-            <StyledTableCell align="right"> Reporter </StyledTableCell>
-            <StyledTableCell align="right"> Ticket Status</StyledTableCell>
-            <StyledTableCell align="right">Description</StyledTableCell>
+            <StyledTableCell>First Name</StyledTableCell>
+            <StyledTableCell align="right">Last Name</StyledTableCell>
+            <StyledTableCell align="right">Email Id</StyledTableCell>
+            <StyledTableCell align="right">Date Of Birth </StyledTableCell>
+            <StyledTableCell align="right">Joining Date</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-        {this.state.companies.map(renderTicketRow)}
+        {this.state.companies.map(renderEmployeeRow)}
         </TableBody>
       </Table>
     </Paper>
@@ -94,4 +93,4 @@ class Ticket extends React.Component {
     }
 }
 
-export default  withStyles(useStyles)(Ticket);
+export default  withStyles(useStyles)(Employee);

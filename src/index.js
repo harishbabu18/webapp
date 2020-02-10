@@ -18,10 +18,16 @@ import ButtonAppBar from './components/ButtonAppBar';
 import Role from './pages/Role';
 import LayoutTextFields from './pages/LayoutTextField';
 import CreateCompany from './pages/CreateCompany';
+import CreateEmployee from './pages/CreateEmployee';
+import CreateTicket from './pages/CreateTicket';
+import Ticket from './pages/Ticket';
+import Employee from './pages/Employee';
+
+
 import ContactDashboard from './pages/ContactDashboard';
 import FreeSolo from './components/SelectText';
 import CreateContact from './pages/CreateContact';
-import TicketCreate from './pages/TicketCreate';
+// import TicketCreate from './pages/TicketCreate';
 //import Role from './pages/Role';
 
 
@@ -171,10 +177,10 @@ class Index extends React.Component {
         <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
             <CompanyDashboard />
         </PrivateRoute>
-        <PrivateRoute  exact  path="/ticket/create">
+        {/* <PrivateRoute  exact  path="/ticket/create">
         <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
             <TicketCreate />
-        </PrivateRoute>
+        </PrivateRoute> */}
         <PrivateRoute  exact  path="/company/create">
         <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
           <CreateCompany />
@@ -208,6 +214,22 @@ class Index extends React.Component {
         <ButtonAppBar title="User" logoutHandler={this.logoutHandler} />
         <Role/>
         </PrivateRoute>  
+        <PrivateRoute  exact  path="/employee/create">
+        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
+          <CreateEmployee />
+        </PrivateRoute>
+        <PrivateRoute  exact  path="/ticket/create">
+        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
+          <CreateTicket />
+        </PrivateRoute>
+        <PrivateRoute  exact  path="/employee">
+        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
+          <Employee />
+        </PrivateRoute>
+        <PrivateRoute  exact  path="/ticket">
+        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
+          <Ticket />
+        </PrivateRoute>
         </Switch>
       </div>
     </BrowserRouter>
