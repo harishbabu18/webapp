@@ -24,13 +24,13 @@ class Ticket extends React.Component {
         super();
     
         this.state = {
-          companies: []
+          ticket: []
         }
       }
       componentDidMount() {
-        fetch(SERVER_URL+'/company')
+        fetch(SERVER_URL+'/ticket')
         .then(r => r.json())
-        .then(json => this.setState({companies: json}))
+        .then(json => this.setState({ticket: json}))
         .catch(error => console.error('Error retrieving Companies: ' + error));
       }
     
