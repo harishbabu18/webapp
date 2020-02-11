@@ -27,6 +27,7 @@ import Employee from './pages/Employee';
 import ContactDashboard from './pages/ContactDashboard';
 import FreeSolo from './components/SelectText';
 import CreateContact from './pages/CreateContact';
+import Task from './pages/Task';
 // import TicketCreate from './pages/TicketCreate';
 //import Role from './pages/Role';
 
@@ -225,6 +226,10 @@ class Index extends React.Component {
         <PrivateRoute  exact  path="/ticket">
         <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
           <Ticket />
+        </PrivateRoute>
+        <PrivateRoute  exact  path="/task">
+        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
+          <Task />
         </PrivateRoute>
         </Switch>
       </div>

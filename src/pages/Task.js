@@ -20,18 +20,18 @@ const useStyles = theme => ({
   },
 });
 
-class Company extends React.Component {
+class Task extends React.Component {
     constructor() {
         super();
     
         this.state = {
-          companies: []
+          task: []
         }
       }
       componentDidMount() {
-        fetch(SERVER_URL+'/company')
+        fetch(SERVER_URL+'/task')
         .then(r => r.json())
-        .then(json => this.setState({companies: json}))
+        .then(json => this.setState({task: json}))
         .catch(error => console.error('Error retrieving Companies: ' + error));
       }
     
@@ -60,15 +60,18 @@ class Company extends React.Component {
           
           
 
-          function renderCompanyRow(company) {
+          function renderTaskRow(task) {
 
-            return (<StyledTableRow key={company.id}>
+            return (<StyledTableRow key={task.id}>
               <StyledTableCell component="th" scope="row">
-                {company.name}
+                {task.id}
               </StyledTableCell>
-              <StyledTableCell align="right">{company.description}</StyledTableCell>
-              <StyledTableCell align="right">{company.address}</StyledTableCell>
-              <StyledTableCell align="right">{company.website}</StyledTableCell>
+              <StyledTableCell align="right">{task.assignedTo}</StyledTableCell>
+              <StyledTableCell align="right">{task.assignedBy}</StyledTableCell>
+              <StyledTableCell align="right">{task.personalNote}</StyledTableCell>
+              <StyledTableCell align="right">{task.personalMessage}</StyledTableCell>
+              <StyledTableCell align="right">{task.dateCreated}</StyledTableCell>
+              <StyledTableCell align="right">{task.lastUpdated}</StyledTableCell>
             </StyledTableRow>);
           }
       
@@ -86,11 +89,14 @@ class Company extends React.Component {
             <StyledTableCell align="right">Ticket Id</StyledTableCell>
             <StyledTableCell align="right">Assigned to</StyledTableCell>
             <StyledTableCell align="right">Assigned By</StyledTableCell>
-            <StyledTableCell align="right">Status</StyledTableCell>
+            <StyledTableCell align="right">Personal Note</StyledTableCell>
+            <StyledTableCell align="right">Public Message</StyledTableCell>
+            <StyledTableCell align="right">Date Created</StyledTableCell>
+            <StyledTableCell align="right">Last Updated</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-        {this.state.companies.map(renderCompanyRow)}
+        {this.state.task.map(renderTaskRow)}
         </TableBody>
       </Table>
     </Paper>
@@ -100,4 +106,4 @@ class Company extends React.Component {
     }
 }
 
-export default  withStyles(useStyles)(Company);
+export default  withStyles(useStyles)(Task);
