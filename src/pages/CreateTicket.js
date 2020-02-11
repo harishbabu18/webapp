@@ -49,6 +49,8 @@ class CreateTicket extends React.Component {
     super(props);
 
     this.state = {
+      // description:[],
+      descriptionValue:'',
       ticketStatusType: [],
       ticketStatusTypeValue: '',
       ticketSource:[],
@@ -87,13 +89,13 @@ class CreateTicket extends React.Component {
     .then(r => r.json())
     .then(json => this.setState({contact: json}))
     .catch(error => console.error('Error retrieving Tickrts: ' + error));
-
-
   }
 
+  handleChange=(event)=>{
+    this.setState({descriptionValue:event.target.value});
+  }
 
-
-   handleChangeticketStatusTypeValue(event){
+  handleChangeticketStatusTypeValue(event){
     this.setState({ticketStatusTypeValue:event.target.value});
 
   }
@@ -105,7 +107,7 @@ class CreateTicket extends React.Component {
 
   handleChangeCompanyValue(event){
     this.setState({companyValue:event.target.value});
-
+    
   }
 
   handleemployeeeValue(event){
@@ -118,10 +120,30 @@ class CreateTicket extends React.Component {
 
   }
 
-  handleSubmit(event){
+  handleSubmit=(event)=>{
     event.preventDefault()
+    this.setState({updatedValue:{
+      contact:this.state.contactValue,
+      employee:this.state.employeeValue,
+      company:this.state.companyValue,
+      ticketSource:this.state.ticketSourceValue,
+      ticketStatusType:this.state.ticketStatusTypeValue,
+      description:this.state.descriptionValue,
+    }
+    
+    },()=>
+    console.log(this.state.updatedValue)
 
-
+        // fetch('http://localhost:4000/api/users/register' , {
+    //   method: "POST",
+    //   headers: {
+    //     'Content-type': 'application/json'
+    //   },
+    //   body: JSON.stringify(this.state)
+    // })
+    // .then((result) => result.json())
+    // .then((info) => { console.log(info); })
+    );
   }
 
   render() {
@@ -160,6 +182,7 @@ class CreateTicket extends React.Component {
           placeholder="Description "
           fullWidth
           margin="normal"
+          onChange={this.handleChange}
           InputLabelProps={{
             shrink: true,
           }}
@@ -266,7 +289,7 @@ class CreateTicket extends React.Component {
           {this.state.contact.map(renderContactRow)}
         </Select>
       </FormControl>
-        <Button className={classes.textField}>Save</Button>
+        <Button className={classes.textField} type="Submit">Save</Button>
         </form>
         </div>
 
