@@ -5,6 +5,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import {SERVER_URL} from '../config';
 
@@ -76,6 +77,10 @@ class Task extends React.Component {
       
 
         return(
+          <Grid container component="main" className={classes.root}>
+          <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
+          </Grid>
+          <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
             <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
@@ -95,6 +100,8 @@ class Task extends React.Component {
         </TableBody>
       </Table>
     </Paper>
+    </Grid>
+    </Grid>
         );
     }
 }

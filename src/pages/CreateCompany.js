@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -14,9 +14,20 @@ import PhoneAndroid from '@material-ui/icons/PhoneAndroid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Web from '@material-ui/icons/Web';
-import CountrySelect from '../components/CountrySelect'
+import CountrySelect from '../components/CountrySelect';
+import InputLabel from '@material-ui/core/InputLabel';
 
-const useStyles = makeStyles(theme => ({
+import FormHelperText from '@material-ui/core/FormHelperText';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import {SERVER_URL} from '../config';
+
+// import { useState, useEffect } from "react";
+// import axios from 'axios';
+
+
+const useStyles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -25,252 +36,268 @@ const useStyles = makeStyles(theme => ({
   textField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200,
+    marginBottom: theme.spacing(2),
+    width: 240,
   },
-}));
+});
 
-export default function CreateCompany() {
-  const classes = useStyles();
+
+class CreateCompany extends React.Component {
+
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name:[],
+      nameValue:'',
+      description:[],
+      descriptionValue:'',
+      address: [],
+      addressValue: '',
+      website:[],
+      websiteValue: '',
+      email:[],
+      emailValue: '',
+      phone:[],
+      phoneValue:'',
+     
+    }
+  }
+  componentDidMount() {
+    fetch(SERVER_URL+'/name')
+    .then(r => r.json())
+    .then(json => this.setState({name: json}))
+    .catch(error => console.error('Error retrieving name: ' + error));
+
+    fetch(SERVER_URL+'/address')
+    .then(r => r.json())
+    .then(json => this.setState({ticketSource: json}))
+    .catch(error => console.error('Error retrieving Tickrts: ' + error));
+
+    fetch(SERVER_URL+'/website')
+    .then(r => r.json())
+    .then(json => this.setState({company: json}))
+    .catch(error => console.error('Error retrieving Tickrts: ' + error));
+
+    fetch(SERVER_URL+'/')
+    .then(r => r.json())
+    .then(json => this.setState({employee: json}))
+    .catch(error => console.error('Error retrieving Tickrts: ' + error));
+   
+    fetch(SERVER_URL+'/contact')
+    .then(r => r.json())
+    .then(json => this.setState({contact: json}))
+    .catch(error => console.error('Error retrieving Tickrts: ' + error));
+  }
+
+  handleChange=(event)=>{
+    this.setState({descriptionValue:event.target.value});
+  }
+
+  handleChangeticketStatusTypeValue(event){
+    this.setState({ticketStatusTypeValue:event.target.value});
+
+  }
+
+  handleChangeticketSourceValue(event){
+    this.setState({ticketSourceValue:event.target.value});
+
+  }
+
+  handleChangeCompanyValue(event){
+    this.setState({companyValue:event.target.value});
+    
+  }
+
+  handleemployeeeValue(event){
+    this.setState({employeeValue:event.target.value});
+
+  }
+
+  handlecontactValue(event){
+    this.setState({contactValue:event.target.value});
+
+  }
+
+  handleSubmit=(event)=>{
+    event.preventDefault()
+    this.setState({updatedValue:{
+      contact:this.state.contactValue,
+      employee:this.state.employeeValue,
+      company:this.state.companyValue,
+      ticketSource:this.state.ticketSourceValue,
+      ticketStatusType:this.state.ticketStatusTypeValue,
+      description:this.state.descriptionValue,
+    }
+    
+    },()=>
+    console.log(this.state.updatedValue)
+
+        // fetch('http://localhost:4000/api/users/register' , {
+    //   method: "POST",
+    //   headers: {
+    //     'Content-type': 'application/json'
+    //   },
+    //   body: JSON.stringify(this.state)
+    // })
+    // .then((result) => result.json())
+    // .then((info) => { console.log(info); })
+    );
+  }
+
+  render() {
+    const { classes } = this.props;
+
+   
+    function renderTicketStatusRow(ticketStatusType) {
+      return (<MenuItem value={ticketStatusType.id}>{ticketStatusType.name}</MenuItem>);
+    }
+    function renderTicketSourceRow(ticketSource) {
+      return (<MenuItem value={ticketSource.id}>{ticketSource.name}</MenuItem>);
+    }
+    function renderCompanyRow(company) {
+      return (<MenuItem value={company.id}>{company.name}</MenuItem>);
+    }
+    function renderEmployeeRow(employee) {
+      return (<MenuItem value={employee.id}>{employee.firstName}</MenuItem>);
+    }
+    function renderContactRow(contact) {
+      return (<MenuItem value={contact.id}>{contact.firstName}</MenuItem>);
+    }
 
   return (
     <div>
-      <Grid container component="main" className={classes.root}>
-      <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
         <div  className={classes.container}>
+          <form onSubmit={this.handleSubmit} >
         <Typography component="h1" variant="h5" inline>
-                Create Contact Profile
+                Create Ticket Profile
               </Typography>
+
       <TextField
           id="outlined-full-width"
-          label="Name"
-          style={{ margin: 8 }}
-          placeholder="Name"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-        />
-        <TextField
-          id="outlined-full-width"
+          className={classes.textField}
           label="Description"
           style={{ margin: 8 }}
-          placeholder="Description"
+          placeholder="Description "
           fullWidth
           margin="normal"
+          onChange={this.handleChange}
           InputLabelProps={{
             shrink: true,
           }}
           variant="outlined"
         />
-         <TextField
-                          // onChange={this.handleChange}
-                          id="outlined-multiline-flexible"
-                          label="Established Date"
-                          type="date"
-                          defaultValue="2017-05-24"
-                          variant="outlined"
-                          className={classes.textField}
-                          InputLabelProps={{
-                          shrink: true,
-                          }}
-                        />
-        <TextField
-          id="outlined-full-width"
-          label="Website"
-          style={{ margin: 8 }}
-          placeholder="Website"
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-        />
-        <Button>Save</Button>
+
+      <FormControl variant="outlined" className={classes.textField}>
+        <InputLabel
+         //ref={inputLabel}
+          id="demo-simple-select-outlined-label">
+          Company
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={this.state.companyValue}
+          onChange={this.handleChangeCompanyValue.bind(this)}
+         // labelWidth={labelWidth}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.state.company.map(renderCompanyRow)}
+        </Select>
+      </FormControl>
+
+      <FormControl variant="outlined" className={classes.textField}>
+        <InputLabel 
+        //ref={inputLabel} 
+        id="demo-simple-select-outlined-label">
+          Ticket Sources
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={this.state.ticketSourceValue}
+          onChange={this.handleChangeticketSourceValue.bind(this)}
+          //labelWidth={labelWidth}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.state.ticketSource.map(renderTicketSourceRow)}
+        </Select>
+      </FormControl>
+
+
+<FormControl variant="outlined" className={classes.textField}>
+        <InputLabel 
+        //ref={inputLabel} 
+        id="demo-simple-select-outlined-label">
+          Ticket Status
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={this.state.ticketStatusTypeValue}
+          onChange={this.handleChangeticketStatusTypeValue.bind(this)}
+          //labelWidth={labelWidth}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.state.ticketStatusType.map(renderTicketStatusRow)}
+        </Select>
+      </FormControl>
+
+      <FormControl variant="outlined" className={classes.textField}>
+        <InputLabel 
+        //ref={inputLabel} 
+        id="demo-simple-select-outlined-label">
+          Assigned To
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={this.state.employeeValue}
+          onChange={this.handleemployeeeValue.bind(this)}
+          //labelWidth={labelWidth}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.state.employee.map(renderEmployeeRow)}
+        </Select>
+      </FormControl>
+
+      <FormControl variant="outlined" className={classes.textField}>
+        <InputLabel 
+        //ref={inputLabel} 
+        id="demo-simple-select-outlined-label">
+          Contact
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={this.state.contactValue}
+          onChange={this.handlecontactValue.bind(this)}
+          //labelWidth={labelWidth}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.state.contact.map(renderContactRow)}
+        </Select>
+      </FormControl>
+        <Button className={classes.textField} type="Submit">Save</Button>
+        </form>
         </div>
 
-      </Grid>
-      <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
-    <div className={classes.container}>
-    <Typography component="h1" variant="h5" inline>
-                Create Contact
-              </Typography>
-    <TextField
-     id="outlined-full-width"
-     label="E-Mail"
-     style={{ margin: 8 }}
-     placeholder="E-Mail"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     InputProps={{
-      startAdornment: <InputAdornment position="start">
-        <Email />
-        </InputAdornment>,
-        endAdornment:<InputAdornment position='end'>
-        <IconButton
-          aria-label='toggle password visibility'
-          >
-            <AddBox />
-          
-        </IconButton>
-      </InputAdornment>
-    }}
-     variant="outlined"
-   />
     
-    
-
-   <TextField
-     id="outlined-full-width"
-     label="Mobile"
-     style={{ margin: 8 }}
-     placeholder="Mobile"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     InputProps={{
-      startAdornment: <InputAdornment position="start">
-        <PhoneAndroid />
-        </InputAdornment>,
-        endAdornment:<InputAdornment position='end'>
-        <IconButton
-          aria-label='toggle password visibility'
-          >
-            <AddBox />
-          
-        </IconButton>
-      </InputAdornment>
-    }}
-     variant="outlined"
-   />
-   <TextField
-     id="outlined-full-width"
-     label="Fax"
-     style={{ margin: 8 }}
-     placeholder="Fax"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     InputProps={{
-      startAdornment: <InputAdornment position="start">
-        <AccountCircle />
-        </InputAdornment>,
-        endAdornment:<InputAdornment position='end'>
-        <IconButton
-          aria-label='toggle password visibility'
-          >
-            <AddBox /> 
-        </IconButton>
-      </InputAdornment>
-    }}
-     variant="outlined"
-   />
-   <TextField
-     id="outlined-full-width"
-     label="Website"
-     style={{ margin: 8 }}
-     placeholder="Website"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     InputProps={{
-      startAdornment: <InputAdornment position="start">
-        <Web />
-        </InputAdornment>,
-        endAdornment:<InputAdornment position='end'>
-        <IconButton
-          aria-label='toggle password visibility'
-          >
-            <AddBox /> 
-        </IconButton>
-      </InputAdornment>
-    }}
-     variant="outlined"
-   />
-   </div>
    
-    </Grid>
-      <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
-      <div className={classes.container}>
-      <Typography component="h1" variant="h5" inline>
-            Contact List
-          </Typography>
-          </div>
-        
-      </Grid>
-      <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
-    <div className={classes.container}>
-    <Typography component="h1" variant="h5" inline>
-                Create Address
-              </Typography>
-              <TextField
-     id="outlined-full-width"
-     label="Address Line One"
-     style={{ margin: 8 }}
-     placeholder="Address Line One"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     variant="outlined"
-   />
-   <TextField
-     id="outlined-full-width"
-     label="Address Line two"
-     style={{ margin: 8 }}
-     placeholder="Address Line two"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     variant="outlined"
-   />
-   <TextField
-     id="outlined-full-width"
-     label="Area"
-     style={{ margin: 8 }}
-     placeholder="Area"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     variant="outlined"
-   />
-   <TextField
-     id="outlined-full-width"
-     label="Zip"
-     style={{ margin: 8 }}
-     placeholder="Zip"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     variant="outlined"
-   />
-   <CountrySelect />
-   <Button variant="contained" size="small"  color="primary">
-        <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
-        Save
-      </Button>
-   </div>
-    </Grid>
-      </Grid>
       
     </div>
   );
-}
+}}
+
+export default  withStyles(useStyles)(CreateCompany);

@@ -42,30 +42,30 @@ const useStyles = theme => ({
 });
 
 
-class CreateEmployee extends React.Component {
+class CreateTask extends React.Component {
 
 
   constructor(props) {
     super(props);
 
     this.state = {
-      // description:[],
-      descriptionValue:'',
-      ticketStatusType: [],
-      ticketStatusTypeValue: '',
-      ticketSource:[],
-      ticketSourceValue: '',
-      company:[],
-      companyValue: '',
-      employee:[],
-      employeeValue:'',
+    task:[],
+      taskValue:'',
+      taskAssignedTo: [],
+      taskAssignedToValue: '',
+      taskAssignedBy:[],
+      taskAssignedByValue: '',
+      PesonalNote:[],
+      PersonalNoteValue: '',
+      PublicMessage:[],
+      PublicMessageValue:'',
       contact:[],
       contactValue:'',
       updatedValue:[],
     }
   }
   componentDidMount() {
-    fetch(SERVER_URL+'/ticketStatusType')
+    fetch(SERVER_URL+'/taskStatusType')
     .then(r => r.json())
     .then(json => this.setState({ticketStatusType: json}))
     .catch(error => console.error('Error retrieving Tickrts: ' + error));
@@ -300,4 +300,4 @@ class CreateEmployee extends React.Component {
   );
 }}
 
-export default  withStyles(useStyles)(CreateEmployee);
+export default  withStyles(useStyles)(CreateTicket);

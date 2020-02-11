@@ -30,8 +30,9 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CreateContact() {
-  const classes = useStyles();
+class CreateContact {
+  render(){
+  const {classes} = this .props;
 
   return (
       <div>    
@@ -289,3 +290,5 @@ export default function CreateContact() {
     </div>
   );
 }
+}
+export default  withStyles(useStyles)(CreateContact);
