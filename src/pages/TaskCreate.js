@@ -9,10 +9,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {SERVER_URL} from '../config';
 
-// import { useState, useEffect } from "react";
-// import axios from 'axios';
-
-
 const useStyles = theme => ({
   container: {
     display: 'flex',
@@ -277,11 +273,7 @@ class CreateTask extends React.Component {
       </FormControl>
         <Button className={classes.textField} type="Submit">Save</Button>
         </form>
-        </div>
-
-    
-   
-      
+        </div>   
     </div>
   );
 }}
