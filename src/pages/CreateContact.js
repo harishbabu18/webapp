@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { Button } from '@material-ui/core';
@@ -17,7 +17,7 @@ import PhoneAndroid from '@material-ui/icons/PhoneAndroid';
 import NoteIcon from '@material-ui/icons/Note';
 import CountrySelect from '../components/CountrySelect'
 import Task from './Task'
-const useStyles = makeStyles(theme => ({
+const useStyles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(1),
     width: 200,
   },
-}));
+});
 
 class CreateContact {
   render(){

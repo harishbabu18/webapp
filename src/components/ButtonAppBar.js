@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom'
 
-import logo from "../besspplicon.png";
+import logo from "../qualifica.png";
 
 const useStyles = theme => ({
   root: {
@@ -33,6 +33,21 @@ const useStyles = theme => ({
       super(props);
     }
 
+    renderElement(){
+      const { classes } = this.props;
+      if(this.props.loggedIn == true){
+         return (<div><Link to="/task" className={classes.Link} > <Button color="inherit" > Task </Button> </Link>
+         <Link to="/ticket" className={classes.Link} > <Button color="inherit" > Ticket </Button> </Link>
+         {/* <Link to="/company" className={classes.Link} > <Button color="inherit" > Company </Button> </Link>
+         <Link to="/contact/create" className={classes.Link} > <Button color="inherit" > Contact </Button> </Link>
+         <Link to="/employee/create" className={classes.Link} > <Button color="inherit" > Employee </Button> </Link>   */}
+         <Button color="inherit" onClick={(event) => this.props.logoutHandler(event)}>Logout</Button></div>)
+         }else{
+          return (<Link to="/login" className={classes.Link} > <Button color="inherit" >Login</Button> </Link>);
+         }
+      
+   }
+
     render(){
       const { classes } = this.props;
 
@@ -44,14 +59,7 @@ const useStyles = theme => ({
               <Typography variant="h6" className={classes.title}>
                 {this.props.title}
               </Typography>
-              <Link to="/task/create" className={classes.Link} > <Button color="inherit" > Task </Button> </Link>
-              <Link to="/ticket/create" className={classes.Link} > <Button color="inherit" > Ticket </Button> </Link>
-              <Link to="/company/create" className={classes.Link} > <Button color="inherit" > Company </Button> </Link>
-              <Link to="/contact/create" className={classes.Link} > <Button color="inherit" > Contact </Button> </Link>
-              <Link to="/employee/create" className={classes.Link} > <Button color="inherit" > Employee </Button> </Link>
-              <Button color="inherit" onClick={(event) => this.props.logoutHandler(event)}>Logout</Button>
-            
-              <Link to="/login" className={classes.Link} > <Button color="inherit" >Login</Button> </Link>
+              {this.renderElement()}
             </Toolbar>
           </AppBar>
         </div>

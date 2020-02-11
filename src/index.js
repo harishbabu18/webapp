@@ -152,78 +152,63 @@ class Index extends React.Component {
   render() {
     return (
       <BrowserRouter>
+       <ButtonAppBar title="Dashboard" loggedIn={this.state.loggedIn} logoutHandler={this.logoutHandler} />
       <div>
       <Switch>
         <Route  exact path="/" >
-        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
+       
             <App />
         </Route>
         <LoggedInRedirect  exact path="/login" >
         <Login LoginSubmit={this.LoginSubmit} _usernameValue={this._usernameValue} _passwordValue={this._passwordValue}/>
         </LoggedInRedirect>
         <PrivateRoute  exact path="/dashboard">
-        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
         <Dashboard/>
         </PrivateRoute>
         <PrivateRoute  exact  path="/inputform">
-        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
           <LayoutTextFields />
         </PrivateRoute>
         <PrivateRoute  exact  path="/companydashboard">
-        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
             <CompanyDashboard />
         </PrivateRoute>
         <PrivateRoute  exact  path="/company/create">
-        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
           <CreateCompany />
         </PrivateRoute>
         <PrivateRoute  exact  path="/company/list">
-        <ButtonAppBar title="Company" logoutHandler={this.logoutHandler} />
         <Company />  
         </PrivateRoute>
         <PrivateRoute exact path="/contact/list">
-        <ButtonAppBar title="User Dashboard" logoutHandler={this.logoutHandler} />
+       
             <ContactDashboard />
         </PrivateRoute>
         <PrivateRoute exact path="/contact/create">
-        <ButtonAppBar title="Contact Create" logoutHandler={this.logoutHandler} />
             <CreateContact />
         </PrivateRoute>
         <PrivateRoute exact path="/userdashboard">
-        <ButtonAppBar title="User Dashboard" logoutHandler={this.logoutHandler} />
             <UserDashboard />
         </PrivateRoute>
         <PrivateRoute exact path="/user">
-        <ButtonAppBar title="User" logoutHandler={this.logoutHandler} />
         <User/>
         </PrivateRoute>
         <PrivateRoute exact path="/free">
-        <ButtonAppBar title="User" logoutHandler={this.logoutHandler} />
         <FreeSolo/>
         </PrivateRoute>
-        
         <PrivateRoute exact path="/role">
-        <ButtonAppBar title="User" logoutHandler={this.logoutHandler} />
         <Role/>
         </PrivateRoute>  
         <PrivateRoute  exact  path="/employee/create">
-        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
           <CreateEmployee />
         </PrivateRoute>
         <PrivateRoute  exact  path="/ticket/create">
-        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
           <CreateTicket />
         </PrivateRoute>
         <PrivateRoute  exact  path="/employee">
-        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
           <Employee />
         </PrivateRoute>
         <PrivateRoute  exact  path="/ticket">
-        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
           <Ticket />
         </PrivateRoute>
         <PrivateRoute  exact  path="/task">
-        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
           <Task />
         </PrivateRoute>
         </Switch>
