@@ -4,6 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import {Link} from 'react-router-dom'
+
 import logo from "../besspplicon.png";
 
 const useStyles = theme => ({
@@ -12,10 +14,17 @@ const useStyles = theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+
   },
   title: {
     flexGrow: 1,
   },
+  Link : {
+    textDecoration: 'none',
+    color:'inherit',
+  }
+
+
 });
 
  
@@ -35,7 +44,14 @@ const useStyles = theme => ({
               <Typography variant="h6" className={classes.title}>
                 {this.props.title}
               </Typography>
+              <Link to="/task/create" className={classes.Link} > <Button color="inherit" > Task </Button> </Link>
+              <Link to="/ticket/create" className={classes.Link} > <Button color="inherit" > Ticket </Button> </Link>
+              <Link to="/company/create" className={classes.Link} > <Button color="inherit" > Company </Button> </Link>
+              <Link to="/contact/create" className={classes.Link} > <Button color="inherit" > Contact </Button> </Link>
+              <Link to="/employee/create" className={classes.Link} > <Button color="inherit" > Employee </Button> </Link>
               <Button color="inherit" onClick={(event) => this.props.logoutHandler(event)}>Logout</Button>
+            
+              <Link to="/login" className={classes.Link} > <Button color="inherit" >Login</Button> </Link>
             </Toolbar>
           </AppBar>
         </div>
