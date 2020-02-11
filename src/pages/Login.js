@@ -10,14 +10,14 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import logo from "../besspplicon.png";
+import logo from "../qualifica.png";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://bessppl.com/">
-        Bessppl
+      <Link color="inherit" href="https://www.qualificagroup.it/">
+        Qualifica
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
