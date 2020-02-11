@@ -177,10 +177,6 @@ class Index extends React.Component {
         <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
             <CompanyDashboard />
         </PrivateRoute>
-        {/* <PrivateRoute  exact  path="/ticket/create">
-        <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
-            <TicketCreate />
-        </PrivateRoute> */}
         <PrivateRoute  exact  path="/company/create">
         <ButtonAppBar title="Dashboard" logoutHandler={this.logoutHandler} />
           <CreateCompany />

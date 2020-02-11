@@ -1,7 +1,7 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
+import { Button, withStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -16,7 +16,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Web from '@material-ui/icons/Web';
 import CountrySelect from '../components/CountrySelect'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -29,10 +29,12 @@ const useStyles = makeStyles(theme => ({
     width: 200,
   },
 
-}));
+});
 
-export default function CreateEmployee() {
-  const classes = useStyles();
+class  CreateEmployee extends React {
+
+    render(){
+        const {classes} = this.props;
 
   return (
     <div>
@@ -185,3 +187,6 @@ export default function CreateEmployee() {
     </div>
   );
 }
+}
+
+export default (withStyles)(useStyles)(CreateEmployee);
