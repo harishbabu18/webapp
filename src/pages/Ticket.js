@@ -9,6 +9,11 @@ import Paper from '@material-ui/core/Paper';
 import CreateTicket from './CreateTicket';
 import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../config';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 const useStyles = theme => ({
   root: {
@@ -28,6 +33,7 @@ class Ticket extends React.Component {
         this.state = {
           ticket: [],
           filterList:[],
+          searchTicketValue:'',
           
         }
         this.handleChange = this.handleChange.bind(this);
@@ -54,15 +60,18 @@ class Ticket extends React.Component {
 
             // Use .filter() to determine which items should be displayed
             // based on the search terms
-      newList = currentList.filter(item => {
+      newList = currentList.filter(ticket => {
                 // change current item to lowercase
-        const lc = item.toLowerCase();
+        const lc = ticket.toLowerCase();
+        // const tc  = value;
                 // change search term to lowercase
         const filter = e.target.value.toLowerCase();
+        let field= this.state.ticket;
+        let search = field
                 // check to see if the current list item includes the search term
                 // If it does, it will be added to newList. Using lowercase eliminates
                 // issues with capitalization in search terms and search content
-        return lc.contact.includes(filter);
+        return search.includes(filter);
       });
     } else {
             // If the search bar is empty, set newList to original task list
@@ -73,6 +82,11 @@ class Ticket extends React.Component {
       filterList: newList
     });
   }
+
+  handleChangeSearchTicketValue=(event)=>{
+    this.setState({searchTicketValue:event.target.value});
+  }
+
     
 
 
@@ -138,8 +152,8 @@ class Ticket extends React.Component {
         <Select
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          value={this.state.companyValue}
-          onChange={this.handleChangeCompanyValue.bind(this)}
+          value={this.state.ticketSearchValue}
+          onChange={this.handleChangeSearchTicketValue.bind(this)}
          // labelWidth={labelWidth}
         >
           <MenuItem value="">
