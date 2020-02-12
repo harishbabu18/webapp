@@ -8,6 +8,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import {SERVER_URL} from '../config';
+import { Button } from '@material-ui/core';
+import CreateTask from './CreateTask';
 
 const useStyles = theme => ({
   root: {
@@ -21,21 +23,37 @@ const useStyles = theme => ({
 });
 
 class Task extends React.Component {
+ 
     constructor() {
         super();
     
         this.state = {
-          task: []
+          offset:0,
+          max:10,
+          task: [],
+          filterList:[],
+          searchTaskValue:'',
         }
-      }
+      
+      // this.handleChange = this.handleChange.bind(this);
+    }
       componentDidMount() {
-        fetch(SERVER_URL+'/task')
-        .then(r => r.json())
-        .then(json => this.setState({task: json}))
-        .catch(error => console.error('Error retrieving Companies: ' + error));
+        this.loadTask()
+       }
+       loadTask = () => {
+         const {offset,max,task} = this.state
+        const url = SERVER_URL+'/task?offset='+offset+'&max='+max
+        //const url = SERVER_URL+'/ticket'
+         fetch(url)
+         .then(r => r.json())
+         .then(json => this.setState({task:[...task,...json] }))
+         .catch(error => console.error('Error retrieving Companies: ' + error));
+       }
+      loadMore=()=>{
+        this.setState(prevState =>({
+          offset:prevState.offset+10
+        }),this.loadTask)     
       }
-    
-
 
     render() {
         const { classes } = this.props;
@@ -66,10 +84,13 @@ class Task extends React.Component {
               <StyledTableCell component="th" scope="row">
                 {task.id}
               </StyledTableCell>
-              <StyledTableCell align="right">{task.assignedTo}</StyledTableCell>
-              <StyledTableCell align="right">{task.assignedBy}</StyledTableCell>
+              <StyledTableCell component="th" scope="row">
+                Ticket-{task.ticket}
+              </StyledTableCell>
               <StyledTableCell align="right">{task.personalNote}</StyledTableCell>
               <StyledTableCell align="right">{task.personalMessage}</StyledTableCell>
+              <StyledTableCell align="right">{task.assignedTo}</StyledTableCell>
+              <StyledTableCell align="right">{task.assignedBy}</StyledTableCell>
               <StyledTableCell align="right">{task.dateCreated}</StyledTableCell>
               <StyledTableCell align="right">{task.lastUpdated}</StyledTableCell>
             </StyledTableRow>);
@@ -79,18 +100,19 @@ class Task extends React.Component {
         return(
           <Grid container component="main" className={classes.root}>
           <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
+            <CreateTask />
           </Grid>
-          <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
+          <Grid item  sm={12} md={8}  component={Paper} elevation={6} square>
             <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Task</StyledTableCell>
             <StyledTableCell align="right">Ticket Id</StyledTableCell>
-            <StyledTableCell align="right">Assigned to</StyledTableCell>
-            <StyledTableCell align="right">Assigned By</StyledTableCell>
             <StyledTableCell align="right">Personal Note</StyledTableCell>
             <StyledTableCell align="right">Public Message</StyledTableCell>
+            <StyledTableCell align="right">Assigned to</StyledTableCell>
+            <StyledTableCell align="right">Assigned By</StyledTableCell>
             <StyledTableCell align="right">Date Created</StyledTableCell>
             <StyledTableCell align="right">Last Updated</StyledTableCell>
           </TableRow>
@@ -99,6 +121,8 @@ class Task extends React.Component {
         {this.state.task.map(renderTaskRow)}
         </TableBody>
       </Table>
+
+      <Button onClick={this.loadMore}>Load More</Button>
     </Paper>
     </Grid>
     </Grid>

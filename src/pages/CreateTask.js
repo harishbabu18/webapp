@@ -3,29 +3,11 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import SaveIcon from '@material-ui/icons/Save';
-import clsx from 'clsx';
-import IconButton from '@material-ui/core/IconButton';
-import AddBox from '@material-ui/icons/AddBox';
-import Email from '@material-ui/icons/Email';
-import PhoneAndroid from '@material-ui/icons/PhoneAndroid';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Web from '@material-ui/icons/Web';
-import CountrySelect from '../components/CountrySelect';
 import InputLabel from '@material-ui/core/InputLabel';
-
-import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {SERVER_URL} from '../config';
-
-// import { useState, useEffect } from "react";
-// import axios from 'axios';
-
 
 const useStyles = theme => ({
   container: {
@@ -49,140 +31,147 @@ class CreateTask extends React.Component {
     super(props);
 
     this.state = {
-    task:[],
-      taskValue:'',
-      taskAssignedTo: [],
-      taskAssignedToValue: '',
-      taskAssignedBy:[],
-      taskAssignedByValue: '',
-      PesonalNote:[],
-      PersonalNoteValue: '',
-      PublicMessage:[],
-      PublicMessageValue:'',
-      contact:[],
-      contactValue:'',
-      updatedValue:[],
+      // description:[],
+      publicmessage :'',
+      publicmessageValue:'',
+      personalnoteValue:'',
+      personalnote:'',
+      ticketid: [],
+      ticketidValue: '',
+      assignto:[],
+      assigntoValue: '',
+      assignby:[],
+      assignbyValue: '',
+      
     }
   }
   componentDidMount() {
-    fetch(SERVER_URL+'/taskStatusType')
+    fetch(SERVER_URL+'/ticket')
     .then(r => r.json())
-    .then(json => this.setState({ticketStatusType: json}))
-    .catch(error => console.error('Error retrieving Tickrts: ' + error));
-
-    fetch(SERVER_URL+'/ticketSource')
-    .then(r => r.json())
-    .then(json => this.setState({ticketSource: json}))
-    .catch(error => console.error('Error retrieving Tickrts: ' + error));
-
-    fetch(SERVER_URL+'/company')
-    .then(r => r.json())
-    .then(json => this.setState({company: json}))
+    .then(json => this.setState({ticketid: json}))
     .catch(error => console.error('Error retrieving Tickrts: ' + error));
 
     fetch(SERVER_URL+'/employee')
     .then(r => r.json())
-    .then(json => this.setState({employee: json}))
+    .then(json => this.setState({assignto: json}))
     .catch(error => console.error('Error retrieving Tickrts: ' + error));
-   
-    fetch(SERVER_URL+'/contact')
-    .then(r => r.json())
-    .then(json => this.setState({contact: json}))
-    .catch(error => console.error('Error retrieving Tickrts: ' + error));
+
+  
   }
 
   handleChange=(event)=>{
-    this.setState({descriptionValue:event.target.value});
+    this.setState({publicmessage:event.target.value});
   }
-
-  handleChangeticketStatusTypeValue(event){
-    this.setState({ticketStatusTypeValue:event.target.value});
-
+  handleChange1=(event)=>{
+    this.setState({personalnote:event.target.value});
   }
-
-  handleChangeticketSourceValue(event){
-    this.setState({ticketSourceValue:event.target.value});
+  handleChangeticketidValue(event){
+    this.setState({ticketidValue:event.target.value});
 
   }
 
-  handleChangeCompanyValue(event){
-    this.setState({companyValue:event.target.value});
+  handleChangeassigntoValue(event){
+    this.setState({assigntoValue:event.target.value});
+
+  }
+
+  handleChangeassignbyValue(event){
+    this.setState({assigntoValue:event.target.value});
     
   }
 
-  handleemployeeeValue(event){
-    this.setState({employeeValue:event.target.value});
-
-  }
-
-  handlecontactValue(event){
-    this.setState({contactValue:event.target.value});
-
-  }
 
   handleSubmit=(event)=>{
     event.preventDefault()
-    this.setState({updatedValue:{
-      contact:this.state.contactValue,
-      employee:this.state.employeeValue,
-      company:this.state.companyValue,
-      ticketSource:this.state.ticketSourceValue,
-      ticketStatusType:this.state.ticketStatusTypeValue,
-      description:this.state.descriptionValue,
-    }
-    
-    },()=>
-    console.log(this.state.updatedValue)
+    // this.setState({
+    //   description:this.state.descriptionValue,
+    //   urgent:false,
+    //   import:false,
+    //   ticketSource:this.state.ticketSourceValue,
+    //   ticketStatus:this.state.ticketStatusTypeValue,
+    //   createdBy:this.state.employeeValue,
+    //   assignedTo:this.state.employeeValue,
+    //   company:this.state.companyValue,
+    //   contact:this.state.contactValue
+    // }
+    // ,()=>
+    // console.log(this.state.descriptionValue)
+    // );
+    // let ticketsValue ={
+    //   description:this.state.descriptionValue,
+    //   urgent:false,
+    //   import:false,
+    //   ticketSource:this.state.ticketSourceValue,
+    //   ticketStatus:this.state.ticketStatusTypeValue,
+    //   createdBy:this.state.employeeValue,
+    //   assignedTo:this.state.employeeValue,
+    //   company:this.state.companyValue,
+    //   contact:this.state.contactValue
+    // }
 
-        // fetch('http://localhost:4000/api/users/register' , {
-    //   method: "POST",
-    //   headers: {
-    //     'Content-type': 'application/json'
-    //   },
-    //   body: JSON.stringify(this.state)
-    // })
-    // .then((result) => result.json())
-    // .then((info) => { console.log(info); })
-    );
-  }
+    fetch(SERVER_URL+'/ticket', { 
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id:this.state.ticketidValue,
+        assignedTo:this.state.assigntoValue,
+        assignBy:this.state.assignbyValue,
+        personalNote:this.state.personalNote,
+        publicMessage:this.state.employeeValue,
+     
+      })
+    })
+    };
 
   render() {
     const { classes } = this.props;
 
    
-    function renderTicketStatusRow(ticketStatusType) {
-      return (<MenuItem value={ticketStatusType.id}>{ticketStatusType.name}</MenuItem>);
+    function renderTicketidRow(ticketid) {
+      return (<MenuItem value={ticketid.id}>{ticketid.name}</MenuItem>);
     }
-    function renderTicketSourceRow(ticketSource) {
-      return (<MenuItem value={ticketSource.id}>{ticketSource.name}</MenuItem>);
+    function renderAssignbyRow(assignby) {
+      return (<MenuItem value={assignby.id}>{assignby.name}</MenuItem>);
     }
-    function renderCompanyRow(company) {
-      return (<MenuItem value={company.id}>{company.name}</MenuItem>);
+    function renderAssigntoRow(assignto) {
+      return (<MenuItem value={assignto.id}>{assignto.name}</MenuItem>);
     }
-    function renderEmployeeRow(employee) {
-      return (<MenuItem value={employee.id}>{employee.firstName}</MenuItem>);
-    }
-    function renderContactRow(contact) {
-      return (<MenuItem value={contact.id}>{contact.firstName}</MenuItem>);
-    }
-
+ 
   return (
     <div>
         <div  className={classes.container}>
           <form onSubmit={this.handleSubmit} >
         <Typography component="h1" variant="h5" inline>
-                Create Ticket Profile
+                Create Task Profile
               </Typography>
 
       <TextField
           id="outlined-full-width"
           className={classes.textField}
-          label="Description"
+          label="Public Message"
           style={{ margin: 8 }}
-          placeholder="Description "
+          placeholder="Public Message "
           fullWidth
           margin="normal"
           onChange={this.handleChange}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+        />
+
+      <TextField
+          id="outlined-full-width"
+          className={classes.textField}
+          label="Personal Note"
+          style={{ margin: 8 }}
+          placeholder="Personal note"
+          fullWidth
+          margin="normal"
+          onChange={this.handleChange1}
           InputLabelProps={{
             shrink: true,
           }}
@@ -193,19 +182,19 @@ class CreateTask extends React.Component {
         <InputLabel
          //ref={inputLabel}
           id="demo-simple-select-outlined-label">
-          Company
+          Ticket id
         </InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          value={this.state.companyValue}
-          onChange={this.handleChangeCompanyValue.bind(this)}
+          value={this.state.ticketidValue}
+          onChange={this.handleChangeticketidValue.bind(this)}
          // labelWidth={labelWidth}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          {this.state.company.map(renderCompanyRow)}
+          {this.state.ticketid.map(renderTicketidRow)}
         </Select>
       </FormControl>
 
@@ -213,19 +202,19 @@ class CreateTask extends React.Component {
         <InputLabel 
         //ref={inputLabel} 
         id="demo-simple-select-outlined-label">
-          Ticket Sources
+          Assign to
         </InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          value={this.state.ticketSourceValue}
-          onChange={this.handleChangeticketSourceValue.bind(this)}
+          value={this.state.assigntoValue}
+          onChange={this.handleChangeassigntoValue.bind(this)}
           //labelWidth={labelWidth}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          {this.state.ticketSource.map(renderTicketSourceRow)}
+          {this.state.assignto.map(renderAssigntoRow)}
         </Select>
       </FormControl>
 
@@ -234,43 +223,25 @@ class CreateTask extends React.Component {
         <InputLabel 
         //ref={inputLabel} 
         id="demo-simple-select-outlined-label">
-          Ticket Status
+          Assign by
         </InputLabel>
         <Select
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={this.state.ticketStatusTypeValue}
-          onChange={this.handleChangeticketStatusTypeValue.bind(this)}
+          onChange={this.handleChangeassignbyValue.bind(this)}
           //labelWidth={labelWidth}
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          {this.state.ticketStatusType.map(renderTicketStatusRow)}
+          {this.state.assignby.map(renderAssignbyRow)}
         </Select>
       </FormControl>
 
-      <FormControl variant="outlined" className={classes.textField}>
-        <InputLabel 
-        //ref={inputLabel} 
-        id="demo-simple-select-outlined-label">
-          Assigned To
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={this.state.employeeValue}
-          onChange={this.handleemployeeeValue.bind(this)}
-          //labelWidth={labelWidth}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {this.state.employee.map(renderEmployeeRow)}
-        </Select>
-      </FormControl>
+     
 
-      <FormControl variant="outlined" className={classes.textField}>
+      {/* <FormControl variant="outlined" className={classes.textField}>
         <InputLabel 
         //ref={inputLabel} 
         id="demo-simple-select-outlined-label">
@@ -288,16 +259,12 @@ class CreateTask extends React.Component {
           </MenuItem>
           {this.state.contact.map(renderContactRow)}
         </Select>
-      </FormControl>
+      </FormControl> */}
         <Button className={classes.textField} type="Submit">Save</Button>
         </form>
-        </div>
-
-    
-   
-      
+        </div>   
     </div>
   );
 }}
 
-export default  withStyles(useStyles)(CreateTicket);
+export default  withStyles(useStyles)(CreateTask);

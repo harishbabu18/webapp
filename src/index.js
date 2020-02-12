@@ -28,6 +28,7 @@ import Employee from './pages/Employee';
 import ContactDashboard from './pages/ContactDashboard';
 import FreeSolo from './components/SelectText';
 import CreateContact from './pages/CreateContact';
+import CreateTask from './pages/CreateTask';
 import Task from './pages/Task';
 // import TicketCreate from './pages/TicketCreate';
 //import Role from './pages/Role';
@@ -201,6 +202,9 @@ class Index extends React.Component {
         </PrivateRoute>
         <PrivateRoute  exact  path="/ticket/create">
           <CreateTicket />
+        </PrivateRoute>
+        <PrivateRoute  exact  path="/task/create">
+          <CreateTask />
         </PrivateRoute>
         <PrivateRoute  exact  path="/employee">
           <Employee />
