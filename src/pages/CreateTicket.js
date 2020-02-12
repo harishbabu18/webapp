@@ -3,29 +3,11 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import SaveIcon from '@material-ui/icons/Save';
-import clsx from 'clsx';
-import IconButton from '@material-ui/core/IconButton';
-import AddBox from '@material-ui/icons/AddBox';
-import Email from '@material-ui/icons/Email';
-import PhoneAndroid from '@material-ui/icons/PhoneAndroid';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Web from '@material-ui/icons/Web';
-import CountrySelect from '../components/CountrySelect';
 import InputLabel from '@material-ui/core/InputLabel';
-
-import FormHelperText from '@material-ui/core/FormHelperText';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {SERVER_URL} from '../config';
-
-// import { useState, useEffect } from "react";
-// import axios from 'axios';
-
 
 const useStyles = theme => ({
   container: {
@@ -49,7 +31,6 @@ class CreateTicket extends React.Component {
     super(props);
 
     this.state = {
-      // description:[],
       submitStatus:'',
       descriptionValue:'',
       ticketStatusType: [],
@@ -121,44 +102,9 @@ class CreateTicket extends React.Component {
 
   }
 
-  // "description":"Fredis Good",
-  //    "urgent":true,
-  //    "important":true,
-  //    "ticketSource":1,
-  //    "ticketStatus":1,
-  //    "createdBy":1,
-  //    "assignedTo":1,
-  //    "company":1,
-  //    "contact":1
 
   handleSubmit=(event)=>{
     event.preventDefault()
-    // this.setState({
-    //   description:this.state.descriptionValue,
-    //   urgent:false,
-    //   import:false,
-    //   ticketSource:this.state.ticketSourceValue,
-    //   ticketStatus:this.state.ticketStatusTypeValue,
-    //   createdBy:this.state.employeeValue,
-    //   assignedTo:this.state.employeeValue,
-    //   company:this.state.companyValue,
-    //   contact:this.state.contactValue
-    // }
-    // ,()=>
-    // console.log(this.state.descriptionValue)
-    // );
-    // let ticketsValue ={
-    //   description:this.state.descriptionValue,
-    //   urgent:false,
-    //   import:false,
-    //   ticketSource:this.state.ticketSourceValue,
-    //   ticketStatus:this.state.ticketStatusTypeValue,
-    //   createdBy:this.state.employeeValue,
-    //   assignedTo:this.state.employeeValue,
-    //   company:this.state.companyValue,
-    //   contact:this.state.contactValue
-    // }
-
     fetch(SERVER_URL+'/ticket', { 
       method: 'POST',
       headers: {
