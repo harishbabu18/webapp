@@ -50,6 +50,7 @@ class CreateTicket extends React.Component {
 
     this.state = {
       // description:[],
+      submitStatus:'',
       descriptionValue:'',
       ticketStatusType: [],
       ticketStatusTypeValue: '',
@@ -120,31 +121,63 @@ class CreateTicket extends React.Component {
 
   }
 
+  // "description":"Fredis Good",
+  //    "urgent":true,
+  //    "important":true,
+  //    "ticketSource":1,
+  //    "ticketStatus":1,
+  //    "createdBy":1,
+  //    "assignedTo":1,
+  //    "company":1,
+  //    "contact":1
+
   handleSubmit=(event)=>{
     event.preventDefault()
-    this.setState({updatedValue:{
-      contact:this.state.contactValue,
-      employee:this.state.employeeValue,
-      company:this.state.companyValue,
-      ticketSource:this.state.ticketSourceValue,
-      ticketStatusType:this.state.ticketStatusTypeValue,
-      description:this.state.descriptionValue,
-    }
-    
-    },()=>
-    console.log(this.state.updatedValue)
+    // this.setState({
+    //   description:this.state.descriptionValue,
+    //   urgent:false,
+    //   import:false,
+    //   ticketSource:this.state.ticketSourceValue,
+    //   ticketStatus:this.state.ticketStatusTypeValue,
+    //   createdBy:this.state.employeeValue,
+    //   assignedTo:this.state.employeeValue,
+    //   company:this.state.companyValue,
+    //   contact:this.state.contactValue
+    // }
+    // ,()=>
+    // console.log(this.state.descriptionValue)
+    // );
+    // let ticketsValue ={
+    //   description:this.state.descriptionValue,
+    //   urgent:false,
+    //   import:false,
+    //   ticketSource:this.state.ticketSourceValue,
+    //   ticketStatus:this.state.ticketStatusTypeValue,
+    //   createdBy:this.state.employeeValue,
+    //   assignedTo:this.state.employeeValue,
+    //   company:this.state.companyValue,
+    //   contact:this.state.contactValue
+    // }
 
-        // fetch('http://localhost:4000/api/users/register' , {
-    //   method: "POST",
-    //   headers: {
-    //     'Content-type': 'application/json'
-    //   },
-    //   body: JSON.stringify(this.state)
-    // })
-    // .then((result) => result.json())
-    // .then((info) => { console.log(info); })
-    );
-  }
+    fetch(SERVER_URL+'/ticket', { 
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        description:this.state.descriptionValue,
+        urgent:false,
+        import:false,
+        ticketSource:this.state.ticketSourceValue,
+        ticketStatus:this.state.ticketStatusTypeValue,
+        createdBy:this.state.employeeValue,
+        assignedTo:this.state.employeeValue,
+        company:this.state.companyValue,
+        contact:this.state.contactValue
+      })
+    })
+    };
 
   render() {
     const { classes } = this.props;

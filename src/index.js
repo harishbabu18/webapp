@@ -21,6 +21,7 @@ import CreateCompany from './pages/CreateCompany';
 import CreateEmployee from './pages/CreateEmployee';
 import CreateTicket from './pages/CreateTicket';
 import Ticket from './pages/Ticket';
+import TicketSearch from './pages/TicketSearch'
 import Employee from './pages/Employee';
 
 
@@ -206,6 +207,9 @@ class Index extends React.Component {
         </PrivateRoute>
         <PrivateRoute  exact  path="/ticket">
           <Ticket />
+        </PrivateRoute>
+        <PrivateRoute  exact  path="/ticket/search">
+          <TicketSearch />
         </PrivateRoute>
         <PrivateRoute  exact  path="/task">
           <Task />

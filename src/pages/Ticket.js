@@ -9,10 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import CreateTicket from './CreateTicket';
 import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../config';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import { Button } from '@material-ui/core';
 
 
 const useStyles = theme => ({
@@ -31,6 +28,8 @@ class Ticket extends React.Component {
         super();
     
         this.state = {
+          offset:0,
+          max:10,
           ticket: [],
           filterList:[],
           searchTicketValue:'',
@@ -40,10 +39,22 @@ class Ticket extends React.Component {
 
       }
       componentDidMount() {
-        fetch(SERVER_URL+'/ticket')
+       this.loadTickets()
+      }
+      loadTickets = () => {
+        const {offset,max,ticket} = this.state
+       const url = SERVER_URL+'/ticket?offset='+offset+'&max='+max
+       //const url = SERVER_URL+'/ticket'
+        fetch(url)
         .then(r => r.json())
-        .then(json => this.setState({ticket: json}))
+        .then(json => this.setState({ticket:[...ticket,...json] }))
         .catch(error => console.error('Error retrieving Companies: ' + error));
+      }
+
+      loadMore=()=>{
+        this.setState(prevState =>({
+          offset:prevState.offset+10
+        }),this.loadTickets)     
       }
 
 
@@ -139,38 +150,6 @@ class Ticket extends React.Component {
             <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
-        <input type="text" className="input" onChange={this.handleChange} placeholder="Search..." />
-       
-       
-       
-        <FormControl variant="outlined" className={classes.textField}>
-        <InputLabel
-         //ref={inputLabel}
-          id="demo-simple-select-outlined-label">
-          Company
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={this.state.ticketSearchValue}
-          onChange={this.handleChangeSearchTicketValue.bind(this)}
-         // labelWidth={labelWidth}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value='contact'>Contact</MenuItem>
-          <MenuItem value='ticketstatus'>Status</MenuItem>
-          <MenuItem value='ticketSource'>Source</MenuItem>
-          <MenuItem value='createdBy'>CreatedBy</MenuItem>
-          <MenuItem value='assignedTo'>assignedTo</MenuItem>
-
-
-
-
-
-        </Select>
-      </FormControl>
           <TableRow>
             <StyledTableCell>Ticket ID</StyledTableCell>
             <StyledTableCell align="right"> Description </StyledTableCell>
@@ -183,9 +162,10 @@ class Ticket extends React.Component {
           </TableRow>
         </TableHead>
         <TableBody>
-        {this.state.filterList.map(renderTicketRow)}
+        {this.state.ticket.map(renderTicketRow)}
         </TableBody>
       </Table>
+      <Button onClick={this.loadMore}>Load More</Button>
     </Paper>
     </Grid>
     </Grid>
