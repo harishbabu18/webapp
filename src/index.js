@@ -155,10 +155,9 @@ class Index extends React.Component {
        <ButtonAppBar title="Dashboard" loggedIn={this.state.loggedIn} logoutHandler={this.logoutHandler} />
       <div>
       <Switch>
-        <Route  exact path="/" >
-       
+        <PrivateRoute  exact path="/" >
             <App />
-        </Route>
+        </PrivateRoute>
         <LoggedInRedirect  exact path="/login" >
         <Login LoginSubmit={this.LoginSubmit} _usernameValue={this._usernameValue} _passwordValue={this._passwordValue}/>
         </LoggedInRedirect>
