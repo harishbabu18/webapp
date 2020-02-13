@@ -33,8 +33,6 @@ class CreateTask extends React.Component {
     this.state = {
       // description:[],
       publicmessage :'',
-      publicmessageValue:'',
-      personalnoteValue:'',
       personalnote:'',
       ticketid: [],
       ticketidValue: '',
@@ -42,6 +40,7 @@ class CreateTask extends React.Component {
       assigntoValue: '',
       assignby:[],
       assignbyValue: '',
+      updatedValue:''
       
     }
   }
@@ -72,57 +71,35 @@ class CreateTask extends React.Component {
 
   handleChangeassigntoValue(event){
     this.setState({assigntoValue:event.target.value});
+    console.log(event.target.value)
 
   }
 
-  handleChangeassignbyValue(event){
-    this.setState({assigntoValue:event.target.value});
+  // handleChangeassignbyValue(event){
+  //   this.setState({assigntoValue:event.target.value});
     
-  }
+  // }
 
 
   handleSubmit=(event)=>{
     event.preventDefault()
-    // this.setState({
-    //   description:this.state.descriptionValue,
-    //   urgent:false,
-    //   import:false,
-    //   ticketSource:this.state.ticketSourceValue,
-    //   ticketStatus:this.state.ticketStatusTypeValue,
-    //   createdBy:this.state.employeeValue,
-    //   assignedTo:this.state.employeeValue,
-    //   company:this.state.companyValue,
-    //   contact:this.state.contactValue
-    // }
-    // ,()=>
-    // console.log(this.state.descriptionValue)
-    // );
-    // let ticketsValue ={
-    //   description:this.state.descriptionValue,
-    //   urgent:false,
-    //   import:false,
-    //   ticketSource:this.state.ticketSourceValue,
-    //   ticketStatus:this.state.ticketStatusTypeValue,
-    //   createdBy:this.state.employeeValue,
-    //   assignedTo:this.state.employeeValue,
-    //   company:this.state.companyValue,
-    //   contact:this.state.contactValue
-    // }
-
-    fetch(SERVER_URL+'/ticket', { 
+    fetch(SERVER_URL+'/task', { 
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        id:this.state.ticketidValue,
+        ticket:this.state.ticketidValue,
         assignedTo:this.state.assigntoValue,
-        assignBy:this.state.assignbyValue,
-        personalNote:this.state.personalNote,
-        publicMessage:this.state.employeeValue,
+        assignedBy:this.state.assignby,
+        personalNote:this.state.personalnote,
+        publicMessage:this.state.publicmessage,
      
       })
+    }).then(r=> r.json()).then(json=>{let updatedValue = this.state.updatedValue;
+      updatedValue = "Task "+json.id+" is Added Successfully";
+      this.setState({updatedValue})
     })
     };
 
@@ -131,13 +108,13 @@ class CreateTask extends React.Component {
 
    
     function renderTicketidRow(ticketid) {
-      return (<MenuItem value={ticketid.id}>{ticketid.name}</MenuItem>);
+      return (<MenuItem value={ticketid.id}>{ticketid.id}</MenuItem>);
     }
-    function renderAssignbyRow(assignby) {
-      return (<MenuItem value={assignby.id}>{assignby.name}</MenuItem>);
-    }
+    // function renderAssignbyRow(assignby) {
+    //   return (<MenuItem value={assignby.id}>{assignby.firstName}</MenuItem>);
+    // }
     function renderAssigntoRow(assignto) {
-      return (<MenuItem value={assignto.id}>{assignto.name}</MenuItem>);
+      return (<MenuItem value={assignto.firstName}>{assignto.firstName}</MenuItem>);
     }
  
   return (
@@ -219,47 +196,10 @@ class CreateTask extends React.Component {
       </FormControl>
 
 
-<FormControl variant="outlined" className={classes.textField}>
-        <InputLabel 
-        //ref={inputLabel} 
-        id="demo-simple-select-outlined-label">
-          Assign by
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={this.state.ticketStatusTypeValue}
-          onChange={this.handleChangeassignbyValue.bind(this)}
-          //labelWidth={labelWidth}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {this.state.assignby.map(renderAssignbyRow)}
-        </Select>
-      </FormControl>
 
      
 
-      {/* <FormControl variant="outlined" className={classes.textField}>
-        <InputLabel 
-        //ref={inputLabel} 
-        id="demo-simple-select-outlined-label">
-          Contact
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={this.state.contactValue}
-          onChange={this.handlecontactValue.bind(this)}
-          //labelWidth={labelWidth}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {this.state.contact.map(renderContactRow)}
-        </Select>
-      </FormControl> */}
+
         <Button className={classes.textField} type="Submit">Save</Button>
         </form>
         </div>   
