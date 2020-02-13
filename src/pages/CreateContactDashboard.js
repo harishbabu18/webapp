@@ -29,7 +29,7 @@ const useStyles = theme => ({
   },
 });
 
-class CreateContact extends React.Component {
+class CreateContactDashboard extends React.Component {
   render(){
   const {classes} = this .props;
 
@@ -41,7 +41,7 @@ class CreateContact extends React.Component {
      
     <Typography component="h1" variant="h5" inline>
                 Create Contact Profile
-    </Typography>
+              </Typography>
       
    <TextField
      id="outlined-full-width"
@@ -290,4 +290,4 @@ class CreateContact extends React.Component {
   );
 }
 }
-export default  withStyles(useStyles)(CreateContact);
+export default  withStyles(useStyles)(CreateContactDashboard);
