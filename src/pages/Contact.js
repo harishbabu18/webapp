@@ -102,7 +102,6 @@ class Contact extends React.Component {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Contact ID</StyledTableCell>
             <StyledTableCell align="right"> Company Name </StyledTableCell>
             <StyledTableCell align="right"> First Name</StyledTableCell>
             <StyledTableCell align="right"> Last Name </StyledTableCell>

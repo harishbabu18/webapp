@@ -85,12 +85,8 @@ class Company extends React.Component {
 
             return (<StyledTableRow key={Company.id}>
               <StyledTableCell component="th" scope="row">
-                {Company.dateCreated}
+                {Company.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{Company.lastUpdated}</StyledTableCell>
-              <StyledTableCell align="right">{Company.name}</StyledTableCell>
-        
-
             </StyledTableRow>);
           }
       
@@ -103,10 +99,8 @@ class Company extends React.Component {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Company ID</StyledTableCell>
-            <StyledTableCell align="right"> Date Created </StyledTableCell>
-            <StyledTableCell align="right"> Last updated</StyledTableCell>
-            <StyledTableCell align="right"> name </StyledTableCell>
+          <StyledTableCell > name </StyledTableCell>
+         
           
 
           </TableRow>

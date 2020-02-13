@@ -36,9 +36,13 @@ const useStyles = theme => ({
     renderElement(){
       const { classes } = this.props;
       if(this.props.loggedIn == true){
-         return (<div><Link to="/task" className={classes.Link} > <Button color="inherit" > Task </Button> </Link>
-         <Link to="/ticket" className={classes.Link} > <Button color="inherit" > Ticket </Button> </Link>
-         <Link to="/employee" className={classes.Link} > <Button color="inherit" > Employee </Button> </Link>
+         return (<div>
+           <Link to="/company" className={classes.Link} > <Button color="inherit" > Company </Button> </Link>
+           <Link to="/contact" className={classes.Link} > <Button color="inherit" > Contact </Button> </Link>
+           <Link to="/task" className={classes.Link} > <Button color="inherit" > Task </Button> </Link>
+           <Link to="/ticket" className={classes.Link} > <Button color="inherit" > Ticket </Button> </Link>
+           <Link to="/contact" className={classes.Link} > <Button color="inherit" > Contact </Button> </Link>
+           <Link to="/employee" className={classes.Link} > <Button color="inherit" > Employee </Button> </Link>
           <Button color="inherit" onClick={(event) => this.props.logoutHandler(event)}>Logout</Button></div>)
          }
    }
