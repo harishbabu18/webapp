@@ -23,6 +23,7 @@ import CreateTicket from './pages/CreateTicket';
 import Ticket from './pages/Ticket';
 import TicketSearch from './pages/TicketSearch'
 import Employee from './pages/Employee';
+import Contact from './pages/Contact';
 
 
 import ContactDashboard from './pages/ContactDashboard';
@@ -175,7 +176,7 @@ class Index extends React.Component {
         <PrivateRoute  exact  path="/company/create">
           <CreateCompany />
         </PrivateRoute>
-        <PrivateRoute  exact  path="/company/list">
+        <PrivateRoute  exact  path="/company">
         <Company />  
         </PrivateRoute>
         <PrivateRoute exact path="/contact/list">
@@ -218,6 +219,10 @@ class Index extends React.Component {
         <PrivateRoute  exact  path="/task">
           <Task />
         </PrivateRoute>
+        <PrivateRoute  exact  path="/contact">
+          <Contact />
+        </PrivateRoute>
+        
         </Switch>
       </div>
     </BrowserRouter>

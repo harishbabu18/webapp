@@ -6,7 +6,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../config';
+import { Button } from '@material-ui/core';
+
 
 const useStyles = theme => ({
   root: {
@@ -24,17 +27,34 @@ class Contact extends React.Component {
         super();
     
         this.state = {
-          contacts: []
+          offset:0,
+          max:10,
+           contact: [],
+          filterList:[],
+          searchContactValue:'',
+          
         }
-      }
-      componentDidMount() {
-        fetch(SERVER_URL+'/contact')
-        .then(r => r.json())
-        .then(json => this.setState({contacts: json}))
-        .catch(error => console.error('Error retrieving Companies: ' + error));
-      }
     
 
+      }
+      componentDidMount() {
+       this.loadContacts()
+      }
+      loadContacts = () => {
+        const {offset,max,contact} = this.state
+       const url = SERVER_URL+'/contact?offset='+offset+'&max='+max
+       //const url = SERVER_URL+'/ticket'
+        fetch(url)
+        .then(r => r.json())
+        .then(json => this.setState({contact:[...contact,...json] }))
+        .catch(error => console.error('Error retrieving Contacts: ' + error));
+      }
+
+      loadMore=()=>{
+        this.setState(prevState =>({
+          offset:prevState.offset+10
+        }),this.loadContacts)     
+      }
 
     render() {
         const { classes } = this.props;
@@ -59,39 +79,46 @@ class Contact extends React.Component {
           
           
 
-          function renderCompanyRow(contacts) {
+          function renderContactRow(Contact) {
 
-            return (<StyledTableRow key={contacts.id}>
+            return (<StyledTableRow key={Contact.id}>
               <StyledTableCell component="th" scope="row">
-                {contacts.firstName}
+                {Contact.company}
               </StyledTableCell>
-              <StyledTableCell align="right">{contacts.lastName}</StyledTableCell>
-              <StyledTableCell align="right">{contacts.dob}</StyledTableCell>
-              {/* <StyledTableCell align="right">{contacts.website}</StyledTableCell>
-              <StyledTableCell align="right">{contacts.mobile}</StyledTableCell> */}
+              <StyledTableCell align="right">{Contact.firstName}</StyledTableCell>
+              <StyledTableCell align="right">{Contact.lastName}</StyledTableCell>
+              <StyledTableCell align="right">{Contact.position}</StyledTableCell>
+              <StyledTableCell align="right">{Contact.dob}</StyledTableCell>
+              
             </StyledTableRow>);
           }
       
 
         return(
+          <Grid container component="main" className={classes.root}>
+         
+          <Grid item  sm={12} md={12}  component={Paper} elevation={6} square>
             <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>First Name</StyledTableCell>
-            <StyledTableCell align="right">Last Name</StyledTableCell>
-            <StyledTableCell align="right">Date of Birth</StyledTableCell>
-            <StyledTableCell align="right">E-mail</StyledTableCell>
-            <StyledTableCell align="right">Phone</StyledTableCell>
-            <StyledTableCell align="right">Fax</StyledTableCell>
-
+            <StyledTableCell>Contact ID</StyledTableCell>
+            <StyledTableCell align="right"> Company Name </StyledTableCell>
+            <StyledTableCell align="right"> First Name</StyledTableCell>
+            <StyledTableCell align="right"> Last Name </StyledTableCell>
+            <StyledTableCell align="right"> Position </StyledTableCell>
+            <StyledTableCell align="right"> Dob </StyledTableCell>
+           
           </TableRow>
         </TableHead>
         <TableBody>
-        {this.state.contacts.map(renderCompanyRow)}
+        {this.state.contact.map(renderContactRow)}
         </TableBody>
       </Table>
+      <Button onClick={this.loadMore}>Load More</Button>
     </Paper>
+    </Grid>
+    </Grid>
         );
     }
 }

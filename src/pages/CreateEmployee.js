@@ -29,7 +29,7 @@ const useStyles = theme => ({
 });
 
 
-class CreateTicket extends React.Component {
+class CreateEmployee extends React.Component {
 
 
   constructor(props) {
@@ -255,4 +255,4 @@ class CreateTicket extends React.Component {
   );
 }}
 
-export default  withStyles(useStyles)(CreateTicket);
+export default  withStyles(useStyles)(CreateEmployee);

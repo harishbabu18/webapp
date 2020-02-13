@@ -6,7 +6,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import CreateTicket from './CreateTicket';
+import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../config';
+import { Button } from '@material-ui/core';
+
 
 const useStyles = theme => ({
   root: {
@@ -24,19 +28,37 @@ class Company extends React.Component {
         super();
     
         this.state = {
-          companies: []
+          offset:0,
+          max:10,
+          company: [],
+          filterList:[],
+          searchTicketValue:'',
+          
         }
+     
+
       }
       componentDidMount() {
-        fetch(SERVER_URL+'/company')
+       this.loadCompany()
+      }
+      loadCompany= () => {
+        const {offset,max,company} = this.state
+       const url = SERVER_URL+'/company?offset='+offset+'&max='+max
+      
+        fetch(url)
         .then(r => r.json())
-        .then(json => this.setState({companies: json}))
+        .then(json => this.setState({company:[...company,...json] }))
         .catch(error => console.error('Error retrieving Companies: ' + error));
       }
-    
+
+      loadMore=()=>{
+        this.setState(prevState =>({
+          offset:prevState.offset+10
+        }),this.loadCompany)     
+      }
 
 
-    render() {
+      render() {
         const { classes } = this.props;
         const StyledTableCell = withStyles(theme => ({
             head: {
@@ -59,39 +81,44 @@ class Company extends React.Component {
           
           
 
-          function renderCompanyRow(company) {
+          function renderCompanyRow(Company) {
 
-            return (<StyledTableRow key={company.id}>
+            return (<StyledTableRow key={Company.id}>
               <StyledTableCell component="th" scope="row">
-                {company.name}
+                {Company.dateCreated}
               </StyledTableCell>
-              <StyledTableCell align="right">{company.description}</StyledTableCell>
-              <StyledTableCell align="right">{company.address}</StyledTableCell>
-              <StyledTableCell align="right">{company.website}</StyledTableCell>
-              <StyledTableCell align="right">{company.email}</StyledTableCell>
-              <StyledTableCell align="right">{company.mobile}</StyledTableCell>
+              <StyledTableCell align="right">{Company.lastUpdated}</StyledTableCell>
+              <StyledTableCell align="right">{Company.name}</StyledTableCell>
+        
+
             </StyledTableRow>);
           }
       
 
         return(
+          <Grid container component="main" className={classes.root}>
+         
+          <Grid item  sm={12} md={12}  component={Paper} elevation={6} square>
             <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Name</StyledTableCell>
-            <StyledTableCell align="right">Description</StyledTableCell>
-            <StyledTableCell align="right">Address</StyledTableCell>
-            <StyledTableCell align="right">Website</StyledTableCell>
-            <StyledTableCell align="right">E-mail</StyledTableCell>
-            <StyledTableCell align="right">Phone</StyledTableCell>
+            <StyledTableCell>Company ID</StyledTableCell>
+            <StyledTableCell align="right"> Date Created </StyledTableCell>
+            <StyledTableCell align="right"> Last updated</StyledTableCell>
+            <StyledTableCell align="right"> name </StyledTableCell>
+          
+
           </TableRow>
         </TableHead>
         <TableBody>
-        {this.state.companies.map(renderCompanyRow)}
+        {this.state.company.map(renderCompanyRow)}
         </TableBody>
       </Table>
+      <Button onClick={this.loadMore}>Load More</Button>
     </Paper>
+    </Grid>
+    </Grid>
         );
     }
 }

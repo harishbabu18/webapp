@@ -35,7 +35,7 @@ class Ticket extends React.Component {
           searchTicketValue:'',
           
         }
-        // this.handleChange = this.handleChange.bind(this);
+     
 
       }
       componentDidMount() {
@@ -44,7 +44,7 @@ class Ticket extends React.Component {
       loadTickets = () => {
         const {offset,max,ticket} = this.state
        const url = SERVER_URL+'/ticket?offset='+offset+'&max='+max
-       //const url = SERVER_URL+'/ticket'
+      
         fetch(url)
         .then(r => r.json())
         .then(json => this.setState({ticket:[...ticket,...json] }))
@@ -58,50 +58,7 @@ class Ticket extends React.Component {
       }
 
 
-  //     handleChange(e) {
-  //       // Variable to hold the original version of the list
-  //   let currentList = [];
-  //       // Variable to hold the filtered list before putting into state
-  //   let newList = [];
-
-  //       // If the search bar isn't empty
-  //   if (e.target.value !== "") {
-  //           // Assign the original list to currentList
-  //     currentList = this.props.ticket;
-
-  //           // Use .filter() to determine which items should be displayed
-  //           // based on the search terms
-  //     newList = currentList.filter(ticket => {
-  //               // change current item to lowercase
-  //       const lc = ticket.toLowerCase();
-  //       // const tc  = value;
-  //               // change search term to lowercase
-  //       const filter = e.target.value.toLowerCase();
-  //       let field= this.state.ticket;
-  //       let search = field
-  //               // check to see if the current list item includes the search term
-  //               // If it does, it will be added to newList. Using lowercase eliminates
-  //               // issues with capitalization in search terms and search content
-  //       return search.includes(filter);
-  //     });
-  //   } else {
-  //           // If the search bar is empty, set newList to original task list
-  //     newList = this.props.ticket;
-  //   }
-  //       // Set the filtered state based on what our rules added to newList
-  //   this.setState({
-  //     filterList: newList
-  //   });
-  // }
-
-  // handleChangeSearchTicketValue=(event)=>{
-  //   this.setState({searchTicketValue:event.target.value});
-  // }
-
-    
-
-
-    render() {
+      render() {
         const { classes } = this.props;
         const StyledTableCell = withStyles(theme => ({
             head: {

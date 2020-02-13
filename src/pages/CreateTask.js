@@ -77,15 +77,7 @@ class CreateTask extends React.Component {
 
   handleSubmit=(event)=>{
     event.preventDefault()
-    // let task ={
-    //   ticket:this.state.ticketidValue,
-    //   assignedTo:this.state.assigntoValue,
-    //   assignedBy:this.state.assigntoValue,
-    //   personalNote:this.state.personalnote,
-    //   publicMessage:this.state.publicmessage,
-   
-    // }
-
+  
     let task ={
       ticket:this.state.ticketidValue,
       assignedTo:this.state.assigntoValue,
