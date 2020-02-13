@@ -7,6 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+
 import {SERVER_URL} from '../config';
 
 const useStyles = theme => ({
@@ -21,6 +22,13 @@ const useStyles = theme => ({
     marginBottom: theme.spacing(2),
     width: 240,
   },
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+
 });
 
 
@@ -43,7 +51,7 @@ class CreateTicket extends React.Component {
       employeeValue:'',
       contact:[],
       contactValue:'',
-      updatedValue:[],
+      updatedValue:'Status',
     }
   }
   componentDidMount() {
@@ -122,7 +130,16 @@ class CreateTicket extends React.Component {
         company:this.state.companyValue,
         contact:this.state.contactValue
       })
-    })
+    }).then(r=> r.json()).then(json =>{
+      let updatedValue = this.state.updatedValue;
+      updatedValue = "Ticket ID " +json.id+" is Added Successfully"
+    this.setState({updatedValue})
+    }).catch(error =>{
+      let updatedValue = this.state.updatedValue;
+      updatedValue = "The Error is " +error.message;
+    this.setState({updatedValue})
+
+    } )
     };
 
   render() {
@@ -270,11 +287,14 @@ class CreateTicket extends React.Component {
       </FormControl>
         <Button className={classes.textField} type="Submit">Save</Button>
         </form>
+        <div className={classes.root}>
+        {this.state.updatedValue}
+        {/* <Alert severity="success" color="info">
+        {this.state.updatedValue}
+        </Alert> */}
         </div>
 
-    
-   
-      
+        </div>
     </div>
   );
 }}

@@ -88,7 +88,7 @@ class Task extends React.Component {
                 Ticket-{task.ticket}
               </StyledTableCell>
               <StyledTableCell align="right">{task.personalNote}</StyledTableCell>
-              <StyledTableCell align="right">{task.personalMessage}</StyledTableCell>
+              <StyledTableCell align="right">{task.publicMessage}</StyledTableCell>
               <StyledTableCell align="right">{task.assignedTo}</StyledTableCell>
               <StyledTableCell align="right">{task.assignedBy}</StyledTableCell>
               <StyledTableCell align="right">{task.dateCreated}</StyledTableCell>

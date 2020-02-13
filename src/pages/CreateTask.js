@@ -75,28 +75,34 @@ class CreateTask extends React.Component {
 
   }
 
-  // handleChangeassignbyValue(event){
-  //   this.setState({assigntoValue:event.target.value});
-    
-  // }
-
-
   handleSubmit=(event)=>{
     event.preventDefault()
+    // let task ={
+    //   ticket:this.state.ticketidValue,
+    //   assignedTo:this.state.assigntoValue,
+    //   assignedBy:this.state.assigntoValue,
+    //   personalNote:this.state.personalnote,
+    //   publicMessage:this.state.publicmessage,
+   
+    // }
+
+    let task ={
+      ticket:this.state.ticketidValue,
+      assignedTo:this.state.assigntoValue,
+      assignedBy:this.state.assigntoValue,
+      personalNote:this.state.personalnote,
+      publicMessage:this.state.publicmessage,
+   
+    }
+
+
     fetch(SERVER_URL+'/task', { 
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        ticket:this.state.ticketidValue,
-        assignedTo:this.state.assigntoValue,
-        assignedBy:this.state.assignby,
-        personalNote:this.state.personalnote,
-        publicMessage:this.state.publicmessage,
-     
-      })
+      body: JSON.stringify(task)
     }).then(r=> r.json()).then(json=>{let updatedValue = this.state.updatedValue;
       updatedValue = "Task "+json.id+" is Added Successfully";
       this.setState({updatedValue})
@@ -110,11 +116,9 @@ class CreateTask extends React.Component {
     function renderTicketidRow(ticketid) {
       return (<MenuItem value={ticketid.id}>{ticketid.id}</MenuItem>);
     }
-    // function renderAssignbyRow(assignby) {
-    //   return (<MenuItem value={assignby.id}>{assignby.firstName}</MenuItem>);
-    // }
+    
     function renderAssigntoRow(assignto) {
-      return (<MenuItem value={assignto.firstName}>{assignto.firstName}</MenuItem>);
+      return (<MenuItem value={assignto.id}>{assignto.firstName}</MenuItem>);
     }
  
   return (
@@ -177,7 +181,6 @@ class CreateTask extends React.Component {
 
       <FormControl variant="outlined" className={classes.textField}>
         <InputLabel 
-        //ref={inputLabel} 
         id="demo-simple-select-outlined-label">
           Assign to
         </InputLabel>
@@ -186,7 +189,6 @@ class CreateTask extends React.Component {
           id="demo-simple-select-outlined"
           value={this.state.assigntoValue}
           onChange={this.handleChangeassigntoValue.bind(this)}
-          //labelWidth={labelWidth}
         >
           <MenuItem value="">
             <em>None</em>
@@ -202,6 +204,7 @@ class CreateTask extends React.Component {
 
         <Button className={classes.textField} type="Submit">Save</Button>
         </form>
+        {this.state.updatedValue}
         </div>   
     </div>
   );
