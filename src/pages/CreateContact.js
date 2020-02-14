@@ -16,6 +16,7 @@ import Email from '@material-ui/icons/Email';
 import PhoneAndroid from '@material-ui/icons/PhoneAndroid';
 import CountrySelect from '../components/CountrySelect'
 import Task from './Task'
+
 const useStyles = theme => ({
   container: {
     display: 'flex',
@@ -252,16 +253,20 @@ class CreateContact extends React.Component {
     </Grid>
     <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
     <div className={classes.container}>
+
     <Typography component="h1" variant="h5" inline>
-                Address List
-              </Typography>
+    Address List
+    </Typography>
+
    </div>
     </Grid>
     <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
     <div className={classes.container}>
+    
     <Typography component="h1" variant="h5" inline>
-                Create Task
-              </Typography>
+    Create Task
+    </Typography>
+
     <TextField
      id="outlined-full-width"
      label="Task"
