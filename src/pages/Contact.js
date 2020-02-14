@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../config';
 import { Button } from '@material-ui/core';
+import CreateContact from './CreateContact';
 
 
 const useStyles = theme => ({
@@ -88,6 +89,7 @@ class Contact extends React.Component {
               <StyledTableCell align="right">{Contact.firstName}</StyledTableCell>
               <StyledTableCell align="right">{Contact.lastName}</StyledTableCell>
               <StyledTableCell align="right">{Contact.position}</StyledTableCell>
+              <StyledTableCell align="right">{Contact.note}</StyledTableCell>
               <StyledTableCell align="right">{Contact.dob}</StyledTableCell>
               
             </StyledTableRow>);
@@ -96,8 +98,11 @@ class Contact extends React.Component {
 
         return(
           <Grid container component="main" className={classes.root}>
+             <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
+            <CreateContact />
+          </Grid>
          
-          <Grid item  sm={12} md={12}  component={Paper} elevation={6} square>
+          <Grid item  sm={12} md={8}  component={Paper} elevation={6} square>
             <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
@@ -106,6 +111,7 @@ class Contact extends React.Component {
             <StyledTableCell align="right"> First Name</StyledTableCell>
             <StyledTableCell align="right"> Last Name </StyledTableCell>
             <StyledTableCell align="right"> Position </StyledTableCell>
+            <StyledTableCell align="right"> Note </StyledTableCell>
             <StyledTableCell align="right"> Dob </StyledTableCell>
            
           </TableRow>

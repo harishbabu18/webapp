@@ -14,8 +14,11 @@ import IconButton from '@material-ui/core/IconButton';
 import AddBox from '@material-ui/icons/AddBox';
 import Email from '@material-ui/icons/Email';
 import PhoneAndroid from '@material-ui/icons/PhoneAndroid';
-import CountrySelect from '../components/CountrySelect'
-import Task from './Task'
+import {SERVER_URL} from '../config';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const useStyles = theme => ({
   container: {
@@ -31,15 +34,110 @@ const useStyles = theme => ({
 });
 
 class CreateContact extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      firstname:'',
+      lastname:'',
+      note:'',
+      dob:'',
+      company:[],
+      companyValue: '',
+      position:[],
+      positionValue: '',
+      updatedValue:'Status',
+    }
+  }
+
+  componentDidMount(){
+
+    fetch(SERVER_URL+'/company')
+    .then(r => r.json())
+    .then(json => this.setState({company: json}))
+    .catch(error => console.error('Error retrieving Tickrts: ' + error));
+
+
+
+    fetch(SERVER_URL+'/position')
+    .then(r => r.json())
+    .then(json => this.setState({position: json}))
+    .catch(error => console.error('Error retrieving Tickrts: ' + error));
+  }
+  
+  
+  handleChangefirstname=(event)=>{
+    this.setState({firstname:event.target.value});
+    
+  }
+  handleChangedob=(event)=>{
+    this.setState({dob:event.target.value});
+    console.log(this.state.dob)
+  } 
+  handleChangelastname=(event)=>{
+    this.setState({lastname:event.target.value});
+
+  }
+
+  handleChangecompany=(event)=>{
+    this.setState({companyValue:event.target.value});
+    console.log(this.state.companyValue)
+
+  }
+  handleChangeposition=(event)=>{
+    this.setState({positionValue:event.target.value});
+    console.log(this.state.positionValue)
+
+  }
+  handleChangenote=(event)=>{
+    this.setState({note:event.target.value});
+
+  }
+  handleSubmit=(event)=>{
+    event.preventDefault()
+    fetch(SERVER_URL+'/contact', { 
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        company:this.state.companyValue,
+        firstName:this.state.firstname,
+        lastName:this.state.lastname,
+        position:this.state.positionValue,
+        note:this.state.note,
+        dob:this.state.dob
+    
+      })
+    }).then(r=> r.json()).then(json =>{
+      let updatedValue = this.state.updatedValue;
+      updatedValue = "contact " +json.id+" is Added Successfully"
+    this.setState({updatedValue})
+    }).catch(error =>{
+      let updatedValue = this.state.updatedValue;
+      updatedValue = "The Error is " +error.message;
+    this.setState({updatedValue})
+
+    } )
+    };
+
   render(){
   const {classes} = this .props;
+  function renderCompanyRow(company) {
+    return (<MenuItem value={company.id}>{company.name}</MenuItem>);
+  }
+  function renderPositionRow(position) {
+    return (<MenuItem value={position.id}>{position.name}</MenuItem>);
+  }
 
   return (
-      <div>    
-    <Grid container component="main" className={classes.root}>
-    <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
+    
+         
+   
     <div className={classes.container}>
-     
+      
+      <form onSubmit={this.handleSubmit} >
     <Typography component="h1" variant="h5" inline>
                 Create Contact Profile
     </Typography>
@@ -51,6 +149,7 @@ class CreateContact extends React.Component {
      placeholder="First Name"
      fullWidth
      margin="normal"
+     onChange={this.handleChangefirstname}
      InputLabelProps={{
        shrink: true,
      }}
@@ -68,6 +167,7 @@ class CreateContact extends React.Component {
      placeholder="Last Name"
      fullWidth
      margin="normal"
+     onChange={this.handleChangelastname}
      InputLabelProps={{
        shrink: true,
      }}
@@ -85,213 +185,73 @@ class CreateContact extends React.Component {
      placeholder="Note"
      fullWidth
      margin="normal"
+     onChange={this.handleChangenote}
      InputLabelProps={{
        shrink: true,
      }}
      variant="outlined"
    />
-   <SelectText />
-   <SelectText />
-   <Button variant="contained" size="small"  color="primary">
-        <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
-        Save
-      </Button>
+      <FormControl variant="outlined" className={classes.textField}>
+        <InputLabel 
+        //ref={inputLabel} 
+        id="demo-simple-select-outlined-label">
+          Company
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={this.state.companyValue}
+          onChange={this.handleChangecompany.bind(this)}
+          //labelWidth={labelWidth}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.state.company.map(renderCompanyRow)}
+        </Select>
+      </FormControl>
+      <FormControl variant="outlined" className={classes.textField}>
+        <InputLabel 
+        //ref={inputLabel} 
+        id="demo-simple-select-outlined-label">
+          Position
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={this.state.positionValue}
+          onChange={this.handleChangeposition.bind(this)}
+          //labelWidth={labelWidth}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.state.position.map(renderPositionRow)}
+        </Select>
+      </FormControl>
+
+      <TextField
+    id="date"
+    label="DOB"
+    type="date"
+    defaultValue=""
+    onChange={this.handleChangedob}
+    className={classes.textField}
+    InputLabelProps={{
+      shrink: true,
+    }}
+  />
+    <Button className={classes.textField} type="Submit">Save</Button>
+      </form>
+      <div className={classes.root}>
+        {this.state.updatedValue}
+      
+        </div>
     </div>
-    </Grid>
-    <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
-    <div className={classes.container}>
-    <Typography component="h1" variant="h5" inline>
-                Create Contact
-              </Typography>
-    <TextField
-     id="outlined-full-width"
-     label="E-Mail"
-     style={{ margin: 8 }}
-     placeholder="E-Mail"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     InputProps={{
-      startAdornment: <InputAdornment position="start">
-        <Email />
-        </InputAdornment>,
-        endAdornment:<InputAdornment position='end'>
-        <IconButton
-          aria-label='toggle password visibility'
-          >
-            <AddBox />
-          
-        </IconButton>
-      </InputAdornment>
-    }}
-     variant="outlined"
-   />
     
-    
-
-   <TextField
-     id="outlined-full-width"
-     label="Mobile"
-     style={{ margin: 8 }}
-     placeholder="Mobile"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     InputProps={{
-      startAdornment: <InputAdornment position="start">
-        <PhoneAndroid />
-        </InputAdornment>,
-        endAdornment:<InputAdornment position='end'>
-        <IconButton
-          aria-label='toggle password visibility'
-          >
-            <AddBox />
-          
-        </IconButton>
-      </InputAdornment>
-    }}
-     variant="outlined"
-   />
-   <TextField
-     id="outlined-full-width"
-     label="Fax"
-     style={{ margin: 8 }}
-     placeholder="Fax"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     InputProps={{
-      startAdornment: <InputAdornment position="start">
-        <AccountCircle />
-        </InputAdornment>,
-        endAdornment:<InputAdornment position='end'>
-        <IconButton
-          aria-label='toggle password visibility'
-          >
-            <AddBox /> 
-        </IconButton>
-      </InputAdornment>
-    }}
-     variant="outlined"
-   />
-   </div>
+  
    
-    </Grid>
-    <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
-    <div className={classes.container}>
-
-    <Typography component="h1" variant="h5" inline>
-                Contact List
-              </Typography>
-              </div>
-    </Grid>
-    <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
-    <div className={classes.container}>
-    <Typography component="h1" variant="h5" inline>
-                Create Address
-              </Typography>
-              <TextField
-     id="outlined-full-width"
-     label="Address Line One"
-     style={{ margin: 8 }}
-     placeholder="Address Line One"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     variant="outlined"
-   />
-   <TextField
-     id="outlined-full-width"
-     label="Address Line two"
-     style={{ margin: 8 }}
-     placeholder="Address Line two"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     variant="outlined"
-   />
-   <TextField
-     id="outlined-full-width"
-     label="Area"
-     style={{ margin: 8 }}
-     placeholder="Area"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     variant="outlined"
-   />
-   <TextField
-     id="outlined-full-width"
-     label="Zip"
-     style={{ margin: 8 }}
-     placeholder="Zip"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     variant="outlined"
-   />
-   <CountrySelect />
-   <Button variant="contained" size="small"  color="primary">
-        <SaveIcon className={clsx(classes.leftIcon, classes.iconSmall)} />
-        Save
-      </Button>
-   </div>
-    </Grid>
-    <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
-    <div className={classes.container}>
-
-    <Typography component="h1" variant="h5" inline>
-    Address List
-    </Typography>
-
-   </div>
-    </Grid>
-    <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
-    <div className={classes.container}>
     
-    <Typography component="h1" variant="h5" inline>
-    Create Task
-    </Typography>
-
-    <TextField
-     id="outlined-full-width"
-     label="Task"
-     style={{ margin: 8 }}
-     placeholder="Task"
-     fullWidth
-     margin="normal"
-     InputLabelProps={{
-       shrink: true,
-     }}
-     variant="outlined"
-   />
-   <SelectText />
-</div>
-              
-   
-    </Grid>
-    <Grid item  sm={12} component={Paper} elevation={6} square>
-      <Task />
-
-    </Grid>
-
-    
-    </Grid>
-    </div>
   );
 }
 }
