@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import CreateEmail from '../crud/CreateEmail';
+import CreatePhone from '../crud/CreatePhone';
 import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../../config';
 import { Button } from '@material-ui/core';
@@ -23,14 +23,14 @@ const useStyles = theme => ({
     },
   });
   
-  class Email extends React.Component {
+  class Phone extends React.Component {
       constructor() {
           super();
       
           this.state = {
             offset:0,
             max:10,
-            email: [],
+            phone: [],
             filterList:[],
             searchTicketValue:'',
             
@@ -38,22 +38,22 @@ const useStyles = theme => ({
         }
 
         componentDidMount() {
-            this.loadEmail()
+            this.loadPhone()
            }
-           loadEmail = () => {
-             const {offset,max,email} = this.state
-            const url = SERVER_URL+'/email?offset='+offset+'&max='+max
+           loadPhone = () => {
+             const {offset,max,phone} = this.state
+            const url = SERVER_URL+'/phone?offset='+offset+'&max='+max
            
              fetch(url)
              .then(r => r.json())
-             .then(json => this.setState({email:[...email,...json] }))
+             .then(json => this.setState({phone:[...phone,...json] }))
              .catch(error => console.error('Error retrieving Companies: ' + error));
            }
      
            loadMore=()=>{
              this.setState(prevState =>({
                offset:prevState.offset+10
-             }),this.loadEmail)     
+             }),this.loadPhone)     
            }
 
 
@@ -81,11 +81,11 @@ const useStyles = theme => ({
           
           
 
-          function renderEmailRow(Email) {
+          function renderPhoneRow(Phone) {
 
-            return (<StyledTableRow key={Email.id}>
+            return (<StyledTableRow key={Phone.id}>
               <StyledTableCell component="th" scope="row">
-               {Email.email}</StyledTableCell>
+               {Phone.phone}</StyledTableCell>
               {/* <StyledTableCell align="right">{Email.company.id}</StyledTableCell> */}
               {/* <StyledTableCell align="right">{Email.contact.id}</StyledTableCell> */}
                </StyledTableRow>
@@ -96,21 +96,21 @@ const useStyles = theme => ({
         return(
           <Grid container component="main" className={classes.root}>
           <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
-            <CreateEmail />
+            <CreatePhone />
           </Grid>
           <Grid item  sm={12} md={8}  component={Paper} elevation={6} square>
             <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Email</StyledTableCell>
+            <StyledTableCell>Phone</StyledTableCell>
             {/* <StyledTableCell align="right"> Company </StyledTableCell>
             <StyledTableCell align="right"> Contact</StyledTableCell> */}
 
           </TableRow>
         </TableHead>
         <TableBody>
-        {this.state.email.map(renderEmailRow)}
+        {this.state.phone.map(renderPhoneRow)}
         </TableBody>
       </Table>
       <Button onClick={this.loadMore}>Load More</Button>
@@ -121,4 +121,4 @@ const useStyles = theme => ({
       }
 
     }
-export default  withStyles(useStyles)(Email);
+export default  withStyles(useStyles)(Phone);

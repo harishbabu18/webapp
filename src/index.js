@@ -29,6 +29,14 @@ import ContactDashboard from './pages/ContactDashboard';
 import FreeSolo from './components/SelectText';
 import CreateContact from './pages/CreateContact';
 import CreateTask from './pages/CreateTask';
+import CreateEmail from './pages/crud/CreateEmail';
+import Email from './pages/crud/EmailList';
+import CreatePhone from './pages/crud/CreatePhone';
+import CreateFax from './pages/crud/CreateFax';
+import Phone from './pages/crud/PhoneList';
+
+
+
 import Task from './pages/Task';
 
 
@@ -220,6 +228,21 @@ class Index extends React.Component {
           <Contact />
         </PrivateRoute>
         
+        <PrivateRoute exact path="/create/email">
+            <CreateEmail />
+        </PrivateRoute>
+        <PrivateRoute  exact  path="/email">
+          <Email />
+        </PrivateRoute>
+        <PrivateRoute  exact  path="/phone">
+          <Phone />
+        </PrivateRoute>
+        <PrivateRoute exact path="/create/phone">
+            <CreatePhone />
+        </PrivateRoute>
+        <PrivateRoute exact path="/create/fax">
+            <CreateFax />
+        </PrivateRoute>
         </Switch>
       </div>
     </BrowserRouter>

@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Email from '@material-ui/icons/Email';
+import PhoneAndroid from '@material-ui/icons/PhoneAndroid';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
@@ -34,7 +34,7 @@ const useStyles = theme => ({
 
 });
 
-class CreateContact extends React.Component {
+class CreatePhone extends React.Component {
 
 
     constructor(props) {
@@ -46,7 +46,7 @@ class CreateContact extends React.Component {
           companyValue: '',
           contact:[],
           contactValue:'',
-          emailValue:'',
+          phoneValue:'',
       }
     }
 
@@ -71,28 +71,28 @@ class CreateContact extends React.Component {
     this.setState({contactValue:event.target.value});
 
   }
-  handleemailValue=(event)=>{
-    this.setState({emailValue:event.target.value});
+  handlephoneValue=(event)=>{
+    this.setState({phoneValue:event.target.value});
 
   }
 
 
   handleSubmit=(event)=>{
     event.preventDefault()
-    fetch(SERVER_URL+'/email', { 
+    fetch(SERVER_URL+'/phone', { 
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email:this.state.emailValue,
+        phone:this.state.phoneValue,
         company:this.state.companyValue,
         contact:this.state.contactValue
       })
     }).then(r=> r.json()).then(json =>{
       let updatedValue = this.state.updatedValue;
-      updatedValue = "Email ID " +json.id+" is Added Successfully"
+      updatedValue = "Phone ID " +json.id+" is Added Successfully"
     this.setState({updatedValue})
     }).catch(error =>{
       let updatedValue = this.state.updatedValue;
@@ -118,28 +118,31 @@ class CreateContact extends React.Component {
                <div  className={classes.container}>
           <form onSubmit={this.handleSubmit} >
         <Typography component="h1" variant="h5" inline>
-                Create Email
+                Create Mobile
               </Typography>
+
+      
 
               <TextField
      id="outlined-full-width"
-     label="E-Mail"
+     label="Mobile"
      style={{ margin: 8 }}
-     placeholder="E-Mail"
+     placeholder="Mobile"
      fullWidth
+     onChange={this.handlephoneValue}
      margin="normal"
-     onChange={this.handleemailValue}
      InputLabelProps={{
        shrink: true,
      }}
      InputProps={{
       startAdornment: <InputAdornment position="start">
-        <Email />
+        <PhoneAndroid />
         </InputAdornment>,
         endAdornment:<InputAdornment position='end'>
         <IconButton
           aria-label='toggle password visibility'
-          >          
+          >
+          
         </IconButton>
       </InputAdornment>
     }}
@@ -205,4 +208,4 @@ id="demo-simple-select-outlined-label">
 }
       }
 
-export default  withStyles(useStyles)(CreateContact);
+export default  withStyles(useStyles)(CreatePhone);
