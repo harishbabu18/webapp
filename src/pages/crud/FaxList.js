@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import CreatePhone from '../crud/CreatePhone';
+import CreateFax from '../crud/CreateFax';
 import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../../config';
 import { Button } from '@material-ui/core';
@@ -23,14 +23,14 @@ const useStyles = theme => ({
     },
   });
   
-  class Phone extends React.Component {
+  class Fax extends React.Component {
       constructor() {
           super();
       
           this.state = {
             offset:0,
             max:10,
-            mobile: [],
+            fax: [],
             filterList:[],
             searchTicketValue:'',
             
@@ -38,22 +38,22 @@ const useStyles = theme => ({
         }
 
         componentDidMount() {
-            this.loadPhone()
+            this.loadfax()
            }
-           loadPhone = () => {
-             const {offset,max,mobile} = this.state
-            const url = SERVER_URL+'/mobile?offset='+offset+'&max='+max
+           loadfax = () => {
+             const {offset,max,fax} = this.state
+            const url = SERVER_URL+'/fax?offset='+offset+'&max='+max
            
              fetch(url)
              .then(r => r.json())
-             .then(json => this.setState({mobile:[...mobile,...json] }))
+             .then(json => this.setState({fax:[...fax,...json] }))
              .catch(error => console.error('Error retrieving Companies: ' + error));
            }
      
            loadMore=()=>{
              this.setState(prevState =>({
                offset:prevState.offset+10
-             }),this.loadPhone)     
+             }),this.loadfax)     
            }
 
 
@@ -81,11 +81,11 @@ const useStyles = theme => ({
           
           
 
-          function renderPhoneRow(Phone) {
+          function renderFaxRow(Fax) {
 
-            return (<StyledTableRow key={Phone.id}>
+            return (<StyledTableRow key={Fax.id}>
               <StyledTableCell component="th" scope="row">
-               {Phone.mobile}</StyledTableCell>
+               {Fax.fax}</StyledTableCell>
               {/* <StyledTableCell align="right">{Email.company.id}</StyledTableCell> */}
               {/* <StyledTableCell align="right">{Email.contact.id}</StyledTableCell> */}
                </StyledTableRow>
@@ -96,21 +96,21 @@ const useStyles = theme => ({
         return(
           <Grid container component="main" className={classes.root}>
           <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
-            <CreatePhone />
+            <CreateFax />
           </Grid>
           <Grid item  sm={12} md={8}  component={Paper} elevation={6} square>
             <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Phone</StyledTableCell>
+            <StyledTableCell>Fax</StyledTableCell>
             {/* <StyledTableCell align="right"> Company </StyledTableCell>
             <StyledTableCell align="right"> Contact</StyledTableCell> */}
 
           </TableRow>
         </TableHead>
         <TableBody>
-        {this.state.mobile.map(renderPhoneRow)}
+        {this.state.fax.map(renderFaxRow)}
         </TableBody>
       </Table>
       <Button onClick={this.loadMore}>Load More</Button>
@@ -121,4 +121,4 @@ const useStyles = theme => ({
       }
 
     }
-export default  withStyles(useStyles)(Phone);
+export default  withStyles(useStyles)(Fax);

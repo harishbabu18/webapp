@@ -79,14 +79,14 @@ class CreatePhone extends React.Component {
 
   handleSubmit=(event)=>{
     event.preventDefault()
-    fetch(SERVER_URL+'/phone', { 
+    fetch(SERVER_URL+'/mobile', { 
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        phone:this.state.phoneValue,
+        mobile:this.state.phoneValue,
         company:this.state.companyValue,
         contact:this.state.contactValue
       })

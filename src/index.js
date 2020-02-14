@@ -34,6 +34,8 @@ import Email from './pages/crud/EmailList';
 import CreatePhone from './pages/crud/CreatePhone';
 import CreateFax from './pages/crud/CreateFax';
 import Phone from './pages/crud/PhoneList';
+import Fax from './pages/crud/FaxList';
+
 
 
 
@@ -234,14 +236,17 @@ class Index extends React.Component {
         <PrivateRoute  exact  path="/email">
           <Email />
         </PrivateRoute>
-        <PrivateRoute  exact  path="/phone">
+        <PrivateRoute  exact  path="/mobile">
           <Phone />
         </PrivateRoute>
-        <PrivateRoute exact path="/create/phone">
+        <PrivateRoute exact path="/create/mobile">
             <CreatePhone />
         </PrivateRoute>
         <PrivateRoute exact path="/create/fax">
             <CreateFax />
+        </PrivateRoute>
+        <PrivateRoute exact path="/fax">
+            <Fax />
         </PrivateRoute>
         </Switch>
       </div>

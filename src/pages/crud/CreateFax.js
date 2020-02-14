@@ -86,7 +86,7 @@ class CreateFax extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email:this.state.faxValue,
+        fax:this.state.faxValue,
         company:this.state.companyValue,
         contact:this.state.contactValue
       })
