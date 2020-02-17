@@ -40,6 +40,7 @@ import Fax from './pages/crud/FaxList';
 
 
 import Task from './pages/Task';
+import Admin from './layout/Admin';
 
 
 
@@ -167,6 +168,9 @@ class Index extends React.Component {
       <Switch>
         <PrivateRoute  exact path="/" >
             <App />
+        </PrivateRoute>
+        <PrivateRoute  exact path="/admin" >
+            <Admin />
         </PrivateRoute>
         <LoggedInRedirect  exact path="/login" >
         <Login LoginSubmit={this.LoginSubmit} _usernameValue={this._usernameValue} _passwordValue={this._passwordValue}/>

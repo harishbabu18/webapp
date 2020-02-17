@@ -65,23 +65,12 @@ class Login extends React.Component {
     this.state = {
         username: '',
         password: '',
-        error:null
-      
-        
+        error:null     
     }
   }
-   
-    
- 
-
-
   render() {
-
     const { classes } = this.props;
-
-
     return (
-      <div>
      <Grid container component="main" className={classes.root}>
           <CssBaseline />
           <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -150,7 +139,6 @@ class Login extends React.Component {
             </div>
           </Grid>
         </Grid>
-     </div>
     );
   }
 
