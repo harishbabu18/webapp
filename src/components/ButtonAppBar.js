@@ -23,6 +23,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
 
+import Dialog from '@material-ui/core/Dialog';
+import Divider from '@material-ui/core/Divider';
+import CloseIcon from '@material-ui/icons/Close';
+import Slide from '@material-ui/core/Slide';
+
+import CreateCompany from '../pages/CreateCompany';
+import CreateContact from '../pages/CreateContact'
+
+
+
 
 
 const useStyles = theme => ({
@@ -52,7 +62,22 @@ const useStyles = theme => ({
   paper: {
     marginRight: theme.spacing(2),
   },
+
+  appBar: {
+    position: 'relative',
+    color: 'white',
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+  },
 });
+
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 
  
   class ButtonAppBar extends React.Component {
@@ -64,11 +89,15 @@ const useStyles = theme => ({
         anchorEl1:null,
         dropdown:false,
         dropdown1:false,
+        clickOpen:false,
+        clickClose:true,
+        open2:false,
+        createpages:'',
+        id:''
 
       }
     }
 
-    
 
      toggleDrawer  = (open) => event => {
       if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -111,12 +140,34 @@ const useStyles = theme => ({
       console.log('close1')
     };
 
-   
+     handleClickOpen = (event) => {
+      this.setState({clickOpen:true,id:event.target.id})
+
+      if(event.target.id==='company'){
+        
+      }
+      console.log('this '+this.state.clickOpen)
+      console.log("page id"+event.target.id)
+    };
+  
+     handleclickClose = () => {
+      this.setState({clickOpen:false,id:''})
+      console.log('this '+this.state.clickOpen)
+
+    };
+
+ 
    
 
 
     renderElement(){
       const { classes } = this.props;
+
+      // const Transition = React.forwardRef(function Transition(props, ref) {
+      //   return <Slide direction="up" ref={ref} {...props} />;
+      // });
+     
+
       if(this.props.loggedIn == true){
          return (<div>
            {/* <Link to="/company" className={classes.Link} > <Button color="inherit" > Company </Button> </Link>
@@ -149,14 +200,14 @@ const useStyles = theme => ({
                 onClose={this.handleClose1}
 
               >
-                <MenuItem  > Company </MenuItem>
-                <MenuItem> Contact </MenuItem>
-                <MenuItem> Task </MenuItem>
-                <MenuItem> Ticket </MenuItem>
-                <MenuItem> Employee </MenuItem>
-                <MenuItem> Email </MenuItem>
-                <MenuItem> Phone </MenuItem>
-                <MenuItem> Fax </MenuItem>
+                <MenuItem id='company' onClick={this.handleClickOpen} > Company </MenuItem>
+                <MenuItem id='contact' onClick={this.handleClickOpen} > Contact </MenuItem>
+                <MenuItem  onClick={this.handleClickOpen} > Task </MenuItem>
+                <MenuItem onClick={this.handleClickOpen} > Ticket </MenuItem>
+                <MenuItem onClick={this.handleClickOpen} > Employee </MenuItem>
+                <MenuItem onClick={this.handleClickOpen} > Email </MenuItem>
+                <MenuItem onClick={this.handleClickOpen} > Phone </MenuItem>
+                <MenuItem onClick={this.handleClickOpen} > Fax </MenuItem>
 
               </Menu>
 
@@ -195,12 +246,31 @@ const useStyles = theme => ({
                 <MenuItem onClick={(event) => this.props.logoutHandler(event)}>Logout</MenuItem>
               </Menu>
           {/* <Button color="inherit" >Logout</Button> */}
+
+       
           </div>)
          }
    }
 
+   renderCreatePage=(event)=>{
+
+    console.log(event.target.id)
+
+   }
+
+
     render(){
       const { classes } = this.props;
+
+  
+
+
+   
+
+
+      // const Transition = React.forwardRef(function Transition(props, ref) {
+      //   return <Slide direction="up" ref={ref} {...props} />;
+      // });
 
       return (
         <div className={classes.grow}>
@@ -239,6 +309,32 @@ const useStyles = theme => ({
 
       </div>
        </Drawer>
+
+       <Dialog fullScreen open={this.state.clickOpen} onClose={this.handleclickClose} TransitionComponent={Transition}>
+        <AppBar className={classes.appBar}>
+       <Toolbar>
+            <IconButton edge="start" color="inherit" onClick={this.handleclickClose} aria-label="close">
+              <CloseIcon />
+            </IconButton>
+         
+          </Toolbar>
+        </AppBar>
+
+        <div>
+        {(() => {
+        switch (this.state.id) {
+          case "company":   return <CreateCompany />;
+          case "contact": return "#00FF00";
+          default:      return "#FFFFFF";
+        }
+      })()}
+        
+      
+
+        </div>
+     
+     
+      </Dialog>
        
         </div>
       );
