@@ -61,7 +61,10 @@ const useStyles = theme => ({
       this.state = {
         open:true,
         anchorEl:null,
-        dropdown:false
+        anchorEl1:null,
+        dropdown:false,
+        dropdown1:false,
+
       }
     }
 
@@ -87,8 +90,25 @@ const useStyles = theme => ({
 
     };
 
+    handleMenu1 = event => {
+      // setAnchorEl(event.currentTarget);
+
+      this.setState({anchorEl1:event.currentTarget,dropdown1:true})
+
+
+      console.log("Current status Target"+event.currentTarget);
+
+
+    };
+
+
     handleClose = () => {
       this.setState({anchorEl:null,dropdown:false})
+    };
+
+    handleClose1 = () => {
+      this.setState({anchorEl1:null,dropdown1:false})
+      console.log('close1')
     };
 
    
@@ -104,9 +124,42 @@ const useStyles = theme => ({
            <Link to="/ticket" className={classes.Link} > <Button color="inherit" > Ticket </Button> </Link>
            <Link to="/task" className={classes.Link} > <Button color="inherit" > Task </Button> </Link>
            <Link to="/employee" className={classes.Link} > <Button color="inherit" > Employee </Button> </Link> */}
-           <IconButton aria-label="show 17 new notifications" color="inherit">
+           <IconButton 
+           aria-label="show 17 new notifications"
+           onClick={this.handleMenu1}
+           color="inherit">
+            
            <AddIcon />
            </IconButton>
+
+
+           <Menu
+                id="menu-appbar"
+                anchorEl={this.state.anchorEl1}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={this.state.dropdown1}
+                onClose={this.handleClose1}
+
+              >
+                <MenuItem  > Company </MenuItem>
+                <MenuItem> Contact </MenuItem>
+                <MenuItem> Task </MenuItem>
+                <MenuItem> Ticket </MenuItem>
+                <MenuItem> Employee </MenuItem>
+                <MenuItem> Email </MenuItem>
+                <MenuItem> Phone </MenuItem>
+                <MenuItem> Fax </MenuItem>
+
+              </Menu>
+
            <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon />
