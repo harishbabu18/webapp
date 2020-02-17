@@ -29,10 +29,13 @@ import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
 import CreateCompany from '../pages/CreateCompany';
-import CreateContact from '../pages/CreateContact'
-
-
-
+import CreateContact from '../pages/CreateContact';
+import CreateTask from '../pages/CreateTask';
+import CreateTicket from '../pages/CreateTicket';
+import CreateEmployee from '../pages/CreateEmployee';
+import CreateEmail from '../pages/crud/CreateEmail';
+import CreatePhone from '../pages/crud/CreatePhone';
+import CreateFax from '../pages/crud/CreateFax';
 
 
 const useStyles = theme => ({
@@ -202,12 +205,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
               >
                 <MenuItem id='company' onClick={this.handleClickOpen} > Company </MenuItem>
                 <MenuItem id='contact' onClick={this.handleClickOpen} > Contact </MenuItem>
-                <MenuItem  onClick={this.handleClickOpen} > Task </MenuItem>
-                <MenuItem onClick={this.handleClickOpen} > Ticket </MenuItem>
-                <MenuItem onClick={this.handleClickOpen} > Employee </MenuItem>
-                <MenuItem onClick={this.handleClickOpen} > Email </MenuItem>
-                <MenuItem onClick={this.handleClickOpen} > Phone </MenuItem>
-                <MenuItem onClick={this.handleClickOpen} > Fax </MenuItem>
+                <MenuItem id='task' onClick={this.handleClickOpen} > Task </MenuItem>
+                <MenuItem id='ticket' onClick={this.handleClickOpen} > Ticket </MenuItem>
+                <MenuItem id='employee' onClick={this.handleClickOpen} > Employee </MenuItem>
+                <MenuItem id='email' onClick={this.handleClickOpen} > Email </MenuItem>
+                <MenuItem id='phone' onClick={this.handleClickOpen} > Phone </MenuItem>
+                <MenuItem id='fax' onClick={this.handleClickOpen} > Fax </MenuItem>
 
               </Menu>
 
@@ -299,12 +302,47 @@ const Transition = React.forwardRef(function Transition(props, ref) {
       onClick={this.toggleDrawer(false)}
       onKeyDown={this.toggleDrawer(false)}>
          <List>
-        <ListItem button key="dashboard">
+
+         <ListItem button component={Link} to="/" key="dashboard">
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
           <ListItemText>Dashboard</ListItemText>
         </ListItem>
+        <ListItem button component={Link} to="/company" key="dashboard">
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          
+          <ListItemText>Company Dashboard</ListItemText>
+        
+
+        </ListItem>
+        <ListItem button component={Link} to="/contact" key="dashboard">
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText>Contact Dashboard</ListItemText>
+        </ListItem>
+        <ListItem button component={Link} to="/ticket" key="dashboard">
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText>Ticket Dashboard</ListItemText>
+        </ListItem>
+        <ListItem button component={Link} to="/task" key="dashboard">
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText>Task Dashboard</ListItemText>
+        </ListItem>
+        <ListItem button component={Link} to="/employee" key="dashboard">
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText>Employee Dashboard</ListItemText>
+        </ListItem>
+
       </List>
 
       </div>
@@ -324,7 +362,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
         {(() => {
         switch (this.state.id) {
           case "company":   return <CreateCompany />;
-          case "contact": return "#00FF00";
+          case "contact": return <CreateContact />;
+          case "task":   return <CreateTask />;
+          case "ticket": return <CreateTicket />;
+          case "employee":   return <CreateEmployee />;
+          case "email": return <CreateEmail />;
+          case "phone":   return <CreatePhone />;
+          case "fax": return <CreateFax />;
+
           default:      return "#FFFFFF";
         }
       })()}

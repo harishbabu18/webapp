@@ -93,11 +93,8 @@ class Company extends React.Component {
 
         return(
           <Grid container component="main" className={classes.root}>
-          <Grid item  sm={12} md={4}  component={Paper} elevation={6} square>
-            <CreateCompany />
-          </Grid>
          
-          <Grid item  sm={12} md={8}  component={Paper} elevation={6} square>
+          <Grid item  sm={12} md={12}  component={Paper} elevation={6} square>
             <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
