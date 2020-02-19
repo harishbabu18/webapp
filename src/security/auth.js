@@ -4,24 +4,24 @@ import {checkResponseStatus} from './../handlers/responseHandlers';
 import 'whatwg-fetch';
 import qs from 'qs';
 
-//<1>
+
 export default {
-  logIn(auth) { //<2>
+  logIn(auth) { 
     localStorage.auth = JSON.stringify(auth);
   },
 
-  logOut() { //<3>
+  logOut() { 
     delete localStorage.auth;
   },
 
-  refreshToken() { //<4>
+  refreshToken() { 
     return fetch(
       `${SERVER_URL}/oauth/access_token`,
       { method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
         },
-        body: qs.stringify({ //<5>
+        body: qs.stringify({ 
           grant_type: 'refresh_token',
           refresh_token: JSON.parse(localStorage.auth).refresh_token
         })
@@ -31,15 +31,7 @@ export default {
       .catch(() => { throw new Error("Unable to refresh!")})
   },
 
-  loggedIn() {  //<6>
+  loggedIn() {  
     return localStorage.auth 
-
-    // && fetch(
-    //     `${SERVER_URL}/api/vehicle`, //<7>
-    //     {headers: headers()})
-    //     .then(checkResponseStatus)
-    //     .then(() => { return true })
-    //     .catch(this.refreshToken)
-    //     .catch(() => { return false });
   }
 };

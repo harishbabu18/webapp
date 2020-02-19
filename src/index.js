@@ -42,6 +42,10 @@ import Fax from './pages/crud/FaxList';
 import Task from './pages/Task';
 import Admin from './layout/Admin';
 
+import allReducers from './reducers'
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+
 
 
 
@@ -304,7 +308,13 @@ function LoggedInRedirect({ children, ...rest }){
   );
 
 }
+
+const store = createStore(allReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
   
-ReactDOM.render(<Index />, document.getElementById('root'));
+ReactDOM.render(
+  <Provider store={store}>
+<Index />
+</Provider>
+, document.getElementById('root'));
 
 // serviceWorker.unregister();

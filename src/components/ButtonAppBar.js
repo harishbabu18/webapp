@@ -181,8 +181,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
            <IconButton 
            aria-label="show 17 new notifications"
            onClick={this.handleMenu1}
-           color="inherit">
-            
+           color="inherit">   
            <AddIcon />
            </IconButton>
 
