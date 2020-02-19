@@ -100,7 +100,6 @@ class Ticket extends React.Component {
 
         return(
           <Grid container component="main" className={classes.root}>
-       
           <Grid item  sm={12} md={12}  component={Paper} elevation={6} square>
             <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">
