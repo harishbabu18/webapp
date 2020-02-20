@@ -19,6 +19,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import SendIcon from '@material-ui/icons/Send';
+
 
 import Dialog from '@material-ui/core/Dialog';
 import CloseIcon from '@material-ui/icons/Close';
@@ -77,6 +79,37 @@ const useStyles = theme => ({
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
+
+const StyledMenu = withStyles({
+  paper: {
+    border: '1px solid #d3d4d5',
+  },
+})(props => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'center',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'center',
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles(theme => ({
+  root: {
+    '&:focus': {
+      backgroundColor: theme.palette.primary.main,
+      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+        color: theme.palette.common.white,
+      },
+    },
+  },
+}))(MenuItem);
 
 
  
@@ -143,7 +176,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
      handleClickOpen = (event) => {
       this.setState({clickOpen:true,id:event.target.id})
 
-      if(event.target.id==='company'){
+      if(event.target.id==='Company'){
         
       }
       console.log('this '+this.state.clickOpen)
@@ -184,8 +217,9 @@ const Transition = React.forwardRef(function Transition(props, ref) {
            </IconButton>
 
 
-           <Menu
-                id="menu-appbar"
+          <Menu
+
+                id="customized-menu"
                 anchorEl={this.state.anchorEl1}
                 anchorOrigin={{
                   vertical: 'top',
@@ -199,9 +233,23 @@ const Transition = React.forwardRef(function Transition(props, ref) {
                 open={this.state.dropdown1}
                 onClose={this.handleClose1}
 
-              >
-                <MenuItem id='company' onClick={this.handleClickOpen} > Company </MenuItem>
-                <MenuItem id='contact' onClick={this.handleClickOpen} > Contact </MenuItem>
+              > 
+             
+
+                <StyledMenuItem id='Company'  onClick={this.handleClickOpen}  >
+                  <ListItemIcon id='Company'>
+                    <SendIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText id='Company' primary="Company" /> 
+                </StyledMenuItem>
+                
+                <MenuItem id='contact' onClick={this.handleClickOpen} >
+                {/* <ListItemIcon id='Company'>
+                    <SendIcon id='Company' fontSize="small" />
+                  </ListItemIcon> */}
+                  <ListItemText  onClick={this.handleClickOpen} id='Company'> Company </ListItemText> 
+                   
+                </MenuItem>
                 <MenuItem id='task' onClick={this.handleClickOpen} > Task </MenuItem>
                 <MenuItem id='ticket' onClick={this.handleClickOpen} > Ticket </MenuItem>
                 <MenuItem id='employee' onClick={this.handleClickOpen} > Employee </MenuItem>
@@ -358,7 +406,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
         <div>
         {(() => {
         switch (this.state.id) {
-          case "company":   return <CreateCompany />;
+          case "Company":   return <CreateCompany />;
           case "contact": return <CreateContact />;
           case "task":   return <CreateTask />;
           case "ticket": return <CreateTicket />;
