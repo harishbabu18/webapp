@@ -5,7 +5,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Badge from '@material-ui/core/Badge';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -20,11 +19,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-
 
 import Dialog from '@material-ui/core/Dialog';
-import Divider from '@material-ui/core/Divider';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
@@ -36,6 +32,7 @@ import CreateEmployee from '../pages/CreateEmployee';
 import CreateEmail from '../pages/crud/CreateEmail';
 import CreatePhone from '../pages/crud/CreatePhone';
 import CreateFax from '../pages/crud/CreateFax';
+import { CssBaseline } from '@material-ui/core';
 
 
 const useStyles = theme => ({
@@ -173,6 +170,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
       if(this.props.loggedIn == true){
          return (<div>
+           <CssBaseline />
            {/* <Link to="/company" className={classes.Link} > <Button color="inherit" > Company </Button> </Link>
            <Link to="/contact" className={classes.Link} > <Button color="inherit" > Contact </Button> </Link>
            <Link to="/ticket" className={classes.Link} > <Button color="inherit" > Ticket </Button> </Link>

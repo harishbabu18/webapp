@@ -8,15 +8,15 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
-import CreateEmployee from './CreateEmployee';
 import Grid from '@material-ui/core/Grid';
+
 
 
 
 const useStyles = theme => ({
   root: {
     width: '100%',
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(1),
     overflowX: 'auto',
   },
   table: {
@@ -110,7 +110,6 @@ class Employee extends React.Component {
 
         return(
           <Grid container component="main" className={classes.root}>
-       
           <Grid item  sm={12}  component={Paper} elevation={6} square>
             <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">

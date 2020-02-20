@@ -6,16 +6,17 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import CreateFax from '../crud/CreateFax';
 import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../../config';
 import { Button } from '@material-ui/core';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 
 
 const useStyles = theme => ({
     root: {
       width: '100%',
-      marginTop: theme.spacing(3),
+      marginTop: theme.spacing(1),
       overflowX: 'auto',
     },
     table: {
@@ -95,7 +96,7 @@ const useStyles = theme => ({
 
         return(
           <Grid container component="main" className={classes.root}>
-        
+            <CssBaseline />
           <Grid item  sm={12} md={12}  component={Paper} elevation={6} square>
             <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">

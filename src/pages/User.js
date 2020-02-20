@@ -11,7 +11,7 @@ import {SERVER_URL} from '../config';
 const useStyles = theme => ({
     root: {
       width: '100%',
-      marginTop: theme.spacing(3),
+      marginTop: theme.spacing(1),
       overflowX: 'auto',
     },
     table: {
