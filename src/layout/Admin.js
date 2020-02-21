@@ -32,6 +32,17 @@ import TimerIcon from '@material-ui/icons/Timer';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Ticket from '../pages/Ticket';
 import ButtonAppBar from './../components/ButtonAppBar'
+import Calendar from './../components/DropDownSide'
+import Address from './../components/AddressDropdown'
+import Storage from './../components/StorageDropdown'
+import Opportunities from './../components/OpportunitiesDropdown'
+
+import { Route } from 'react-router-dom';  
+import Company from './../pages/Company';
+
+
+
+
                           //  ADMIN
 
 const drawerWidth = 240;
@@ -98,7 +109,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function MiniDrawer() {
+
+
+
+
+
+
+
+export default function MiniDrawer({component: Component, ...rest}) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -161,30 +179,22 @@ export default function MiniDrawer() {
               <ListItemText primary="Dashboard" />
             </ListItem>
 
-            <ListItem button >
-              <ListItemIcon> <EventIcon /> </ListItemIcon>
-              <ListItemText primary="Calendar" />
-            </ListItem>
+           
+            <Calendar />
 
-            <ListItem button >
-              <ListItemIcon> <ContactsIcon /> </ListItemIcon>
-              <ListItemText primary="Address Book" />
-            </ListItem>
             
-            <ListItem button >
-              <ListItemIcon> <StorageIcon /> </ListItemIcon>
-              <ListItemText primary="Storage" />
-            </ListItem>
+            <Address />
+            
+            
+            <Storage />
             
             <ListItem button >
               <ListItemIcon> <ConfirmationNumberIcon /> </ListItemIcon>
               <ListItemText primary="Ticket" />
             </ListItem>
             
-            <ListItem button >
-              <ListItemIcon> <CachedIcon /> </ListItemIcon>
-              <ListItemText primary="Opportunities" />
-            </ListItem>
+          
+            <Opportunities />
             
             <ListItem button >
               <ListItemIcon> <BorderColorIcon /> </ListItemIcon>
@@ -205,6 +215,8 @@ export default function MiniDrawer() {
               <ListItemIcon> <TimerIcon /> </ListItemIcon>
               <ListItemText primary="Time Keeping" />
             </ListItem>
+          
+
 
             <ListItem button >
               <ListItemIcon> <SettingsIcon /></ListItemIcon>
@@ -214,6 +226,17 @@ export default function MiniDrawer() {
 
         </List>
       </Drawer>
+
+      <Route {...rest} render={matchProps => (  
+      <div>
+          <Component {...matchProps} />  
+          </div>
+     
+    )} /> 
+
+      
+      
+
    
     </div>
   );
