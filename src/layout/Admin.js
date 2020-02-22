@@ -41,6 +41,11 @@ import { Route } from 'react-router-dom';
 import Company from './../pages/Company';
 import { Link } from "react-router-dom";
 
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
+
 
 
 
@@ -51,6 +56,9 @@ const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+  },
+  grow: {
+    flexGrow: 1,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -121,6 +129,18 @@ export default function MiniDrawer({component: Component, ...rest}) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const isMenuOpen = Boolean(anchorEl);
+
+  const handleProfileMenuOpen = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -129,6 +149,22 @@ export default function MiniDrawer({component: Component, ...rest}) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const menuId = 'primary-search-account-menu';
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      // anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={(event) => this.props.logoutHandler(event)}>Logout</MenuItem>
+    </Menu>
+  );
 
   return (
     <div className={classes.root}>
@@ -154,8 +190,23 @@ export default function MiniDrawer({component: Component, ...rest}) {
           <Typography variant="h6" noWrap>
             Mini variant drawer
           </Typography>
+        <div className={classes.grow} />
+          <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+            <AccountCircle />
+          </IconButton>
+        {/* </div> */}
+          
         </Toolbar>
       </AppBar>
+      {renderMenu}
+
       <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {

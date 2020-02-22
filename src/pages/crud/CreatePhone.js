@@ -124,13 +124,6 @@ class CreatePhone extends React.Component {
 
   render() {
     const { classes } = this.props;
-    function renderCompanyRow(company) {
-        return (<MenuItem value={company.id}>{company.name}</MenuItem>);
-      }
-
-      function renderContactRow(contact) {
-        return (<MenuItem value={contact.id}>{contact.firstName}</MenuItem>);
-      }
 
       return(
         <div  component="main" className={classes.root}  >
