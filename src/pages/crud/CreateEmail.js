@@ -1,36 +1,47 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Email from '@material-ui/icons/Email';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 
-import Select from '@material-ui/core/Select';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../../config';
+import { Button ,ButtonGroup} from '@material-ui/core';
+import Card from '@material-ui/core/Card';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    padding:theme.spacing(2),
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    width: 240,
-  },
   root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
+    '& .MuiTextField-root ': {
+      margin: theme.spacing(1),
+      marginBottom: 12,
+
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+        width:'100%',
+        justify:"center",
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: 305,
+        display:'Center',
+
+    },
+
     },
   },
+  title: {
+    fontSize: 18,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1,0),
+  },
+
+
 
 });
 
@@ -105,99 +116,105 @@ class CreateContact extends React.Component {
 
   render() {
     const { classes } = this.props;
-    function renderCompanyRow(company) {
-        return (<MenuItem value={company.id}>{company.name}</MenuItem>);
-      }
-
-      function renderContactRow(contact) {
-        return (<MenuItem value={contact.id}>{contact.firstName}</MenuItem>);
-      }
 
       return(
+        <div  component="main" className={classes.root}  >
+          <div  className={classes.root}  >
+          <ButtonGroup fullWidth aria-label="full width outlined button group">
+            <Button className={classes.content} href="/admin/ticket/list">List Ticket</Button>
+            <Button className={classes.content} href="/admin/ticket/create">Create ticket</Button>
+          </ButtonGroup>
+         </div>
+        <Grid item  sm={12} md={6} className={classes.content} >
+
+   
           <div>
-               <div  className={classes.container}>
-          <form onSubmit={this.handleSubmit} >
-        <Typography component="h1" variant="h5" inline>
-                Create Email
-              </Typography>
 
-              <TextField
-     id="outlined-full-width"
-     label="E-Mail"
-     style={{ margin: 8 }}
-     placeholder="E-Mail"
-     fullWidth
-     margin="normal"
-     onChange={this.handleemailValue}
-     InputLabelProps={{
-       shrink: true,
-     }}
-     InputProps={{
-      startAdornment: <InputAdornment position="start">
-        <Email />
-        </InputAdornment>,
-        endAdornment:<InputAdornment position='end'>
-        <IconButton
-          aria-label='toggle password visibility'
-          >          
-        </IconButton>
-      </InputAdornment>
-    }}
-     variant="outlined"
-   />
+
+
+            <Card className={classes.root} variant="outlined">
+              <CardContent >
+                <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+                  Create Email 
+                </Typography>
+                <form  onSubmit={this.handleSubmit} >
+                  <Grid item >
+                    <TextField
+                    id="outlined-uncontrolled"
+                    label="E-mail"
+                    type="email"
+                    // placeholder="E-mail "
+                    margin="normal"
+                    onChange={this.handleemailValue}
+                    variant="outlined"
+                    />
+
+                    <TextField
+                      id="demo-simple-select-outlined-label"
+                      select 
+                      label="Company"
+                      value={this.state.companyValue}
+                      onChange={this.handleChangeCompanyValue.bind(this)}
+                      variant="outlined"
+                      >
+                          {this.state.company.map(option =>(
+                              <MenuItem key={option.id} value={option.id}>
+                                  {option.name}
+                              </MenuItem>
+                          ))}
+                      </TextField>
     
+                      <TextField
+                        id="demo-simple-select-outlined-label"
+                        select 
+                        label="Contact"
+                        value={this.state.contactValue}
+                        onChange={this.handlecontactValue.bind(this)}
+                        variant="outlined"
+                        >
+                            {this.state.contact.map(option =>(
+                                <MenuItem key={option.id} value={option.id}>
+                                    {option.firstName}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+
+                        <CardActions>
+
+                        <Button type="Submit" variant="contained" size="small" color="primary">
+                            Save
+                        </Button>
+
+                        <div className={classes.root}>
+                            {this.state.updatedValue}
+                            {/* <Alert severity="success" color="info">
+                            {this.state.updatedValue}
+                            </Alert> */}
+                        </div>
+
+                    </CardActions>
+                    </Grid>
+
+                </form>
+
+            </CardContent>
+        </Card>
+
+    </div>
+
+</Grid>
+<Grid item  sm={12} md={6} square>
+<Grid item  sm={12} component={Paper} square>
 
 
-<FormControl variant="outlined" className={classes.textField}>
-<InputLabel
- //ref={inputLabel}
-  id="demo-simple-select-outlined-label">
-  Company
-</InputLabel>
-<Select
-  labelId="demo-simple-select-outlined-label"
-  id="demo-simple-select-outlined"
-  value={this.state.companyValue}
-  onChange={this.handleChangeCompanyValue.bind(this)}
- // labelWidth={labelWidth}
->
-  <MenuItem value="">
-    <em>None</em>
-  </MenuItem>
-  {this.state.company.map(renderCompanyRow)}
-</Select>
-</FormControl>
 
-<FormControl variant="outlined" className={classes.textField}>
-<InputLabel 
-//ref={inputLabel} 
-id="demo-simple-select-outlined-label">
-  Contact
-</InputLabel>
-<Select
-  labelId="demo-simple-select-outlined-label"
-  id="demo-simple-select-outlined"
-  value={this.state.contactValue}
-  onChange={this.handlecontactValue.bind(this)}
-  //labelWidth={labelWidth}
->
-  <MenuItem value="">
-    <em>None</em>
-  </MenuItem>
-  {this.state.contact.map(renderContactRow)}
-</Select>
-</FormControl>
-<Button className={classes.textField} type="Submit">Save</Button>
-</form>
-
-<div className={classes.root}>
-{this.state.updatedValue}
-{/* <Alert severity="success" color="info">
-{this.state.updatedValue}
-</Alert> */}
+ </Grid>
+ <Grid item  sm={12} component={Paper} square>
+  
+ </Grid>
+</Grid>
 </div>
-</div>
-</div>
+
       )
 
 

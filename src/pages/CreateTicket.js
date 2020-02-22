@@ -162,12 +162,10 @@ class CreateTicket extends React.Component {
 
     <div  component="main" className={classes.root}  >
          <div  className={classes.root}  >
-      {/* <Paper > */}
           <ButtonGroup fullWidth aria-label="full width outlined button group">
           <Button className={classes.content} href="/admin/ticket/list">List Ticket</Button>
           <Button className={classes.content} href="/admin/ticket/create">Create ticket</Button>
         </ButtonGroup>
-          {/* </Paper> */}
           </div>
     <Grid item  sm={12} md={6} className={classes.content} >
 
