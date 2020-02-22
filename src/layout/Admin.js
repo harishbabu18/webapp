@@ -7,7 +7,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -15,36 +14,28 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ContactsIcon from '@material-ui/icons/Contacts';
-import EventIcon from '@material-ui/icons/Event';
 
-import CachedIcon from '@material-ui/icons/Cached';
-import StorageIcon from '@material-ui/icons/Storage';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import TimerIcon from '@material-ui/icons/Timer';
 import SettingsIcon from '@material-ui/icons/Settings';
-import Ticket from '../pages/Ticket';
-import ButtonAppBar from './../components/ButtonAppBar'
 import Calendar from './../components/DropDownSide'
 import Address from './../components/AddressDropdown'
 import Storage from './../components/StorageDropdown'
 import Opportunities from './../components/OpportunitiesDropdown'
 
-import { Route } from 'react-router-dom';  
-import Company from './../pages/Company';
+import { Route ,Redirect} from 'react-router-dom';  
 import { Link } from "react-router-dom";
+import Auth from './../security/auth';
+import logo from "../qualifica.png";
 
 
 
 
-                          //  ADMIN
+                  
 
 const drawerWidth = 240;
 
@@ -151,6 +142,7 @@ export default function MiniDrawer({component: Component, ...rest}) {
           >
             <MenuIcon />
           </IconButton>
+          <img src={logo} alt="Qualifica Group" />
           <Typography variant="h6" noWrap>
             Mini variant drawer
           </Typography>
@@ -178,71 +170,56 @@ export default function MiniDrawer({component: Component, ...rest}) {
             <ListItem button >
               <ListItemIcon> <DashboardIcon /> </ListItemIcon>
               <ListItemText primary="Dashboard" />
-            </ListItem>
-
-           
+            </ListItem>    
             <Calendar />
-
-            
-            <Address />
-            
-            
+            <Address />        
             <Storage />
-            
             <ListItem button component={Link} to="/admin/ticket/list">
               <ListItemIcon> <ConfirmationNumberIcon /> </ListItemIcon>
               <ListItemText primary="Ticket" />
-            </ListItem>
-            
-          
+            </ListItem>         
             <Opportunities />
-            
             <ListItem button >
               <ListItemIcon> <BorderColorIcon /> </ListItemIcon>
               <ListItemText primary="Contracts" />
-            </ListItem>
-            
+            </ListItem>       
             <ListItem button >
               <ListItemIcon> <AddShoppingCartIcon /> </ListItemIcon>
               <ListItemText primary="Orders" />
             </ListItem>
-          
             <ListItem button >
               <ListItemIcon> <AccountBalanceIcon /> </ListItemIcon>
               <ListItemText primary="Accounting" />
             </ListItem>
-
             <ListItem button >
               <ListItemIcon> <TimerIcon /> </ListItemIcon>
               <ListItemText primary="Time Keeping" />
             </ListItem>
-          
-
-
             <ListItem button >
               <ListItemIcon> <SettingsIcon /></ListItemIcon>
               <ListItemText primary="Settings" />
             </ListItem>
-            
-
         </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-
-      <Route {...rest} render={matchProps => (  
-      <div>
-          <Component {...matchProps} />  
-      </div>
-      
-     
-    )} /> 
+<Route
+      {...rest}
+      render={({ matchProps }) =>
+      Auth.loggedIn() ? (
+        Component
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state :{ from: matchProps }
+            }}
+          />
+        )
+        
+      }
+    />
        </main>
-
-      
-      
-
-   
     </div>
   );
 }
