@@ -14,7 +14,6 @@ import {defaultErrorHandler} from './handlers/errorHandlers';
 import {checkResponseStatus, loginResponseHandler} from './handlers/responseHandlers';
 import Company from './pages/Company';
 import User from './pages/User';
-import ButtonAppBar from './components/ButtonAppBar';
 import Role from './pages/Role';
 import LayoutTextFields from './pages/LayoutTextField';
 import CreateCompany from './pages/CreateCompany';
