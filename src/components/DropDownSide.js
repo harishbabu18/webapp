@@ -11,6 +11,8 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import EventIcon from '@material-ui/icons/Event';
 import LocalActivityIcon from '@material-ui/icons/LocalActivity';
 import PeopleIcon from '@material-ui/icons/People';
+import { Link } from "react-router-dom";
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,7 +44,7 @@ export default function Calendar(props) {
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
+          <ListItem button component={Link} to="/admin/calendar/activities" className={classes.nested}>
             <ListItemIcon>
               <LocalActivityIcon />
             </ListItemIcon>

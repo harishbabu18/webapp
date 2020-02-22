@@ -38,6 +38,8 @@ import Phone from './pages/crud/PhoneList';
 import Fax from './pages/crud/FaxList';
 import CreateTransport from './pages/crud/CreateTransport';
 import Transport from './pages/crud/TransportList';
+import Calendar from './pages/Calendar';
+
 
 
 
@@ -317,9 +319,13 @@ class Index extends React.Component {
         <Admin path="/admin/employee/list">
           <Employee />
         </Admin>
+        <Admin path="/admin/calendar/activities">
+          <Calendar />
+        </Admin>
         <Admin path="/admin/employee/create" logoutHandler={this.logoutHandler}>
           <CreateEmployee />
         </Admin>
+
         </Switch>
        
       </div>
