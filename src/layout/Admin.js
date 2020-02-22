@@ -28,18 +28,29 @@ import Storage from './../components/StorageDropdown'
 import Opportunities from './../components/OpportunitiesDropdown'
 
 import { Route } from 'react-router-dom';  
+import { Route ,Redirect} from 'react-router-dom';  
 import { Link } from "react-router-dom";
+import Auth from './../security/auth';
+import logo from "../qualifica.png";
+
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 
 
 
-                          //  ADMIN
+
+                  
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+  },
+  grow: {
+    flexGrow: 1,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -110,6 +121,22 @@ export default function MiniDrawer({component: Component, ...rest}) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const isMenuOpen = Boolean(anchorEl);
+
+  const logoutHandler = () => {
+    Auth.logOut();
+    this.reset();
+  };
+  const handleProfileMenuOpen = event => {
+    setAnchorEl(event.currentTarget);
+  };
+
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -118,6 +145,22 @@ export default function MiniDrawer({component: Component, ...rest}) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const menuId = 'primary-search-account-menu';
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      // anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={(event) => rest.logoutHandler(event)}>Logout</MenuItem>
+    </Menu>
+  );
 
   return (
     <div className={classes.root}>
@@ -140,11 +183,27 @@ export default function MiniDrawer({component: Component, ...rest}) {
           >
             <MenuIcon />
           </IconButton>
+          <img src={logo} alt="Qualifica Group" />
           <Typography variant="h6" noWrap>
             Mini variant drawer
           </Typography>
+        <div className={classes.grow} />
+          <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+            <AccountCircle />
+          </IconButton>
+        {/* </div> */}
+          
         </Toolbar>
       </AppBar>
+      {renderMenu}
+
       <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
@@ -167,71 +226,56 @@ export default function MiniDrawer({component: Component, ...rest}) {
             <ListItem button >
               <ListItemIcon> <DashboardIcon /> </ListItemIcon>
               <ListItemText primary="Dashboard" />
-            </ListItem>
-
-           
+            </ListItem>    
             <Calendar />
-
-            
-            <Address />
-            
-            
+            <Address />        
             <Storage />
-            
             <ListItem button component={Link} to="/admin/ticket/list">
               <ListItemIcon> <ConfirmationNumberIcon /> </ListItemIcon>
               <ListItemText primary="Ticket" />
-            </ListItem>
-            
-          
+            </ListItem>         
             <Opportunities />
-            
             <ListItem button >
               <ListItemIcon> <BorderColorIcon /> </ListItemIcon>
               <ListItemText primary="Contracts" />
-            </ListItem>
-            
+            </ListItem>       
             <ListItem button >
               <ListItemIcon> <AddShoppingCartIcon /> </ListItemIcon>
               <ListItemText primary="Orders" />
             </ListItem>
-          
             <ListItem button >
               <ListItemIcon> <AccountBalanceIcon /> </ListItemIcon>
               <ListItemText primary="Accounting" />
             </ListItem>
-
             <ListItem button >
               <ListItemIcon> <TimerIcon /> </ListItemIcon>
               <ListItemText primary="Time Keeping" />
             </ListItem>
-          
-
-
             <ListItem button >
               <ListItemIcon> <SettingsIcon /></ListItemIcon>
               <ListItemText primary="Settings" />
             </ListItem>
-            
-
         </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-
-      <Route {...rest} render={matchProps => (  
-      <div>
-          <Component {...matchProps} />  
-      </div>
-      
-     
-    )} /> 
+<Route
+      {...rest}
+      render={({ matchProps }) =>
+      Auth.loggedIn() ? (
+        Component
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state :{ from: matchProps }
+            }}
+          />
+        )
+        
+      }
+    />
        </main>
-
-      
-      
-
-   
     </div>
   );
 }

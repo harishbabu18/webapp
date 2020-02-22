@@ -83,7 +83,7 @@ class Index extends React.Component {
   }
 
 
-  reset = () => { //<1>
+  reset = () => {
     this.setState({
       
         username: '',
@@ -317,7 +317,7 @@ class Index extends React.Component {
         <Admin path="/admin/employee/list">
           <Employee />
         </Admin>
-        <Admin path="/admin/employee/create">
+        <Admin path="/admin/employee/create" logoutHandler={this.logoutHandler}>
           <CreateEmployee />
         </Admin>
         </Switch>

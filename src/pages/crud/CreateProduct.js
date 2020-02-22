@@ -175,12 +175,10 @@ class CreateProduct extends React.Component {
 
     <div  component="main" className={classes.root}  >
     <div  className={classes.root}  >
- {/* <Paper > */}
      <ButtonGroup fullWidth aria-label="full width outlined button group">
      <Button className={classes.content} href="/admin/product/list">List Product</Button>
      <Button className={classes.content} href="/admin/product/create">Create Product</Button>
    </ButtonGroup>
-     {/* </Paper> */}
      </div>
 <Grid item  sm={12} md={6} className={classes.content} >
 
