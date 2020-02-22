@@ -1,13 +1,16 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
+import { Button ,ButtonGroup} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {SERVER_URL} from '../../config';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Barcode from 'react-barcode';
 
 const useStyles = theme => ({
   container: {
@@ -35,13 +38,16 @@ class CreateProduct extends React.Component {
       name :[],
       nameValue:'',
       barcode:'',
-      quantity: '',
+      quantity: 0,
       quantityType:[],
       quantityTypeValue: '',
-      price: '',
+      price: 0,
       createdBy:1,
       address:[],
       addressValue:'',
+      numberValue:0,
+      lot:[],
+      lotValue:'',
       
     }
   }
@@ -58,6 +64,12 @@ class CreateProduct extends React.Component {
     .catch(error => console.error('Error retrieving Tickrts: ' + error));
 
 
+    fetch(SERVER_URL+'/lot')
+    .then(r => r.json())
+    .then(json => this.setState({lot: json}))
+    .catch(error => console.error('Error retrieving Tickrts: ' + error));
+
+
     fetch(SERVER_URL+'/address')
     .then(r => r.json())
     .then(json => this.setState({address: json}))
@@ -68,6 +80,10 @@ class CreateProduct extends React.Component {
 
   handleChangename=(event)=>{
     this.setState({nameValue:event.target.value});
+  }
+
+  handleChangeNumberValue=(event)=>{
+    this.setState({numberValue:event.target.value});
   }
   
   handleChangebarcode=(event)=>{
@@ -94,10 +110,17 @@ class CreateProduct extends React.Component {
 
   }
 
+  handleChangelot=(event)=>{
+    
+
+
+    this.setState({lotValue:event.target.value});
+
+  }
+
 
   handleSubmit=(event)=>{
-    event.preventDefault()
-  
+    event.preventDefault() 
     let product={
      name:this.state.nameValue,
      barcode:this.state.barcode,
@@ -105,10 +128,10 @@ class CreateProduct extends React.Component {
      quantityType:this.state.quantitytypeValue,
      price:this.state.price,
      createBy:1,
-     address:this.state.addressValue
+     number:this.state.numberValue,
+     lot:this.state.lotValue
+
     }
-
-
     fetch(SERVER_URL+'/inventory', { 
       method: 'POST',
       headers: {
@@ -123,9 +146,10 @@ class CreateProduct extends React.Component {
     };
 
   render() {
-    const { classes } = this.props;
-
+    const { classes} = this.props;
    
+    let Total=0;
+    Total=parseFloat(this.state.price)*parseFloat(this.state.numberValue)
     function renderNameRow(name) {
       return (<MenuItem value={name.id}>{name.name}</MenuItem>);
     }
@@ -136,8 +160,23 @@ class CreateProduct extends React.Component {
     function renderAddressRow(address) {
         return (<MenuItem value={address.id}>{address.addresslineone}</MenuItem>);
       }
+
+
+      function renderLotRow(lot) {
+        return (<MenuItem value={lot.id} name={lot.lotname}>{lot.lotname}</MenuItem>);
+      }
  
   return (
+    <Grid container component="main" className={classes.root}>
+         <Grid item  sm={12}component={Paper} elevation={6} square>
+      <Paper square>
+          <ButtonGroup fullWidth aria-label="full width outlined button group">
+          <Button href="/admin/product/list">List Product</Button>
+          <Button href="/admin/product/lot">Create Product</Button>
+        </ButtonGroup>
+          </Paper>
+          </Grid>
+    <Grid item  sm={12} md={6} component={Paper} elevation={6} square>
     <div>
         <div  className={classes.container}>
           <form onSubmit={this.handleSubmit} >
@@ -145,7 +184,9 @@ class CreateProduct extends React.Component {
                 Create Product Profile
               </Typography>
 
-              <FormControl variant="outlined" className={classes.textField}>
+              <Grid container component="main" className={classes.root}>
+             <Grid item  sm={12} md={4} elevation={6} square>
+             <FormControl variant="outlined" className={classes.textField}>
         <InputLabel
          //ref={inputLabel}
           id="demo-simple-select-outlined-label">
@@ -164,9 +205,42 @@ class CreateProduct extends React.Component {
           {this.state.name.map(renderNameRow)}
         </Select>
       </FormControl>
+             </Grid>
+             <Grid item  sm={12} md={4} elevation={6} square>
+             <TextField
+          id="outlined-full-width"
+          className={classes.textField}
+          label="Price"
+          style={{ margin: 8 }}
+          placeholder="Price"
+          fullWidth
+          margin="normal"
+          onChange={this.handleChangeprice}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+        />
+             </Grid>
+             <Grid item  sm={12} md={4} elevation={6} square>
+             <TextField
+          id="outlined-full-width"
+          className={classes.textField}
+          label="Number of Items"
+          style={{ margin: 8 }}
+          placeholder="Number of Items"
+          fullWidth
+          margin="normal"
+          onChange={this.handleChangeNumberValue}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+        />
+             </Grid>
 
-
-      <TextField
+             <Grid item  sm={12} md={6} elevation={6} square>
+             <TextField
           id="outlined-full-width"
           className={classes.textField}
           label="Barcode"
@@ -180,8 +254,36 @@ class CreateProduct extends React.Component {
           }}
           variant="outlined"
         />
+             </Grid>
+             <Grid item  sm={12} md={6} elevation={6} square>
+             <Barcode value={this.state.barcode} />
 
-          <TextField
+             </Grid>
+
+             <Grid item  sm={12} md={4} elevation={6} square>
+             <FormControl variant="outlined" className={classes.textField}>
+        <InputLabel
+         //ref={inputLabel}
+          id="demo-simple-select-outlined-label">
+         Lot
+        </InputLabel>
+        <Select
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={this.state.lotValue}
+          onChange={this.handleChangelot.bind(this)}
+         // labelWidth={labelWidth}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          {this.state.lot.map(renderLotRow)}
+        </Select>
+      </FormControl>
+      </Grid>
+
+             <Grid item  sm={12} md={4} elevation={6} square>
+             <TextField
           id="outlined-full-width"
           className={classes.textField}
           label="Quantity"
@@ -195,8 +297,9 @@ class CreateProduct extends React.Component {
           }}
           variant="outlined"
         />
-
-      <FormControl variant="outlined" className={classes.textField}>
+             </Grid>
+             <Grid item  sm={12} md={4} elevation={6} square>
+             <FormControl variant="outlined" className={classes.textField}>
         <InputLabel 
         id="demo-simple-select-outlined-label">
           Quantity Type
@@ -213,51 +316,27 @@ class CreateProduct extends React.Component {
           {this.state.quantityType.map(renderQuantityTypeRow)}
         </Select>
       </FormControl>
-
-      <TextField
-          id="outlined-full-width"
-          className={classes.textField}
-          label="Price"
-          style={{ margin: 8 }}
-          placeholder="Price"
-          fullWidth
-          margin="normal"
-          onChange={this.handleChangeprice}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          variant="outlined"
-        />
-
-   
-      <FormControl variant="outlined" className={classes.textField}>
-        <InputLabel 
-        id="demo-simple-select-outlined-label">
-          Address
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={this.state. addressValue}
-          onChange={this.handleChangeaddress.bind(this)}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {this.state.address.map(renderAddressRow)}
-        </Select>
-      </FormControl>
-
-
-
-     
-
-
-        <Button className={classes.textField} type="Submit">Save</Button>
+             </Grid>
+             <Grid item  sm={12} md={6} elevation={6} square><h1>Total:</h1></Grid>
+        <Grid item  sm={12} md={6} elevation={6} square><h1>{Total}</h1></Grid>
+            </Grid>
+        <Button variant="contained" color="primary" type="Submit">Save</Button>
         </form>
         {this.state.updatedValue}
         </div>   
     </div>
+    </Grid>
+    <Grid item  sm={12} md={6} square>
+    <Grid item  sm={12} component={Paper} square>
+
+ 
+ 
+     </Grid>
+     <Grid item  sm={12} component={Paper} square>
+      
+     </Grid>
+    </Grid>
+    </Grid>
   );
 }}
 

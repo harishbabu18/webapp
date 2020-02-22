@@ -230,7 +230,7 @@ export default function MiniDrawer({component: Component, ...rest}) {
       <Route {...rest} render={matchProps => (  
       <div>
           <Component {...matchProps} />  
-          </div>
+      </div>
      
     )} /> 
 

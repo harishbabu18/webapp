@@ -48,7 +48,6 @@ export default function Opprtunities (props) {
               </ListItemIcon>
               <ListItemText primary="Offers" />
             </ListItem>
-
           </List>
         </Collapse>
         </div>

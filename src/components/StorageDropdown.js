@@ -10,6 +10,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import StorageIcon from '@material-ui/icons/Storage';
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -49,9 +51,9 @@ export default function Storage (props) {
             </ListItem>
 
 
-            <ListItem button className={classes.nested}>
+            <ListItem button className={classes.nested}  component={Link} to="/admin/product/list">   
               <ListItemIcon>
-                <StarBorder />
+              <AddShoppingCartIcon />
               </ListItemIcon>
               <ListItemText primary="Product" />
             </ListItem>

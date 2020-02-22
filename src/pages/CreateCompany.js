@@ -80,7 +80,11 @@ class CreateCompany extends React.Component {
     this.setState({updatedValue})
     }).catch(error =>{
       let updatedValue = this.state.updatedValue;
-      updatedValue = "The Error is " +error.message;
+      updatedValue = "The Error is " +error.response.data.errors;
+
+      console.error("The Error Message is "+error)
+
+
     this.setState({updatedValue})
     } )
     };

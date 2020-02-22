@@ -47,10 +47,10 @@ import Admin from './layout/Admin';
 import allReducers from './reducers'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-
 import { MuiThemeProvider,createMuiTheme } from '@material-ui/core/styles';
-import { red } from '@material-ui/core/colors';
 import CreateProduct from './pages/crud/CreateProduct';
+import ProductDashboard from './pages/ProductDashboard';
+import Product from './pages/Product';
 
 
 const theme = createMuiTheme({
@@ -284,11 +284,14 @@ class Index extends React.Component {
         <PrivateRoute exact path="/create/product">
             <CreateProduct />
         </PrivateRoute>
-
-        <Admin path="/admin/hello">
+        <Admin path="/admin/product/lot">
         <CreateProduct />
         </Admin>
+        <Admin path="/admin/product/list">
+          <Product />
+        </Admin>
         </Switch>
+       
       </div>
     </BrowserRouter>
     );
