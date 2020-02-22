@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../config';
 import { Button } from '@material-ui/core';
 import CreateContact from './CreateContact';
+import { ButtonGroup} from '@material-ui/core';
 
 
 const useStyles = theme => ({
@@ -101,6 +102,13 @@ class Contact extends React.Component {
          
           <Grid item  sm={12} md={12}  component={Paper} elevation={6} square>
             <Paper className={classes.root}>
+
+            <Paper square>
+          <ButtonGroup fullWidth aria-label="full width outlined button group">
+          <Button href="/admin/contact/list">List contact</Button>
+          <Button href="/admin/contact/create">Create contact</Button>
+        </ButtonGroup>
+          </Paper>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>

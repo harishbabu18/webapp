@@ -9,6 +9,10 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import ContactsIcon from '@material-ui/icons/Contacts';
+import { Link } from "react-router-dom";
+import BusinessIcon from '@material-ui/icons/Business';
+import GroupWorkIcon from '@material-ui/icons/GroupWork';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,17 +44,17 @@ export default function Address (props) {
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
+            <ListItem button className={classes.nested} component={Link} to="/admin/company/list">
               <ListItemIcon>
-                <StarBorder />
+                <BusinessIcon />
               </ListItemIcon>
               <ListItemText primary="Companies" />
             </ListItem>
 
 
-            <ListItem button className={classes.nested}>
+            <ListItem button className={classes.nested}  component={Link} to="/admin/contact/list">
               <ListItemIcon>
-                <StarBorder />
+                <ContactsIcon />
               </ListItemIcon>
               <ListItemText primary="Contact" />
             </ListItem>
@@ -58,7 +62,7 @@ export default function Address (props) {
 
             <ListItem button className={classes.nested}>
               <ListItemIcon>
-                <StarBorder />
+                <GroupWorkIcon  />
               </ListItemIcon>
               <ListItemText primary="Collaborator" />
             </ListItem>

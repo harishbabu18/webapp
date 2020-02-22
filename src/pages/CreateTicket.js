@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
+import { Button ,ButtonGroup} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -9,6 +9,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 import {SERVER_URL} from '../config';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = theme => ({
   container: {
@@ -163,6 +165,19 @@ class CreateTicket extends React.Component {
     }
 
   return (
+
+    <Grid container component="main" className={classes.root}>
+         <Grid item  sm={12}component={Paper} elevation={6} square>
+      <Paper square>
+          <ButtonGroup fullWidth aria-label="full width outlined button group">
+          <Button href="/admin/ticket/list">List Ticket</Button>
+          <Button href="/admin/ticket/create">Create ticket</Button>
+        </ButtonGroup>
+          </Paper>
+          </Grid>
+    <Grid item  sm={12} md={6} component={Paper} elevation={6} square>
+
+    
     <div>
         <div  className={classes.container}>
           <form onSubmit={this.handleSubmit} >
@@ -296,6 +311,19 @@ class CreateTicket extends React.Component {
 
         </div>
     </div>
+
+</Grid>
+<Grid item  sm={12} md={6} square>
+<Grid item  sm={12} component={Paper} square>
+
+
+
+ </Grid>
+ <Grid item  sm={12} component={Paper} square>
+  
+ </Grid>
+</Grid>
+</Grid>
   );
 }}
 

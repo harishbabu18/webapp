@@ -9,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import { ButtonGroup} from '@material-ui/core';
 
 
 
@@ -110,8 +111,19 @@ class Employee extends React.Component {
 
         return(
           <Grid container component="main" className={classes.root}>
-          <Grid item  sm={12}  component={Paper} elevation={6} square>
+               <Grid item  sm={12} md={12}  component={Paper} elevation={6} square>
+
+
+          <Paper square>
+          <ButtonGroup fullWidth aria-label="full width outlined button group">
+          <Button href="/admin/employee/list">List employee</Button>
+          <Button href="/admin/employee/create">Create employee</Button>
+          
+        </ButtonGroup>
+        </Paper>
             <Paper className={classes.root}>
+
+              
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -128,11 +140,9 @@ class Employee extends React.Component {
         </TableBody>
         <Button onClick={this.loadMore}>Load More</Button>
       </Table>
-    </Paper>
+      </Paper>
     </Grid>
     </Grid>
-
-
         );
     }
 }

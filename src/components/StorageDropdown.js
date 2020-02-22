@@ -5,13 +5,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import StorageIcon from '@material-ui/icons/Storage';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from "react-router-dom";
+import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,9 +44,9 @@ export default function Storage (props) {
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested}>
+            <ListItem button className={classes.nested} component={Link} to="/admin/employee/list">
               <ListItemIcon>
-                <StarBorder />
+                <PeopleAltIcon  />
               </ListItemIcon>
               <ListItemText primary="Employee" />
             </ListItem>

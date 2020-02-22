@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import { Button } from '@material-ui/core';
+import { Button ,ButtonGroup} from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import SelectText from '../components/SelectText'
@@ -132,6 +132,18 @@ class CreateContact extends React.Component {
   }
 
   return (
+
+
+    <Grid container component="main" className={classes.root}>
+    <Grid item  sm={12}component={Paper} elevation={6} square>
+ <Paper square>
+     <ButtonGroup fullWidth aria-label="full width outlined button group">
+     <Button href="/admin/contact/list">List contact</Button>
+     <Button href="/admin/contact/create">Create contact</Button>
+   </ButtonGroup>
+     </Paper>
+     </Grid>
+<Grid item  sm={12} md={6} component={Paper} elevation={6} square>
     
          
    
@@ -250,6 +262,18 @@ class CreateContact extends React.Component {
     </div>
     
   
+</Grid>
+<Grid item  sm={12} md={6} square>
+<Grid item  sm={12} component={Paper} square>
+
+
+
+ </Grid>
+ <Grid item  sm={12} component={Paper} square>
+  
+ </Grid>
+</Grid>
+</Grid>
    
     
   );

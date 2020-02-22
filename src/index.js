@@ -244,9 +244,9 @@ class Index extends React.Component {
         <PrivateRoute  exact  path="/employee">
           <Employee />
         </PrivateRoute>
-        <PrivateRoute  exact  path="/ticket">
+        {/* <PrivateRoute  exact  path="/ticket">
           <Ticket />
-        </PrivateRoute>
+        </PrivateRoute> */}
         <PrivateRoute  exact  path="/ticket/search">
           <TicketSearch />
         </PrivateRoute>
@@ -289,6 +289,33 @@ class Index extends React.Component {
         </Admin>
         <Admin path="/admin/product/list">
           <Product />
+        </Admin>
+
+        <Admin path="/admin/ticket/list">
+          <Ticket />
+        </Admin>
+        <Admin path="/admin/ticket/create">
+          <CreateTicket />
+        </Admin>
+
+
+        <Admin path="/admin/company/list">
+          <Company />
+        </Admin>
+        <Admin path="/admin/company/create">
+          <CreateCompany />
+        </Admin>
+        <Admin path="/admin/contact/list">
+          <Contact />
+        </Admin>
+        <Admin path="/admin/contact/create">
+          <CreateContact />
+        </Admin>
+        <Admin path="/admin/employee/list">
+          <Employee />
+        </Admin>
+        <Admin path="/admin/employee/create">
+          <CreateEmployee />
         </Admin>
         </Switch>
        
