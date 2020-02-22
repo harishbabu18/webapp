@@ -124,6 +124,10 @@ export default function MiniDrawer({component: Component, ...rest}) {
 
   const isMenuOpen = Boolean(anchorEl);
 
+  const logoutHandler = () => {
+    Auth.logOut();
+    this.reset();
+  };
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -153,7 +157,7 @@ export default function MiniDrawer({component: Component, ...rest}) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={(event) => this.props.logoutHandler(event)}>Logout</MenuItem>
+      <MenuItem onClick={(event) => rest.logoutHandler(event)}>Logout</MenuItem>
     </Menu>
   );
 
