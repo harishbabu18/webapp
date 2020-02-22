@@ -27,7 +27,6 @@ import Address from './../components/AddressDropdown'
 import Storage from './../components/StorageDropdown'
 import Opportunities from './../components/OpportunitiesDropdown'
 
-import { Route } from 'react-router-dom';  
 import { Route ,Redirect} from 'react-router-dom';  
 import { Link } from "react-router-dom";
 import Auth from './../security/auth';
