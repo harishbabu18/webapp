@@ -10,9 +10,55 @@ import {
   MonthView,
   DayView,
 } from '@devexpress/dx-react-scheduler-material-ui';
+
+import { withStyles } from '@material-ui/core/styles';
+
+import Typography from '@material-ui/core/Typography';
+
 // import { appointments } from '../../demo-data/month-appointments';
 
-export default class Demo extends React.PureComponent {
+
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+
+const useStyles = theme => ({
+  root: {
+    '& .MuiTextField-root ': {
+      margin: theme.spacing(1),
+      marginBottom: 12,
+
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+        width:'100%',
+        justify:"center",
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: 305,
+        display:'Center',
+
+    },
+
+    },
+  },
+  title: {
+    fontSize: 18,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1,0),
+  },
+
+
+
+});
+
+
+
+
+class Calendar extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -26,16 +72,20 @@ export default class Demo extends React.PureComponent {
   }
 
   render() {
+    const {classes}=this.props;
     const { data, currentViewName } = this.state;
 
     return (
       <Paper>
-        <Scheduler
-          data={data}
-          height={660}
-        >
+           <Card className={classes.root} variant="outlined">
+            <CardContent >
+              <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+              <Scheduler 
+                data={data}
+                height={660}
+              >
           <ViewState
-            defaultCurrentDate="2018-07-25"
+            defaultCurrentDate={Date.now()}
             currentViewName={currentViewName}
             onCurrentViewNameChange={this.currentViewNameChange}
           />
@@ -57,7 +107,14 @@ export default class Demo extends React.PureComponent {
           <ViewSwitcher />
           <Appointments />
         </Scheduler>
+
+</Typography>
+     
+</CardContent>
+</Card>
       </Paper>
     );
   }
 }
+
+export default  withStyles(useStyles)(Calendar);
