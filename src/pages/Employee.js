@@ -13,16 +13,37 @@ import { ButtonGroup} from '@material-ui/core';
 
 
 
-
 const useStyles = theme => ({
   root: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-    overflowX: 'auto',
+    '& .MuiTextField-root ': {
+      margin: theme.spacing(1),
+      marginBottom: 12,
+
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+        width:'100%',
+        justify:"center",
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: 305,
+        display:'Center',
+
+    },
+
+    },
   },
-  table: {
-    minWidth: 700,
+  title: {
+    fontSize: 18,
   },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1,0),
+  },
+
+
+
 });
 
 class Employee extends React.Component {

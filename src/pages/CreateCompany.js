@@ -8,27 +8,42 @@ import {SERVER_URL} from '../config';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+
 const useStyles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    padding:theme.spacing(2),
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    width: 240,
-  },
   root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
+    '& .MuiTextField-root ': {
+      margin: theme.spacing(1),
+      marginBottom: 12,
+
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+        width:'100%',
+        justify:"center",
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: 305,
+        display:'Center',
+
+    },
+
     },
   },
+  title: {
+    fontSize: 18,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1,0),
+  },
+
+
 
 });
-
 class CreateCompany extends React.Component {
 
 
@@ -98,25 +113,28 @@ class CreateCompany extends React.Component {
    
       return(
 
-        <Grid container component="main" className={classes.root}>
-        <Grid item  sm={12}component={Paper} elevation={6} square>
-     <Paper square>
+        <div  component="main" className={classes.root}  >
+        <div  className={classes.root}  >
+     {/* <Paper > */}
          <ButtonGroup fullWidth aria-label="full width outlined button group">
-         <Button href="/admin/company/list">List company</Button>
-         <Button href="/admin/company/create">Create company</Button>
+         <Button className={classes.content} href="/admin/company/list">List Company</Button>
+         <Button className={classes.content} href="/admin/company/create">Create Company</Button>
        </ButtonGroup>
-         </Paper>
-         </Grid>
-   <Grid item  sm={12} md={6} component={Paper} elevation={6} square>
+         {/* </Paper> */}
+         </div>
+   <Grid item  sm={12} md={6} className={classes.content} >
 
+   
+   <div>
 
-          <div>
-               <div  className={classes.container}>
-          <form onSubmit={this.handleSubmit} >
-        <Typography component="h1" variant="h5" inline>
-                Create Company
-              </Typography>
+       <Card className={classes.root} variant="outlined">
+           <CardContent >
+               <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+                   Create Company Profile
+               </Typography>
 
+               <form  onSubmit={this.handleSubmit} >
+                   <Grid item >
               <TextField
           id="outlined-full-width"
           className={classes.textField}
@@ -161,18 +179,28 @@ class CreateCompany extends React.Component {
           }}
           variant="outlined"
         /> 
-<Button className={classes.textField} type="Submit">Save</Button>
-</form>
+ <CardActions>
+
+<Button type="Submit" variant="contained" size="small" color="primary">
+    Save
+</Button>
 
 <div className={classes.root}>
-{this.state.updatedValue}
-{/* <Alert severity="success" color="info">
-{this.state.updatedValue}
-</Alert> */}
-</div>
-</div>
+    {this.state.updatedValue}
+    {/* <Alert severity="success" color="info">
+    {this.state.updatedValue}
+    </Alert> */}
 </div>
 
+</CardActions>
+</Grid>
+
+</form>
+
+</CardContent>
+</Card>
+
+</div>
 
 </Grid>
 <Grid item  sm={12} md={6} square>
@@ -180,17 +208,13 @@ class CreateCompany extends React.Component {
 
 
 
- </Grid>
- <Grid item  sm={12} component={Paper} square>
-  
- </Grid>
+</Grid>
+<Grid item  sm={12} component={Paper} square>
+
 </Grid>
 </Grid>
-      )
-
-
-
-}
-      }
+</div>
+);
+}}
 
 export default  withStyles(useStyles)(CreateCompany);
