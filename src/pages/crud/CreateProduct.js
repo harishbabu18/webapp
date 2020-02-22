@@ -11,19 +11,41 @@ import {SERVER_URL} from '../../config';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Barcode from 'react-barcode';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 const useStyles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    padding:theme.spacing(2),
+  root: {
+    '& .MuiTextField-root ': {
+      margin: theme.spacing(1),
+      marginBottom: 12,
+
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+        width:'100%',
+        justify:"center",
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: 305,
+        display:'Center',
+
+    },
+
+    },
   },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    width: 240,
+  title: {
+    fontSize: 18,
   },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1,0),
+  },
+
+
+
 });
 
 
@@ -167,46 +189,44 @@ class CreateProduct extends React.Component {
       }
  
   return (
-    <Grid container component="main" className={classes.root}>
-         <Grid item  sm={12}component={Paper} elevation={6} square>
-      <Paper square>
-          <ButtonGroup fullWidth aria-label="full width outlined button group">
-          <Button href="/admin/product/list">List Product</Button>
-          <Button href="/admin/product/lot">Create Product</Button>
-        </ButtonGroup>
-          </Paper>
-          </Grid>
-    <Grid item  sm={12} md={6} component={Paper} elevation={6} square>
-    <div>
-        <div  className={classes.container}>
-          <form onSubmit={this.handleSubmit} >
-        <Typography component="h1" variant="h5" inline>
-                Create Product Profile
-              </Typography>
 
-              <Grid container component="main" className={classes.root}>
-             <Grid item  sm={12} md={4} elevation={6} square>
-             <FormControl variant="outlined" className={classes.textField}>
-        <InputLabel
-         //ref={inputLabel}
-          id="demo-simple-select-outlined-label">
-          Product Name
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={this.state.nameValue}
-          onChange={this.handleChangename.bind(this)}
-         // labelWidth={labelWidth}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {this.state.name.map(renderNameRow)}
-        </Select>
-      </FormControl>
-             </Grid>
-             <Grid item  sm={12} md={4} elevation={6} square>
+    <div  component="main" className={classes.root}  >
+    <div  className={classes.root}  >
+ {/* <Paper > */}
+     <ButtonGroup fullWidth aria-label="full width outlined button group">
+     <Button className={classes.content} href="/admin/company/list">List Company</Button>
+     <Button className={classes.content} href="/admin/company/create">Create Company</Button>
+   </ButtonGroup>
+     {/* </Paper> */}
+     </div>
+<Grid item  sm={12} md={6} className={classes.content} >
+
+
+<div>
+
+   <Card className={classes.root} variant="outlined">
+       <CardContent >
+           <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+               Create Product Profile
+           </Typography>
+
+           <form  onSubmit={this.handleSubmit} >
+               <Grid item >
+   
+               <TextField
+                        id="demo-simple-select-outlined-label"
+                        select 
+                        label="Product Name"
+                        value={this.state. nameValue}
+                        onChange={this.handleChangename}
+                        variant="outlined"
+                        >
+                            {this.state.name.map(option =>(
+                                <MenuItem key={option.id} value={option.id}>
+                                    {option.name}
+                                </MenuItem>
+                            ))}
+                        </TextField>
              <TextField
           id="outlined-full-width"
           className={classes.textField}
@@ -221,8 +241,7 @@ class CreateProduct extends React.Component {
           }}
           variant="outlined"
         />
-             </Grid>
-             <Grid item  sm={12} md={4} elevation={6} square>
+             
              <TextField
           id="outlined-full-width"
           className={classes.textField}
@@ -237,9 +256,7 @@ class CreateProduct extends React.Component {
           }}
           variant="outlined"
         />
-             </Grid>
-
-             <Grid item  sm={12} md={6} elevation={6} square>
+            
              <TextField
           id="outlined-full-width"
           className={classes.textField}
@@ -254,35 +271,25 @@ class CreateProduct extends React.Component {
           }}
           variant="outlined"
         />
-             </Grid>
-             <Grid item  sm={12} md={6} elevation={6} square>
-             <Barcode value={this.state.barcode} />
+             
+     
+             <TextField
+                        id="demo-simple-select-outlined-label"
+                        select 
+                        label="Lot"
+                        value={this.state. lotValue}
+                        onChange={this. handleChangelot}
+                        variant="outlined"
+                        >
+                            {this.state.lot.map(option =>(
+                                <MenuItem key={option.id} value={option.id}>
+                                    {option.name}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+    
 
-             </Grid>
-
-             <Grid item  sm={12} md={4} elevation={6} square>
-             <FormControl variant="outlined" className={classes.textField}>
-        <InputLabel
-         //ref={inputLabel}
-          id="demo-simple-select-outlined-label">
-         Lot
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={this.state.lotValue}
-          onChange={this.handleChangelot.bind(this)}
-         // labelWidth={labelWidth}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {this.state.lot.map(renderLotRow)}
-        </Select>
-      </FormControl>
-      </Grid>
-
-             <Grid item  sm={12} md={4} elevation={6} square>
+            
              <TextField
           id="outlined-full-width"
           className={classes.textField}
@@ -297,47 +304,58 @@ class CreateProduct extends React.Component {
           }}
           variant="outlined"
         />
-             </Grid>
-             <Grid item  sm={12} md={4} elevation={6} square>
-             <FormControl variant="outlined" className={classes.textField}>
-        <InputLabel 
-        id="demo-simple-select-outlined-label">
-          Quantity Type
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={this.state. quantitytypeValue}
-          onChange={this.handleChangequantityValue.bind(this)}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {this.state.quantityType.map(renderQuantityTypeRow)}
-        </Select>
-      </FormControl>
-             </Grid>
-             <Grid item  sm={12} md={6} elevation={6} square><h1>Total:</h1></Grid>
-        <Grid item  sm={12} md={6} elevation={6} square><h1>{Total}</h1></Grid>
-            </Grid>
-        <Button variant="contained" color="primary" type="Submit">Save</Button>
-        </form>
-        {this.state.updatedValue}
-        </div>   
-    </div>
-    </Grid>
-    <Grid item  sm={12} md={6} square>
-    <Grid item  sm={12} component={Paper} square>
+             
+  
+             <TextField
+                        id="demo-simple-select-outlined-label"
+                        select 
+                        label="Quantity Type"
+                        value={this.state.quantityTypeValue}
+                        onChange={this.  handleChangequantityValue}
+                        variant="outlined"
+                        >
+                            {this.state.quantityType.map(option =>(
+                                <MenuItem key={option.id} value={option.id}>
+                                    {option.name}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+      <CardActions>
 
- 
- 
-     </Grid>
-     <Grid item  sm={12} component={Paper} square>
-      
-     </Grid>
-    </Grid>
-    </Grid>
-  );
-}}
+<Button type="Submit" variant="contained" size="small" color="primary">
+    Save
+</Button>
+
+<div className={classes.root}>
+    {this.state.updatedValue}
+    {/* <Alert severity="success" color="info">
+    {this.state.updatedValue}
+    </Alert> */}
+</div>
+
+</CardActions>
+</Grid>
+
+</form>
+
+</CardContent>
+</Card>
+
+</div>
+
+</Grid>
+<Grid item  sm={12} md={6} square>
+<Grid item  sm={12} component={Paper} square>
+
+
+
+</Grid>
+<Grid item  sm={12} component={Paper} square>
+
+</Grid>
+</Grid>
+</div>
+);
+}}        
 
 export default  withStyles(useStyles)(CreateProduct);

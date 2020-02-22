@@ -10,21 +10,42 @@ import IconButton from '@material-ui/core/IconButton';
 import Email from '@material-ui/icons/Email';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 const useStyles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    padding:theme.spacing(2),
+  root: {
+    '& .MuiTextField-root ': {
+      margin: theme.spacing(1),
+      marginBottom: 12,
+
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+        width:'100%',
+        justify:"center",
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: 305,
+        display:'Center',
+
+    },
+
+    },
   },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    width: 240,
+  title: {
+    fontSize: 18,
   },
-});
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1,0),
+  },
+
+
+
+})
 
 
 class CreateEmployee extends React.Component {
@@ -119,22 +140,28 @@ class CreateEmployee extends React.Component {
 
   return (
 
-    <Grid container component="main" className={classes.root}>
-    <Grid item  sm={12}component={Paper} elevation={6} square>
- <Paper square>
+    <div  component="main" className={classes.root}  >
+    <div  className={classes.root}  >
+ {/* <Paper > */}
      <ButtonGroup fullWidth aria-label="full width outlined button group">
-     <Button href="/admin/employee/list">List employee</Button>
-     <Button href="/admin/employee/create">Create employee</Button>
+     <Button className={classes.content} href="/admin/employee/list">List Company</Button>
+     <Button className={classes.content} href="/admin/employee/create">Create Company</Button>
    </ButtonGroup>
-     </Paper>
-     </Grid>
-<Grid item  sm={12} md={6} component={Paper} elevation={6} square>
-    <div>
-        <div  className={classes.container}>
-          <form onSubmit={this.handleSubmit} >
-        <Typography component="h1" variant="h5" inline>
-                Create Employee Profile
-              </Typography>
+     {/* </Paper> */}
+     </div>
+<Grid item  sm={12} md={6} className={classes.content} >
+
+
+<div>
+
+   <Card className={classes.root} variant="outlined">
+       <CardContent >
+           <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+               Create Employee Profile
+           </Typography>
+
+           <form  onSubmit={this.handleSubmit} >
+               <Grid item >
 
       <TextField
           id="outlined-full-width"
@@ -249,35 +276,44 @@ class CreateEmployee extends React.Component {
       shrink: true,
     }}
   />
+  </form>
+<CardActions>
+
+<Button type="Submit" variant="contained" size="small" color="primary">
+    Save
+</Button>
+
+<div className={classes.root}>
+    {this.state.updatedValue}
+    {/* <Alert severity="success" color="info">
+    {this.state.updatedValue}
+    </Alert> */}
+</div>
+
+</CardActions>
+</Grid>
+
 </form>
 
-        <Button className={classes.textField} type="Submit">Save</Button>
-        <div className={classes.root}>
-        {this.state.updatedValue}
-        </div>
+</CardContent>
+</Card>
 
-        </form>
-        </div>
+</div>
 
-    
-   
-      
-    </div>
-
-
-    </Grid>
+</Grid>
 <Grid item  sm={12} md={6} square>
 <Grid item  sm={12} component={Paper} square>
 
 
 
- </Grid>
- <Grid item  sm={12} component={Paper} square>
-  
- </Grid>
+</Grid>
+<Grid item  sm={12} component={Paper} square>
+
 </Grid>
 </Grid>
-  );
+</div>
+);
 }}
+
 
 export default  withStyles(useStyles)(CreateEmployee);
