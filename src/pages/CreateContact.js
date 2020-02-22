@@ -19,18 +19,41 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 
 const useStyles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    padding:theme.spacing(2)
+  root: {
+    '& .MuiTextField-root ': {
+      margin: theme.spacing(1),
+      marginBottom: 12,
+
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+        width:'100%',
+        justify:"center",
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: 305,
+        display:'Center',
+
+    },
+
+    },
   },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200,
+  title: {
+    fontSize: 18,
   },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1,0),
+  },
+
+
+
 });
 
 class CreateContact extends React.Component {
@@ -124,35 +147,32 @@ class CreateContact extends React.Component {
 
   render(){
   const {classes} = this .props;
-  function renderCompanyRow(company) {
-    return (<MenuItem value={company.id}>{company.name}</MenuItem>);
-  }
-  function renderPositionRow(position) {
-    return (<MenuItem value={position.id}>{position.name}</MenuItem>);
-  }
 
   return (
 
-
-    <Grid container component="main" className={classes.root}>
-    <Grid item  sm={12}component={Paper} elevation={6} square>
- <Paper square>
-     <ButtonGroup fullWidth aria-label="full width outlined button group">
-     <Button href="/admin/contact/list">List contact</Button>
-     <Button href="/admin/contact/create">Create contact</Button>
-   </ButtonGroup>
-     </Paper>
-     </Grid>
-<Grid item  sm={12} md={6} component={Paper} elevation={6} square>
-    
-         
    
-    <div className={classes.container}>
-      
-      <form onSubmit={this.handleSubmit} >
-    <Typography component="h1" variant="h5" inline>
-                Create Contact Profile
-    </Typography>
+    <div  component="main" className={classes.root}  >
+         <div  className={classes.root}  >
+      {/* <Paper > */}
+          <ButtonGroup fullWidth aria-label="full width outlined button group">
+          <Button className={classes.content} href="/admin/contact/list">List Contact</Button>
+          <Button className={classes.content} href="/admin/contact/create">Create Contact</Button>
+        </ButtonGroup>
+          {/* </Paper> */}
+          </div>
+    <Grid item  sm={12} md={6} className={classes.content} >
+
+    
+    <div>
+
+        <Card className={classes.root} variant="outlined">
+            <CardContent >
+                <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+                    Create Contact Profile
+                </Typography>
+
+                <form  onSubmit={this.handleSubmit} >
+                    <Grid item >
       
    <TextField
      id="outlined-full-width"
@@ -203,44 +223,34 @@ class CreateContact extends React.Component {
      }}
      variant="outlined"
    />
-      <FormControl variant="outlined" className={classes.textField}>
-        <InputLabel 
-        //ref={inputLabel} 
-        id="demo-simple-select-outlined-label">
-          Company
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={this.state.companyValue}
-          onChange={this.handleChangecompany.bind(this)}
-          //labelWidth={labelWidth}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {this.state.company.map(renderCompanyRow)}
-        </Select>
-      </FormControl>
-      <FormControl variant="outlined" className={classes.textField}>
-        <InputLabel 
-        //ref={inputLabel} 
-        id="demo-simple-select-outlined-label">
-          Position
-        </InputLabel>
-        <Select
-          labelId="demo-simple-select-outlined-label"
-          id="demo-simple-select-outlined"
-          value={this.state.positionValue}
-          onChange={this.handleChangeposition.bind(this)}
-          //labelWidth={labelWidth}
-        >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          {this.state.position.map(renderPositionRow)}
-        </Select>
-      </FormControl>
+     <TextField
+                        id="demo-simple-select-outlined-label"
+                        select 
+                        label="Company"
+                        value={this.state.companyValue}
+                        onChange={this.handleChangecompanyValue}
+                        variant="outlined"
+                        >
+                            {this.state.company.map(option =>(
+                                <MenuItem key={option.id} value={option.id}>
+                                    {option.name}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                        <TextField
+                        id="demo-simple-select-outlined-label"
+                        select 
+                        label="Position"
+                        value={this.state. positionValue}
+                        onChange={this.handleChangeposition}
+                        variant="outlined"
+                        >
+                            {this.state.position.map(option =>(
+                                <MenuItem key={option.id} value={option.id}>
+                                    {option.name}
+                                </MenuItem>
+                            ))}
+                        </TextField>
 
       <TextField
     id="date"
@@ -253,30 +263,42 @@ class CreateContact extends React.Component {
       shrink: true,
     }}
   />
-    <Button className={classes.textField} type="Submit">Save</Button>
-      </form>
+  <CardActions>
+
+      <Button type="Submit" variant="contained" size="small" color="primary">
+          Save
+      </Button>
+
       <div className={classes.root}>
-        {this.state.updatedValue}
-      
-        </div>
-    </div>
-    
-  
+          {this.state.updatedValue}
+          {/* <Alert severity="success" color="info">
+          {this.state.updatedValue}
+          </Alert> */}
+      </div>
+
+  </CardActions>
+  </Grid>
+
+</form>
+
+</CardContent>
+</Card>
+
+</div>
+
 </Grid>
 <Grid item  sm={12} md={6} square>
 <Grid item  sm={12} component={Paper} square>
 
 
 
- </Grid>
- <Grid item  sm={12} component={Paper} square>
-  
- </Grid>
+</Grid>
+<Grid item  sm={12} component={Paper} square>
+
 </Grid>
 </Grid>
-   
-    
-  );
-}
-}
+</div>
+);
+}}
+
 export default  withStyles(useStyles)(CreateContact);
