@@ -10,6 +10,8 @@ import CreateCompany from './CreateCompany';
 import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../config';
 import { Button } from '@material-ui/core';
+import { ButtonGroup} from '@material-ui/core';
+
 
 
 const useStyles = theme => ({
@@ -95,6 +97,15 @@ class Company extends React.Component {
           <Grid container component="main" className={classes.root}>
          
           <Grid item  sm={12} md={12}  component={Paper} elevation={6} square>
+
+
+
+          <Paper square>
+          <ButtonGroup fullWidth aria-label="full width outlined button group">
+          <Button href="/admin/company/list">List company</Button>
+          <Button href="/admin/company/create">Create company</Button>
+        </ButtonGroup>
+          </Paper>
             <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>

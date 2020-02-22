@@ -1,10 +1,12 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
+import { Button ,ButtonGroup} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
 import {SERVER_URL} from '../config';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = theme => ({
   container: {
@@ -95,6 +97,19 @@ class CreateCompany extends React.Component {
     const { classes } = this.props;
    
       return(
+
+        <Grid container component="main" className={classes.root}>
+        <Grid item  sm={12}component={Paper} elevation={6} square>
+     <Paper square>
+         <ButtonGroup fullWidth aria-label="full width outlined button group">
+         <Button href="/admin/company/list">List company</Button>
+         <Button href="/admin/company/create">Create company</Button>
+       </ButtonGroup>
+         </Paper>
+         </Grid>
+   <Grid item  sm={12} md={6} component={Paper} elevation={6} square>
+
+
           <div>
                <div  className={classes.container}>
           <form onSubmit={this.handleSubmit} >
@@ -157,6 +172,20 @@ class CreateCompany extends React.Component {
 </div>
 </div>
 </div>
+
+
+</Grid>
+<Grid item  sm={12} md={6} square>
+<Grid item  sm={12} component={Paper} square>
+
+
+
+ </Grid>
+ <Grid item  sm={12} component={Paper} square>
+  
+ </Grid>
+</Grid>
+</Grid>
       )
 
 

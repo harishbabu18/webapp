@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Button } from '@material-ui/core';
+import { Button ,ButtonGroup} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Card from '@material-ui/core/Card';
@@ -9,6 +9,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../config';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 
 const useStyles = theme => ({
   root: {
@@ -149,6 +151,19 @@ class CreateTicket extends React.Component {
     const { classes } = this.props;
 
   return (
+
+    <Grid container component="main" className={classes.root}>
+         <Grid item  sm={12}component={Paper} elevation={6} square>
+      <Paper square>
+          <ButtonGroup fullWidth aria-label="full width outlined button group">
+          <Button href="/admin/ticket/list">List Ticket</Button>
+          <Button href="/admin/ticket/create">Create ticket</Button>
+        </ButtonGroup>
+          </Paper>
+          </Grid>
+    <Grid item  sm={12} md={6} component={Paper} elevation={6} square>
+
+    
     <div>
 
         <Card className={classes.root} variant="outlined">
@@ -266,6 +281,19 @@ class CreateTicket extends React.Component {
         </Card>
 
     </div>
+
+</Grid>
+<Grid item  sm={12} md={6} square>
+<Grid item  sm={12} component={Paper} square>
+
+
+
+ </Grid>
+ <Grid item  sm={12} component={Paper} square>
+  
+ </Grid>
+</Grid>
+</Grid>
   );
 }}
 

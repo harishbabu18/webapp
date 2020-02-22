@@ -39,6 +39,7 @@ import Opportunities from './../components/OpportunitiesDropdown'
 
 import { Route } from 'react-router-dom';  
 import Company from './../pages/Company';
+import { Link } from "react-router-dom";
 
 
 
@@ -188,7 +189,7 @@ export default function MiniDrawer({component: Component, ...rest}) {
             
             <Storage />
             
-            <ListItem button >
+            <ListItem button component={Link} to="/admin/ticket/list">
               <ListItemIcon> <ConfirmationNumberIcon /> </ListItemIcon>
               <ListItemText primary="Ticket" />
             </ListItem>
