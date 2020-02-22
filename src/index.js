@@ -188,7 +188,7 @@ class Index extends React.Component {
   render() {
     return (
       <BrowserRouter>
-       <ButtonAppBar title="Dashboard" loggedIn={this.state.loggedIn} logoutHandler={this.logoutHandler} />
+       {/* <ButtonAppBar title="Dashboard" loggedIn={this.state.loggedIn} logoutHandler={this.logoutHandler} /> */}
       <div>
       <Switch>
         <PrivateRoute  exact path="/" >
@@ -286,6 +286,7 @@ class Index extends React.Component {
         <PrivateRoute exact path="/create/product">
             <CreateProduct />
         </PrivateRoute>
+        
           <Admin path="/admin/product/lot">
             <CreateProduct />
           </Admin>

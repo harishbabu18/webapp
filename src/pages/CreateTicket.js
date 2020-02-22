@@ -9,7 +9,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../config';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
 const useStyles = theme => ({
@@ -22,10 +21,13 @@ const useStyles = theme => ({
         width: '100%',
     },
     [theme.breakpoints.up('md')]: {
-        width:360 ,
-    },
+        width:'100%',
+        justify:"center",
+      },
       [theme.breakpoints.up('lg')]: {
-        width: 420,
+        width: 305,
+        display:'Center',
+
     },
 
     },
@@ -33,6 +35,12 @@ const useStyles = theme => ({
   title: {
     fontSize: 18,
   },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1,0),
+  },
+
+
 
 });
 
@@ -152,22 +160,22 @@ class CreateTicket extends React.Component {
 
   return (
 
-    <Grid container component="main" className={classes.root}>
-         <Grid item  sm={12}component={Paper} elevation={6} square>
-      <Paper square>
+    <div  component="main" className={classes.root}  >
+         <div  className={classes.root}  >
+      {/* <Paper > */}
           <ButtonGroup fullWidth aria-label="full width outlined button group">
-          <Button href="/admin/ticket/list">List Ticket</Button>
-          <Button href="/admin/ticket/create">Create ticket</Button>
+          <Button className={classes.content} href="/admin/ticket/list">List Ticket</Button>
+          <Button className={classes.content} href="/admin/ticket/create">Create ticket</Button>
         </ButtonGroup>
-          </Paper>
-          </Grid>
-    <Grid item  sm={12} md={6} component={Paper} elevation={6} square>
+          {/* </Paper> */}
+          </div>
+    <Grid item  sm={12} md={6} className={classes.content} >
 
     
     <div>
 
         <Card className={classes.root} variant="outlined">
-            <CardContent>
+            <CardContent >
                 <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
                     Create Ticket Profile
                 </Typography>
@@ -293,7 +301,7 @@ class CreateTicket extends React.Component {
   
  </Grid>
 </Grid>
-</Grid>
+</div>
   );
 }}
 
