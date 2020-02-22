@@ -9,8 +9,6 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import {SERVER_URL} from '../config';
 import { Button } from '@material-ui/core';
-import CreateTask from './CreateTask';
-
 const useStyles = theme => ({
   root: {
     width: '100%',

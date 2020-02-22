@@ -7,7 +7,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import { Link } from "react-router-dom";
 import BusinessIcon from '@material-ui/icons/Business';

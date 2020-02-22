@@ -14,7 +14,6 @@ import {defaultErrorHandler} from './handlers/errorHandlers';
 import {checkResponseStatus, loginResponseHandler} from './handlers/responseHandlers';
 import Company from './pages/Company';
 import User from './pages/User';
-import ButtonAppBar from './components/ButtonAppBar';
 import Role from './pages/Role';
 import LayoutTextFields from './pages/LayoutTextField';
 import CreateCompany from './pages/CreateCompany';
@@ -24,6 +23,8 @@ import Ticket from './pages/Ticket';
 import TicketSearch from './pages/TicketSearch'
 import Employee from './pages/Employee';
 import Contact from './pages/Contact';
+
+import Calender from './pages/Calendar';
 
 import ContactDashboard from './pages/ContactDashboard';
 import FreeSolo from './components/SelectText';
@@ -51,7 +52,6 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider,createMuiTheme } from '@material-ui/core/styles';
 import CreateProduct from './pages/crud/CreateProduct';
-import ProductDashboard from './pages/ProductDashboard';
 import Product from './pages/Product';
 
 
@@ -168,7 +168,7 @@ class Index extends React.Component {
   customLoginHandler = () => { 
    console.log("From "+this.state.from);
    history.push(this.state.from);
-    window.location.href = window.location.href;
+    // window.location.href = window.location.href;
   };
 
   customErrorHandler = (error) => { //<2>
@@ -283,11 +283,11 @@ class Index extends React.Component {
         <PrivateRoute exact path="/create/transport">
             <CreateTransport />
         </PrivateRoute>
-        <PrivateRoute exact path="/create/product">
-            <CreateProduct />
+        <PrivateRoute exact path="/calendar">
+            <Calender />
         </PrivateRoute>
         
-          <Admin path="/admin/product/lot">
+          <Admin path="/admin/product/create">
             <CreateProduct />
           </Admin>
           <Admin path="/admin/product/list">

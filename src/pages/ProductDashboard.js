@@ -1,6 +1,4 @@
 import React from 'react';
-import Company from './Company'
-import CreateCompany from './CreateCompany';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -39,9 +37,7 @@ const useStyles = theme => ({
 });
 
 class ProductDashboard extends React.Component {
-  constructor() {
-      super();
-    }
+  
     render() {
       const { classes} = this.props;
   return (

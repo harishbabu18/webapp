@@ -44,7 +44,7 @@ class Product extends React.Component {
        }
 
        shouldComponentRender() {
-        const {pending} = this.props;
+        // const {pending} = this.props;
         if(this.pending === false) return false;
         // more tests
         return true;
@@ -124,7 +124,7 @@ class Product extends React.Component {
           <Paper square>
           <ButtonGroup fullWidth aria-label="full width outlined button group">
           <Button href="/admin/product/list">List Product</Button>
-          <Button href="/admin/product/lot">Create Product</Button>
+          <Button href="/admin/product/create">Create Product</Button>
         </ButtonGroup>
           </Paper>
             <Paper className={classes.root}>

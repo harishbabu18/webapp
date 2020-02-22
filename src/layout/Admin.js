@@ -7,7 +7,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -15,30 +14,20 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ContactsIcon from '@material-ui/icons/Contacts';
-import EventIcon from '@material-ui/icons/Event';
 
-import CachedIcon from '@material-ui/icons/Cached';
-import StorageIcon from '@material-ui/icons/Storage';
+import DashboardIcon from '@material-ui/icons/Dashboard';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import BorderColorIcon from '@material-ui/icons/BorderColor';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import TimerIcon from '@material-ui/icons/Timer';
 import SettingsIcon from '@material-ui/icons/Settings';
-import Ticket from '../pages/Ticket';
-import ButtonAppBar from './../components/ButtonAppBar'
 import Calendar from './../components/DropDownSide'
 import Address from './../components/AddressDropdown'
 import Storage from './../components/StorageDropdown'
 import Opportunities from './../components/OpportunitiesDropdown'
 
 import { Route } from 'react-router-dom';  
-import Company from './../pages/Company';
 import { Link } from "react-router-dom";
 
 

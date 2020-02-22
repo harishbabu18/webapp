@@ -3,14 +3,11 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button ,ButtonGroup} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import {SERVER_URL} from '../../config';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Barcode from 'react-barcode';
+
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -172,21 +169,7 @@ class CreateProduct extends React.Component {
    
     let Total=0;
     Total=parseFloat(this.state.price)*parseFloat(this.state.numberValue)
-    function renderNameRow(name) {
-      return (<MenuItem value={name.id}>{name.name}</MenuItem>);
-    }
     
-    function renderQuantityTypeRow(quantitytype) {
-      return (<MenuItem value={quantitytype.id}>{quantitytype.name}</MenuItem>);
-    }
-    function renderAddressRow(address) {
-        return (<MenuItem value={address.id}>{address.addresslineone}</MenuItem>);
-      }
-
-
-      function renderLotRow(lot) {
-        return (<MenuItem value={lot.id} name={lot.lotname}>{lot.lotname}</MenuItem>);
-      }
  
   return (
 
@@ -194,8 +177,8 @@ class CreateProduct extends React.Component {
     <div  className={classes.root}  >
  {/* <Paper > */}
      <ButtonGroup fullWidth aria-label="full width outlined button group">
-     <Button className={classes.content} href="/admin/company/list">List Company</Button>
-     <Button className={classes.content} href="/admin/company/create">Create Company</Button>
+     <Button className={classes.content} href="/admin/product/list">List Product</Button>
+     <Button className={classes.content} href="/admin/product/create">Create Product</Button>
    </ButtonGroup>
      {/* </Paper> */}
      </div>
@@ -217,7 +200,7 @@ class CreateProduct extends React.Component {
                         id="demo-simple-select-outlined-label"
                         select 
                         label="Product Name"
-                        value={this.state. nameValue}
+                        value={this.state.nameValue}
                         onChange={this.handleChangename}
                         variant="outlined"
                         >
@@ -277,8 +260,8 @@ class CreateProduct extends React.Component {
                         id="demo-simple-select-outlined-label"
                         select 
                         label="Lot"
-                        value={this.state. lotValue}
-                        onChange={this. handleChangelot}
+                        value={this.state.lotValue}
+                        onChange={this.handleChangelot}
                         variant="outlined"
                         >
                             {this.state.lot.map(option =>(
@@ -311,7 +294,7 @@ class CreateProduct extends React.Component {
                         select 
                         label="Quantity Type"
                         value={this.state.quantityTypeValue}
-                        onChange={this.  handleChangequantityValue}
+                        onChange={this.handleChangequantityValue}
                         variant="outlined"
                         >
                             {this.state.quantityType.map(option =>(

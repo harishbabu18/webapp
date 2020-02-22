@@ -9,7 +9,6 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../config';
 import { Button } from '@material-ui/core';
-import CreateContact from './CreateContact';
 import { ButtonGroup} from '@material-ui/core';
 
 
