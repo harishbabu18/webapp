@@ -153,7 +153,7 @@ class CreateTicket extends React.Component {
 
         <Card className={classes.root} variant="outlined">
             <CardContent>
-                <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+                <Typography className={classes.title} color="textSecondary" variant="h2" component="h1" gutterBottom>
                     Create Ticket Profile
                 </Typography>
 

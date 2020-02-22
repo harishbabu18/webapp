@@ -41,6 +41,8 @@ import Transport from './pages/crud/TransportList';
 
 
 
+
+
 import Task from './pages/Task';
 import Admin from './layout/Admin';
 
@@ -284,11 +286,11 @@ class Index extends React.Component {
         <PrivateRoute exact path="/create/product">
             <CreateProduct />
         </PrivateRoute>
-        <Admin path="/admin/product/lot">
-        <CreateProduct />
-        </Admin>
-        <Admin path="/admin/product/list">
-          <Product />
+          <Admin path="/admin/product/lot">
+            <CreateProduct />
+          </Admin>
+          <Admin path="/admin/product/list">
+            <Product />
         </Admin>
         </Switch>
        
