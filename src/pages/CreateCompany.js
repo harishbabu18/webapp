@@ -11,6 +11,10 @@ import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import Email from '@material-ui/icons/Email';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import PhoneAndroid from '@material-ui/icons/PhoneAndroid';
+
 
 const useStyles = theme => ({
   root: {
@@ -40,7 +44,9 @@ const useStyles = theme => ({
     flexGrow: 1,
     padding: theme.spacing(1,0),
   },
-
+  Button: {
+    width: '100%',
+  }
 
 
 });
@@ -122,19 +128,20 @@ class CreateCompany extends React.Component {
        </ButtonGroup>
          {/* </Paper> */}
          </div>
-   <Grid item  sm={12} md={4} className={classes.content} >
+         <Card>
+          <form  onSubmit={this.handleSubmit} >
+            <CardContent>
 
-   
-   <div>
+    <Grid container component="main" className={classes.root}>
 
-       <Card className={classes.root} variant="outlined">
-           <CardContent >
-               <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
-                   Create Company Profile
-               </Typography>
+    <Grid item  sm={12} md={4} >
 
-               <form  onSubmit={this.handleSubmit} >
-                   <Grid item >
+
+   <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+    Create Contact Profile
+   </Typography>
+
+
               <TextField
           id="outlined-full-width"
           className={classes.textField}
@@ -179,46 +186,181 @@ class CreateCompany extends React.Component {
           }}
           variant="outlined"
         /> 
- <CardActions>
 
- <Grid item  sm={12} md={4} className={classes.content} >
-
-
-  </Grid>
-
-
-<Button type="Submit" variant="contained" size="small" color="primary">
-    Save
-</Button>
-
-<div className={classes.root}>
-    {this.state.updatedValue}
-    {/* <Alert severity="success" color="info">
-    {this.state.updatedValue}
-    </Alert> */}
-</div>
-
-</CardActions>
+  
 </Grid>
+<Grid item  sm={12} md={4}  square>
+<Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+    Create Contact
+</Typography>
+<TextField
+     id="outlined-full-width"
+     label="Mobile"
+     style={{ margin: 8 }}
+     placeholder="Mobile"
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        <PhoneAndroid />
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+   <TextField
+     id="outlined-full-width"
+     label="Email"
+     style={{ margin: 8 }}
+     placeholder="E-Mail"
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        <Email />
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+   <TextField
+     id="outlined-full-width"
+     label="Fax"
+     style={{ margin: 8 }}
+     placeholder="Fax"
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        <Email />
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+</Grid>
+<Grid item  sm={12} md={4} square>
+<Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+    Create Address
+</Typography>
+
+<TextField
+     id="outlined-full-width"
+     label="Address"
+     style={{ margin: 8 }}
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+
+<TextField
+     id="outlined-full-width"
+     label="Address Line Two"
+     style={{ margin: 8 }}
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+<TextField
+     id="outlined-full-width"
+     label="Country"
+     style={{ margin: 8 }}
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+
+<TextField
+     id="outlined-full-width"
+     label="State"
+     style={{ margin: 8 }}
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+
+<TextField
+     id="outlined-full-width"
+     label="Zip"
+     style={{ margin: 8 }}
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+
+</Grid>
+
+
+</Grid>
+<CardActions>
+<Button type="Submit" className={classes.Button} variant="contained" size="Medium" color="primary">
+          Save
+      </Button>
+
+      <div className={classes.root}>
+          {this.state.updatedValue}
+          {/* <Alert severity="success" color="info">
+          {this.state.updatedValue}
+          </Alert> */}
+      </div>
+      </CardActions>
+
+  
+  </CardContent>
 
 </form>
 
-</CardContent>
 </Card>
 
-</div>
-
-</Grid>
-<Grid item  sm={12} md={6} square>
-<Grid item  sm={12} component={Paper} square>
-
-
-
-</Grid>
-<Grid item  sm={12} component={Paper} square>
-
-</Grid>
-</Grid>
 </div>
 );
 }}

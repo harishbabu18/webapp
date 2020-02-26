@@ -51,6 +51,10 @@ const useStyles = theme => ({
     flexGrow: 1,
     padding: theme.spacing(1,0),
   },
+  Button:{
+    width: '100%',
+
+  }
 });
 
 class CreateContact extends React.Component {
@@ -425,7 +429,7 @@ class CreateContact extends React.Component {
 
 </Grid>
 <CardActions>
-<Button type="Submit" variant="contained" size="Medium" color="primary">
+<Button type="Submit" className={classes.Button} variant="contained" size="Medium" color="primary">
           Save
       </Button>
 
