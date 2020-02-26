@@ -14,6 +14,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Email from '@material-ui/icons/Email';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PhoneAndroid from '@material-ui/icons/PhoneAndroid';
+import LanguageIcon from '@material-ui/icons/Language';
+import MenuItem from '@material-ui/core/MenuItem';
+
+
 
 
 const useStyles = theme => ({
@@ -62,10 +66,28 @@ class CreateCompany extends React.Component {
           companyDateCreated:'',
           companyDescription:'',
           updatedValue:'',
+          officeType:[],
+          officeTypeValue:'',
+          addressValue:'',
+          addressTwoValue:'',
+          countryValue:'',
+          stateValue:'',
+          zipValue:'',
+          mobileValue:'',
+          websiteValue:'',
+          emailValue:'',
+          faxValue:'',
           
       }
     }
 
+    componentDidMount(){
+        
+    fetch(SERVER_URL+'/officeType')
+    .then(r => r.json())
+    .then(json => this.setState({officeType: json}))
+    .catch(error => console.error('Error retrieving Tickrts: ' + error));
+    }
   
 
   handleCompanyNameValue=(event)=>{
@@ -83,9 +105,50 @@ class CreateCompany extends React.Component {
     
   }
 
+  handleChangeMobileValue=(event)=>{
+    this.setState({mobileValue:event.target.value})
+  }
+
+  handleChangeWebsiteValue=(event)=>{
+    this.setState({websiteValue:event.target.value})
+  }
+
+  handleChangeEmailValue=(event)=>{
+    this.setState({emailValue:event.target.value})
+  }
+
+  handleChangeFaxValue=(event)=>{
+    this.setState({faxValue:event.target.value})
+  }
+
+  handleOfficeTypeValue=(event)=>{
+    this.setState({officeTypeValue:event.target.value});
+    
+  }
+
+  handleChangeAddressValue=(event)=>{
+    this.setState({addressValue:event.target.value})
+  }
+
+  handleChangeAddressTwoValue=(event)=>{
+    this.setState({addressTwoValue:event.target.value})
+  }
+
+  handleChangeCountryValue=(event)=>{
+    this.setState({countryValue:event.target.value})
+  }
+
+  handleChangeStateValue=(event)=>{
+    this.setState({stateValue:event.target.value})
+  }
+
+  handleChangeZipValue=(event)=>{
+    this.setState({zipValue:event.target.value})
+  }
 
   handleSubmit=(event)=>{
     event.preventDefault()
+    console.log(this.state)
     fetch(SERVER_URL+'/company', { 
       method: 'POST',
       headers: {
@@ -95,7 +158,17 @@ class CreateCompany extends React.Component {
       body: JSON.stringify({
         dateCreated:this.state.companyDateCreated,
         description:this.state.companyDescription,
-        name:this.state.companyName
+        name:this.state.companyName,
+        mobile:this.state.mobileValue,
+        website:this.state.websiteValue,
+        email:this.state.emailValue,
+        fax: this.state.faxValue,
+        officeType:this.state.officeTypeValue,
+        addresslineone: this.addressValue,
+        addresslinetwo:this.state.addressTwoValue,
+        country: this.state.countryValue,
+        state:this.state.stateValue,
+        zip: this.state.zipValue,
       })
     }).then(r=> r.json()).then(json =>{
       let updatedValue = this.state.updatedValue;
@@ -197,10 +270,11 @@ class CreateCompany extends React.Component {
      id="outlined-full-width"
      label="Mobile"
      style={{ margin: 8 }}
+     type='number'
      placeholder="Mobile"
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeMobileValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -213,12 +287,30 @@ class CreateCompany extends React.Component {
    />
    <TextField
      id="outlined-full-width"
+     label="WebSite"
+     style={{ margin: 8 }}
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangeWebsiteValue}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        <LanguageIcon />,
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+
+   <TextField
+     id="outlined-full-width"
      label="Email"
      style={{ margin: 8 }}
      placeholder="E-Mail"
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeEmailValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -236,7 +328,7 @@ class CreateCompany extends React.Component {
      placeholder="Fax"
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeFaxValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -253,13 +345,29 @@ class CreateCompany extends React.Component {
     Create Address
 </Typography>
 
+
+                      <TextField
+                          id="demo-simple-select-outlined-label"
+                          select 
+                          label="Assigned To"
+                          value={this.state.officeTypeValue}
+                          onChange={this.handleOfficeTypeValue.bind(this)}
+                          variant="outlined"
+                          >
+                              {this.state.officeType.map(option =>(
+                                  <MenuItem key={option.id} value={option.id}>
+                                      {option.name}
+                                  </MenuItem>
+                              ))}
+                          </TextField>
+
 <TextField
      id="outlined-full-width"
      label="Address"
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeAddressValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -276,7 +384,7 @@ class CreateCompany extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeAddressTwoValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -292,7 +400,7 @@ class CreateCompany extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeCountryValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -309,7 +417,7 @@ class CreateCompany extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeStateValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -326,7 +434,7 @@ class CreateCompany extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeZipValue}
      InputLabelProps={{
        shrink: true,
      }}
