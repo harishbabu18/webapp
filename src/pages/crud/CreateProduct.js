@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import Barcode from 'react-barcode';
 
 const useStyles = theme => ({
   root: {
@@ -116,7 +117,7 @@ class CreateProduct extends React.Component {
 
   }
   handleChangequantityValue=(event)=>{
-    this.setState({quantitytypeValue:event.target.value});
+    this.setState({quantityTypeValue:event.target.value});
 
 
   }
@@ -130,9 +131,6 @@ class CreateProduct extends React.Component {
   }
 
   handleChangelot=(event)=>{
-    
-
-
     this.setState({lotValue:event.target.value});
 
   }
@@ -252,6 +250,8 @@ class CreateProduct extends React.Component {
           }}
           variant="outlined"
         />
+          <Barcode value={this.state.barcode} />,
+
              
      
              <TextField
@@ -264,7 +264,7 @@ class CreateProduct extends React.Component {
                         >
                             {this.state.lot.map(option =>(
                                 <MenuItem key={option.id} value={option.id}>
-                                    {option.name}
+                                    {option.lotname}
                                 </MenuItem>
                             ))}
                         </TextField>

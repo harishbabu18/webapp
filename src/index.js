@@ -7,7 +7,6 @@ import UserDashboard from './pages/UserDashboard'
 import CompanyDashboard from './pages/CompanyDashboard';
 import Login from './pages/Login';
 import Auth from './security/auth';
-
 import {SERVER_URL} from './config';
 import history from './history';
 import {defaultErrorHandler} from './handlers/errorHandlers';
@@ -23,9 +22,7 @@ import Ticket from './pages/Ticket';
 import TicketSearch from './pages/TicketSearch'
 import Employee from './pages/Employee';
 import Contact from './pages/Contact';
-
 import Calender from './pages/Calendar';
-
 import ContactDashboard from './pages/ContactDashboard';
 import FreeSolo from './components/SelectText';
 import CreateContact from './pages/CreateContact';
@@ -39,23 +36,14 @@ import Fax from './pages/crud/FaxList';
 import CreateTransport from './pages/crud/CreateTransport';
 import Transport from './pages/crud/TransportList';
 import Calendar from './pages/Calendar';
-
-
-
-
-
-
-
 import Task from './pages/Task';
 import Admin from './layout/Admin';
-
 import allReducers from './reducers'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider,createMuiTheme } from '@material-ui/core/styles';
 import CreateProduct from './pages/crud/CreateProduct';
 import Product from './pages/Product';
-
 
 const theme = createMuiTheme({
   palette: {
@@ -170,7 +158,7 @@ class Index extends React.Component {
   customLoginHandler = () => { 
    console.log("From "+this.state.from);
    history.push(this.state.from);
-    // window.location.href = window.location.href;
+     window.location.href = window.location.href;
   };
 
   customErrorHandler = (error) => { //<2>
@@ -190,10 +178,9 @@ class Index extends React.Component {
   render() {
     return (
       <BrowserRouter>
-       {/* <ButtonAppBar title="Dashboard" loggedIn={this.state.loggedIn} logoutHandler={this.logoutHandler} /> */}
-      <div>
+       <div>
       <Switch>
-        <PrivateRoute  exact path="/" >
+        <PrivateRoute logoutHandler={this.logoutHandler}  exact path="/" >
             <App />
         </PrivateRoute>
         <PrivateRoute  exact path="/admin" >
@@ -211,18 +198,13 @@ class Index extends React.Component {
         <PrivateRoute  exact  path="/companydashboard">
             <CompanyDashboard />
         </PrivateRoute>
-        <PrivateRoute  exact  path="/company/create">
-          <CreateCompany />
-        </PrivateRoute>
+
         <PrivateRoute  exact  path="/company">
         <Company />  
         </PrivateRoute>
         <PrivateRoute exact path="/contact/list">
        
             <ContactDashboard />
-        </PrivateRoute>
-        <PrivateRoute exact path="/contact/create">
-            <CreateContact />
         </PrivateRoute>
         <PrivateRoute exact path="/userdashboard">
             <UserDashboard />
@@ -238,6 +220,9 @@ class Index extends React.Component {
         </PrivateRoute>  
         <PrivateRoute  exact  path="/employee/create">
           <CreateEmployee />
+        </PrivateRoute>
+        <PrivateRoute  exact  path="/ticket/create">
+          <CreateTicket />
         </PrivateRoute>
         <PrivateRoute  exact  path="/ticket/create">
           <CreateTicket />
@@ -307,13 +292,13 @@ class Index extends React.Component {
         <Admin path="/admin/company/list">
           <Company />
         </Admin>
-        <Admin path="/admin/company/create">
+        <Admin logoutHandler={this.logoutHandler} path="/company/create">
           <CreateCompany />
         </Admin>
         <Admin path="/admin/contact/list">
           <Contact />
         </Admin>
-        <Admin path="/admin/contact/create">
+        <Admin logoutHandler={this.logoutHandler}  path="/contact/create">
           <CreateContact />
         </Admin>
         <Admin path="/admin/employee/list">
@@ -322,7 +307,7 @@ class Index extends React.Component {
         <Admin path="/admin/calendar/activities">
           <Calendar />
         </Admin>
-        <Admin path="/admin/employee/create" logoutHandler={this.logoutHandler}>
+        <Admin path="/admin/employee/create">
           <CreateEmployee />
         </Admin>
 
@@ -336,11 +321,12 @@ class Index extends React.Component {
 
   
 
-function PrivateRoute({ children, ...rest }) {
+function PrivateRoute({logoutHandler, children, ...rest }) {
   console.log("The location is "+window.location);
   return (
     <Route
-      {...rest}
+    logoutHandler={logoutHandler}
+     {...rest}
       render={({ location }) =>
       Auth.loggedIn() ? (
           children

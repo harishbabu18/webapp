@@ -116,7 +116,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default function MiniDrawer({component: Component, ...rest}) {
+export default function MiniDrawer({logoutHandler,component: Component, ...rest}) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -124,10 +124,7 @@ export default function MiniDrawer({component: Component, ...rest}) {
 
   const isMenuOpen = Boolean(anchorEl);
 
-  const logoutHandler = () => {
-    Auth.logOut();
-    this.reset();
-  };
+
   const handleProfileMenuOpen = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -157,7 +154,7 @@ export default function MiniDrawer({component: Component, ...rest}) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={(event) => rest.logoutHandler(event)}>Logout</MenuItem>
+      <MenuItem onClick={logoutHandler}>Logout</MenuItem>
     </Menu>
   );
 
@@ -257,24 +254,9 @@ export default function MiniDrawer({component: Component, ...rest}) {
         </List>
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
-<Route
-      {...rest}
-      render={({ matchProps }) =>
-      Auth.loggedIn() ? (
-        Component
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state :{ from: matchProps }
-            }}
-          />
-        )
-        
-      }
-    />
-       </main>
-    </div>
+      <div className={classes.toolbar} />
+      <Route {...rest} render={Component } />
+      </main>
+      </div>
   );
 }
