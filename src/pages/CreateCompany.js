@@ -3,11 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button ,ButtonGroup} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-
 import {SERVER_URL} from '../config';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -16,8 +13,6 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import PhoneAndroid from '@material-ui/icons/PhoneAndroid';
 import LanguageIcon from '@material-ui/icons/Language';
 import MenuItem from '@material-ui/core/MenuItem';
-
-
 
 
 const useStyles = theme => ({
@@ -147,28 +142,34 @@ class CreateCompany extends React.Component {
 
   handleSubmit=(event)=>{
     event.preventDefault()
-    console.log(this.state)
+     console.log("Logged In User is "+JSON.parse(localStorage.auth).username)
+     console.log(this.state)
+
+     let CompanyDetail={
+      establishedDate:this.state.companyDateCreated,
+      description:this.state.companyDescription,
+      name:this.state.companyName,
+      mobile:this.state.mobileValue,
+      website:this.state.websiteValue,
+      email:this.state.emailValue,
+      fax: this.state.faxValue,
+      officeType:this.state.officeTypeValue,
+      addresslineone: this.addressValue,
+      addresslinetwo:this.state.addressTwoValue,
+      country: this.state.countryValue,
+      state:this.state.stateValue,
+      zip: this.state.zipValue,
+      user:JSON.parse(localStorage.auth).username
+    }
+
+
     fetch(SERVER_URL+'/company', { 
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        establishedDate:this.state.companyDateCreated,
-        description:this.state.companyDescription,
-        name:this.state.companyName,
-        mobile:this.state.mobileValue,
-        website:this.state.websiteValue,
-        email:this.state.emailValue,
-        fax: this.state.faxValue,
-        officeType:this.state.officeTypeValue,
-        addresslineone: this.addressValue,
-        addresslinetwo:this.state.addressTwoValue,
-        country: this.state.countryValue,
-        state:this.state.stateValue,
-        zip: this.state.zipValue,
-      })
+      body: JSON.stringify(CompanyDetail)
     }).then(r=> r.json()).then(json =>{
       let updatedValue = this.state.updatedValue;
       updatedValue = "Company ID " +json.id+" is Added Successfully"
@@ -215,12 +216,10 @@ class CreateCompany extends React.Component {
 
         <div  component="main" className={classes.root}  >
         <div  className={classes.root}  >
-     {/* <Paper > */}
-         <ButtonGroup fullWidth aria-label="full width outlined button group">
-         <Button className={classes.content} href="/admin/company/list">List Company</Button>
-         <Button className={classes.content} href="/admin/company/create">Create Company</Button>
-       </ButtonGroup>
-         {/* </Paper> */}
+        <ButtonGroup fullWidth aria-label="full width outlined button group">
+          <Button className={classes.content} href="/addressbook/company/list">List Company</Button>
+         <Button className={classes.content} href="/addressbook/company/create">Create Company</Button>
+        </ButtonGroup>
          </div>
          <Card>
           <form id="create-course-form" onSubmit={this.handleSubmit} >
@@ -234,9 +233,7 @@ class CreateCompany extends React.Component {
    <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
     Create Company Profile
    </Typography>
-
-
-              <TextField
+   <TextField
           id="outlined-full-width"
           className={classes.textField}
           label="Company Name"

@@ -102,8 +102,8 @@ class Company extends React.Component {
 
           <Paper square>
           <ButtonGroup fullWidth aria-label="full width outlined button group">
-          <Button href="/admin/company/list">List company</Button>
-          <Button href="/admin/company/create">Create company</Button>
+          <Button className={classes.content} href="/addressbook/company/list">List Company</Button>
+         <Button className={classes.content} href="/addressbook/company/create">Create Company</Button>
         </ButtonGroup>
           </Paper>
             <Paper className={classes.root}>
