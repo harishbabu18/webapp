@@ -153,7 +153,7 @@ class CreateEmployee extends React.Component {
 
         
 
-     <Grid container  sm={12} md={12}  className={classes.root} >
+     <Grid container  className={classes.root} >
 
 
 

@@ -165,16 +165,19 @@ class CreateContact extends React.Component {
         </ButtonGroup>
           {/* </Paper> */}
           </div>
+          <Card>
+          <form  onSubmit={this.handleSubmit} >
+            <CardContent>
+
     <Grid container component="main" className={classes.root}>
 
-    <Grid item  sm={12} md={4} component={Paper} >
+    <Grid item  sm={12} md={4} >
 
 
    <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
     Create Contact Profile
    </Typography>
 
-  <form  onSubmit={this.handleSubmit} >
 
       
    <TextField
@@ -268,24 +271,8 @@ class CreateContact extends React.Component {
   />
   
 
-      <Button type="Submit" variant="contained" size="small" color="primary">
-          Save
-      </Button>
-
-      <div className={classes.root}>
-          {this.state.updatedValue}
-          {/* <Alert severity="success" color="info">
-          {this.state.updatedValue}
-          </Alert> */}
-      </div>
-
-  
-  
-
-</form>
-
 </Grid>
-<Grid item  sm={12} md={4}  component={Paper} square>
+<Grid item  sm={12} md={4}  square>
 <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
     Create Contact
 </Typography>
@@ -344,12 +331,118 @@ class CreateContact extends React.Component {
      variant="outlined"
    />
 </Grid>
-<Grid item  sm={12} md={4}  component={Paper} square>
+<Grid item  sm={12} md={4} square>
+<Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+    Create Address
+</Typography>
+
+<TextField
+     id="outlined-full-width"
+     label="Address"
+     style={{ margin: 8 }}
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+
+<TextField
+     id="outlined-full-width"
+     label="Address Line Two"
+     style={{ margin: 8 }}
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+<TextField
+     id="outlined-full-width"
+     label="Country"
+     style={{ margin: 8 }}
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+
+<TextField
+     id="outlined-full-width"
+     label="State"
+     style={{ margin: 8 }}
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+
+<TextField
+     id="outlined-full-width"
+     label="Zip"
+     style={{ margin: 8 }}
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
 
 </Grid>
 
 
 </Grid>
+<CardActions>
+<Button type="Submit" variant="contained" size="Medium" color="primary">
+          Save
+      </Button>
+
+      <div className={classes.root}>
+          {this.state.updatedValue}
+          {/* <Alert severity="success" color="info">
+          {this.state.updatedValue}
+          </Alert> */}
+      </div>
+      </CardActions>
+
+  
+  </CardContent>
+
+</form>
+
+</Card>
 
 </div>
 );
