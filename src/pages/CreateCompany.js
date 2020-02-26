@@ -184,6 +184,28 @@ class CreateCompany extends React.Component {
     } )
     };
 
+    handleclear=(event)=>{
+      event.preventDefault()
+      document.getElementById("create-course-form").reset()
+
+      this.setState( {
+        companyDateCreated:'',
+        companyDescription:'',
+        companyName:'',
+        mobileValue:'',
+        websiteValue:'',
+        emailValue:'',
+        faxValue:'',
+        officeTypeValue:'',
+        addressValue:'',
+        addressTwoValue:'',
+        countryValue:"",
+        stateValue:'',
+        zipValue:'',
+      })
+
+    }
+
 
 
   render() {
@@ -201,7 +223,7 @@ class CreateCompany extends React.Component {
          {/* </Paper> */}
          </div>
          <Card>
-          <form  onSubmit={this.handleSubmit} >
+          <form id="create-course-form" onSubmit={this.handleSubmit} >
             <CardContent>
 
     <Grid container component="main" className={classes.root}>
@@ -210,7 +232,7 @@ class CreateCompany extends React.Component {
 
 
    <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
-    Create Contact Profile
+    Create Company Profile
    </Typography>
 
 
@@ -453,6 +475,10 @@ class CreateCompany extends React.Component {
           Save
       </Button>
 
+      <Button type='Submit' onClick={this.handleclear} variant="contained" size="Medium" color="primary">
+      {/* <input type="reset" defaultValue="Reset" /> */} Reset
+      </Button>
+    
       <div className={classes.root}>
           {this.state.updatedValue}
           {/* <Alert severity="success" color="info">
