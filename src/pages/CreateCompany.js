@@ -65,7 +65,6 @@ class CreateCompany extends React.Component {
           companyName: '',
           companyDateCreated:'',
           companyDescription:'',
-          updatedValue:'',
           officeType:[],
           officeTypeValue:'',
           addressValue:'',
@@ -156,7 +155,7 @@ class CreateCompany extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        dateCreated:this.state.companyDateCreated,
+        establishedDate:this.state.companyDateCreated,
         description:this.state.companyDescription,
         name:this.state.companyName,
         mobile:this.state.mobileValue,
