@@ -51,9 +51,6 @@ const useStyles = theme => ({
     flexGrow: 1,
     padding: theme.spacing(1,0),
   },
-
-
-
 });
 
 class CreateContact extends React.Component {
@@ -133,7 +130,15 @@ class CreateContact extends React.Component {
         dob:this.state.dob
     
       })
-    }).then(r=> r.json()).then(json =>{
+    }).then(r=> {
+      r.json()
+      console.log("The Status is "+r.status)
+    }).then(json =>{
+
+      console.log("Json status "+json.status)
+
+    
+
       let updatedValue = this.state.updatedValue;
       updatedValue = "contact " +json.id+" is Added Successfully"
     this.setState({updatedValue})
@@ -160,19 +165,17 @@ class CreateContact extends React.Component {
         </ButtonGroup>
           {/* </Paper> */}
           </div>
-    <Grid item  sm={12} md={6} className={classes.content} >
+    <Grid container component="main" className={classes.root}>
 
-    
-    <div>
+    <Grid item  sm={12} md={4} component={Paper} >
 
-        <Card className={classes.root} variant="outlined">
-            <CardContent >
-                <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
-                    Create Contact Profile
-                </Typography>
 
-                <form  onSubmit={this.handleSubmit} >
-                    <Grid item >
+   <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+    Create Contact Profile
+   </Typography>
+
+  <form  onSubmit={this.handleSubmit} >
+
       
    <TextField
      id="outlined-full-width"
@@ -223,12 +226,12 @@ class CreateContact extends React.Component {
      }}
      variant="outlined"
    />
-     <TextField
+     {/* <TextField
                         id="demo-simple-select-outlined-label"
                         select 
                         label="Company"
                         value={this.state.companyValue}
-                        onChange={this.handleChangecompanyValue}
+                        onChange={this.handleChangecompany}
                         variant="outlined"
                         >
                             {this.state.company.map(option =>(
@@ -236,7 +239,7 @@ class CreateContact extends React.Component {
                                     {option.name}
                                 </MenuItem>
                             ))}
-                        </TextField>
+                        </TextField> */}
                         <TextField
                         id="demo-simple-select-outlined-label"
                         select 
@@ -263,7 +266,7 @@ class CreateContact extends React.Component {
       shrink: true,
     }}
   />
-  <CardActions>
+  
 
       <Button type="Submit" variant="contained" size="small" color="primary">
           Save
@@ -276,27 +279,78 @@ class CreateContact extends React.Component {
           </Alert> */}
       </div>
 
-  </CardActions>
-  </Grid>
+  
+  
 
 </form>
 
-</CardContent>
-</Card>
-
-</div>
+</Grid>
+<Grid item  sm={12} md={4}  component={Paper} square>
+<Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+    Create Contact
+</Typography>
+<TextField
+     id="outlined-full-width"
+     label="Mobile"
+     style={{ margin: 8 }}
+     placeholder="Mobile"
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        <PhoneAndroid />
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+   <TextField
+     id="outlined-full-width"
+     label="Email"
+     style={{ margin: 8 }}
+     placeholder="E-Mail"
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        <Email />
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+   <TextField
+     id="outlined-full-width"
+     label="Fax"
+     style={{ margin: 8 }}
+     placeholder="Fax"
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangelastname}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        <Email />
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+</Grid>
+<Grid item  sm={12} md={4}  component={Paper} square>
 
 </Grid>
-<Grid item  sm={12} md={6} square>
-<Grid item  sm={12} component={Paper} square>
-
 
 
 </Grid>
-<Grid item  sm={12} component={Paper} square>
 
-</Grid>
-</Grid>
 </div>
 );
 }}
