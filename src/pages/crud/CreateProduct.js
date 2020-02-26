@@ -180,12 +180,13 @@ class CreateProduct extends React.Component {
      <Button className={classes.content} href="/admin/product/create">Create Product</Button>
    </ButtonGroup>
      </div>
-<Grid item  sm={12} md={6} className={classes.content} >
+<Card className={classes.root} variant="outlined">
+
+<Grid item  sm={12} md={4} className={classes.content} >
 
 
 <div>
 
-   <Card className={classes.root} variant="outlined">
        <CardContent >
            <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
                Create Product Profile
@@ -301,6 +302,9 @@ class CreateProduct extends React.Component {
                                 </MenuItem>
                             ))}
                         </TextField>
+
+                        </Grid>
+
       <CardActions>
 
 <Button type="Submit" variant="contained" size="small" color="primary">
@@ -315,16 +319,16 @@ class CreateProduct extends React.Component {
 </div>
 
 </CardActions>
-</Grid>
 
 </form>
 
 </CardContent>
-</Card>
 
 </div>
 
 </Grid>
+</Card>
+
 <Grid item  sm={12} md={6} square>
 <Grid item  sm={12} component={Paper} square>
 

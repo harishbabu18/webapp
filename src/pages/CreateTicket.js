@@ -167,128 +167,169 @@ class CreateTicket extends React.Component {
           <Button className={classes.content} href="/admin/ticket/create">Create ticket</Button>
         </ButtonGroup>
           </div>
-    <Grid item  sm={12} md={6} className={classes.content} >
 
-    
-    <div>
+          <Grid item  sm={12} md={12} className={classes.content} >
 
-        <Card className={classes.root} variant="outlined">
-            <CardContent >
-                <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
-                    Create Ticket Profile
-                </Typography>
+          
+    <Card className={classes.root} variant="outlined">
 
-                <form  onSubmit={this.handleSubmit} >
-                    <Grid item >
+      <Grid item  sm={12} md={4} className={classes.content} >
+
+      
+        <div>
+
+          {/* <Card className={classes.root} variant="outlined"> */}
+              <CardContent >
+                  <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+                      Create Ticket Profile
+                  </Typography>
+
+                  <form  onSubmit={this.handleSubmit} >
+                      <Grid item >
+                          <TextField
+                          id="outlined-uncontrolled"
+                          label="Description"
+                          margin="normal"
+                          onChange={this.handleChange}
+                      
+                          variant="outlined"
+                          />
+
+                          <TextField
+                          id="demo-simple-select-outlined-label"
+                          select 
+                          label="Company"
+                          value={this.state.companyValue}
+                          onChange={this.handleChangeCompanyValue.bind(this)}
+                          variant="outlined"
+                          >
+                              {this.state.company.map(option =>(
+                                  <MenuItem key={option.id} value={option.id}>
+                                      {option.name}
+                                  </MenuItem>
+                              ))}
+                          </TextField>
+
+                          <TextField
+                          id="demo-simple-select-outlined-label"
+                          select 
+                          label="Ticket Source"
+                          value={this.state.ticketSourceValue}
+                          onChange={this.handleChangeticketSourceValue.bind(this)}
+                          variant="outlined"
+                          >
+                              {this.state.ticketSource.map(option =>(
+                                  <MenuItem key={option.id} value={option.id}>
+                                      {option.name}
+                                  </MenuItem>
+                              ))}
+                          </TextField>
+
+                          <TextField
+                          id="demo-simple-select-outlined-label"
+                          select 
+                          label="Ticket Status"
+                          value={this.state.ticketStatusTypeValue}
+                          onChange={this.handleChangeticketStatusTypeValue.bind(this)}
+                          variant="outlined"
+                          >
+                              {this.state.ticketStatusType.map(option =>(
+                                  <MenuItem key={option.id} value={option.id}>
+                                      {option.name}
+                                  </MenuItem>
+                              ))}
+                          </TextField>
+
+                          <TextField
+                          id="demo-simple-select-outlined-label"
+                          select 
+                          label="Assigned To"
+                          value={this.state.employeeValue}
+                          onChange={this.handleemployeeeValue.bind(this)}
+                          variant="outlined"
+                          >
+                              {this.state.employee.map(option =>(
+                                  <MenuItem key={option.id} value={option.id}>
+                                      {option.firstName}
+                                  </MenuItem>
+                              ))}
+                          </TextField>
+
+                          <TextField
+                          id="demo-simple-select-outlined-label"
+                          select 
+                          label="Contact"
+                          value={this.state.contactValue}
+                          onChange={this.handlecontactValue.bind(this)}
+                          variant="outlined"
+                          >
+                              {this.state.contact.map(option =>(
+                                  <MenuItem key={option.id} value={option.id}>
+                                      {option.firstName}
+                                  </MenuItem>
+                              ))}
+                          </TextField>
+                        </Grid>
+
+                      <Grid item  sm={12} md={4} square>
                         <TextField
-                        id="outlined-uncontrolled"
-                        label="Description"
-                        placeholder="Description "
-                        margin="normal"
-                        onChange={this.handleChange}
-                    
-                        variant="outlined"
+                          id="outlined-uncontrolled"
+                          label="Mobile"
+                          type = 'number'
+                          margin="normal"
+                          onChange={this.handleChange}
+                      
+                          variant="outlined"
                         />
 
                         <TextField
-                        id="demo-simple-select-outlined-label"
-                        select 
-                        label="Company"
-                        value={this.state.companyValue}
-                        onChange={this.handleChangeCompanyValue.bind(this)}
-                        variant="outlined"
-                        >
-                            {this.state.company.map(option =>(
-                                <MenuItem key={option.id} value={option.id}>
-                                    {option.name}
-                                </MenuItem>
-                            ))}
-                        </TextField>
+                          id="outlined-uncontrolled"
+                          label="Email"
+                          type="email"
+                          margin="normal"
+                          onChange={this.handleChange}
+                      
+                          variant="outlined"
+                        />
 
                         <TextField
-                        id="demo-simple-select-outlined-label"
-                        select 
-                        label="Ticket Source"
-                        value={this.state.ticketSourceValue}
-                        onChange={this.handleChangeticketSourceValue.bind(this)}
-                        variant="outlined"
-                        >
-                            {this.state.ticketSource.map(option =>(
-                                <MenuItem key={option.id} value={option.id}>
-                                    {option.name}
-                                </MenuItem>
-                            ))}
-                        </TextField>
+                          id="outlined-uncontrolled"
+                          label="Fax"
+                          margin="normal"
+                          onChange={this.handleChange}
+                      
+                          variant="outlined"
+                        />
 
-                        <TextField
-                        id="demo-simple-select-outlined-label"
-                        select 
-                        label="Ticket Status"
-                        value={this.state.ticketStatusTypeValue}
-                        onChange={this.handleChangeticketStatusTypeValue.bind(this)}
-                        variant="outlined"
-                        >
-                            {this.state.ticketStatusType.map(option =>(
-                                <MenuItem key={option.id} value={option.id}>
-                                    {option.name}
-                                </MenuItem>
-                            ))}
-                        </TextField>
 
-                        <TextField
-                        id="demo-simple-select-outlined-label"
-                        select 
-                        label="Assigned To"
-                        value={this.state.employeeValue}
-                        onChange={this.handleemployeeeValue.bind(this)}
-                        variant="outlined"
-                        >
-                            {this.state.employee.map(option =>(
-                                <MenuItem key={option.id} value={option.id}>
-                                    {option.firstName}
-                                </MenuItem>
-                            ))}
-                        </TextField>
+                        </Grid>
 
-                        <TextField
-                        id="demo-simple-select-outlined-label"
-                        select 
-                        label="Contact"
-                        value={this.state.contactValue}
-                        onChange={this.handlecontactValue.bind(this)}
-                        variant="outlined"
-                        >
-                            {this.state.contact.map(option =>(
-                                <MenuItem key={option.id} value={option.id}>
-                                    {option.firstName}
-                                </MenuItem>
-                            ))}
-                        </TextField>
 
-                    <CardActions>
+                          <CardActions>
 
-                        <Button type="Submit" variant="contained" size="small" color="primary">
-                            Save
-                        </Button>
+                            <Button type="Submit" variant="contained" size="small" color="primary">
+                                Save
+                            </Button>
 
-                        <div className={classes.root}>
-                            {this.state.updatedValue}
-                            {/* <Alert severity="success" color="info">
-                            {this.state.updatedValue}
-                            </Alert> */}
-                        </div>
+                            <div className={classes.root}>
+                                {this.state.updatedValue}
+                                {/* <Alert severity="success" color="info">
+                                {this.state.updatedValue}
+                                </Alert> */}
+                            </div>
 
-                    </CardActions>
-                    </Grid>
+                          </CardActions>
 
-                </form>
+                  </form>
 
-            </CardContent>
-        </Card>
+                </CardContent>
 
-    </div>
+              </div>
 
-</Grid>
+            </Grid>
+          </Card>
+          </Grid>
+
 <Grid item  sm={12} md={6} square>
 <Grid item  sm={12} component={Paper} square>
 

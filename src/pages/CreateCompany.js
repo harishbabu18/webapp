@@ -122,7 +122,7 @@ class CreateCompany extends React.Component {
        </ButtonGroup>
          {/* </Paper> */}
          </div>
-   <Grid item  sm={12} md={6} className={classes.content} >
+   <Grid item  sm={12} md={4} className={classes.content} >
 
    
    <div>
@@ -180,6 +180,12 @@ class CreateCompany extends React.Component {
           variant="outlined"
         /> 
  <CardActions>
+
+ <Grid item  sm={12} md={4} className={classes.content} >
+
+
+  </Grid>
+
 
 <Button type="Submit" variant="contained" size="small" color="primary">
     Save

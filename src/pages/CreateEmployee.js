@@ -19,17 +19,16 @@ const useStyles = theme => ({
     '& .MuiTextField-root ': {
       margin: theme.spacing(1),
       marginBottom: 12,
+      flexGrow:1,
 
     [theme.breakpoints.down('sm')]: {
         width: '100%',
     },
     [theme.breakpoints.up('md')]: {
         width:'100%',
-        justify:"center",
       },
       [theme.breakpoints.up('lg')]: {
         width: 305,
-        display:'Center',
 
     },
 
@@ -140,7 +139,7 @@ class CreateEmployee extends React.Component {
 
   return (
 
-    <div  component="main" className={classes.root}  >
+    <div  component="main" className={classes.root} >
     <div  className={classes.root}  >
  {/* <Paper > */}
      <ButtonGroup fullWidth aria-label="full width outlined button group">
@@ -149,19 +148,25 @@ class CreateEmployee extends React.Component {
    </ButtonGroup>
      {/* </Paper> */}
      </div>
-<Grid item  sm={12} md={6} className={classes.content} >
+     <form  onSubmit={this.handleSubmit} className={classes.root} >
+       <div className={classes.root} >
+
+        
+
+     <Grid container  sm={12} md={12}  className={classes.root} >
 
 
-<div>
 
-   <Card className={classes.root} variant="outlined">
+
+      <Grid item  sm={12} md={4}  className={classes.root} >
+      <Card className={classes.root} variant="outlined">
+
+
        <CardContent >
            <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
                Create Employee Profile
            </Typography>
 
-           <form  onSubmit={this.handleSubmit} >
-               <Grid item >
 
       <TextField
           id="outlined-full-width"
@@ -277,6 +282,56 @@ class CreateEmployee extends React.Component {
     }}
   />
   </form>
+</CardContent>
+</Card>
+</Grid>
+
+
+<Grid item  sm={12} md={4} >
+<Card className={classes.root} variant="outlined">
+
+
+<CardContent >
+           <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+               Create Employee Contact
+           </Typography>
+
+                        <TextField
+                          id="outlined-uncontrolled"
+                          label="Mobile"
+                          type = 'number'
+                          margin="normal"
+                          onChange={this.handleChange}
+                      
+                          variant="outlined"
+                        />
+
+                        <TextField
+                          id="outlined-uncontrolled"
+                          label="Email"
+                          type="email"
+                          margin="normal"
+                          onChange={this.handleChange}
+                      
+                          variant="outlined"
+                        />
+
+                        <TextField
+                          id="outlined-uncontrolled"
+                          label="Fax"
+                          margin="normal"
+                          onChange={this.handleChange}
+                      
+                          variant="outlined"
+                        />
+
+                        </CardContent>
+
+                      </Card>
+                        </Grid>
+                        
+
+
 <CardActions>
 
 <Button type="Submit" variant="contained" size="small" color="primary">
@@ -291,26 +346,19 @@ class CreateEmployee extends React.Component {
 </div>
 
 </CardActions>
-</Grid>
+{/* </Grid> */}
 
+
+
+
+</Grid>
+</div>
 </form>
 
-</CardContent>
-</Card>
-
-</div>
-
-</Grid>
-<Grid item  sm={12} md={6} square>
-<Grid item  sm={12} component={Paper} square>
 
 
 
-</Grid>
-<Grid item  sm={12} component={Paper} square>
 
-</Grid>
-</Grid>
 </div>
 );
 }}
