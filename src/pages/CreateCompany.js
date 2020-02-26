@@ -147,6 +147,7 @@ class CreateCompany extends React.Component {
 
   handleSubmit=(event)=>{
     event.preventDefault()
+    console.log("Logged In User is"+localStorage.getItem('username'))
     console.log(this.state)
     fetch(SERVER_URL+'/company', { 
       method: 'POST',
@@ -195,8 +196,8 @@ class CreateCompany extends React.Component {
         <div  className={classes.root}  >
      {/* <Paper > */}
          <ButtonGroup fullWidth aria-label="full width outlined button group">
-         <Button className={classes.content} href="/admin/company/list">List Company</Button>
-         <Button className={classes.content} href="/admin/company/create">Create Company</Button>
+         <Button className={classes.content} href="/addressbook/company">List Company</Button>
+         <Button className={classes.content} href="/addressbook/companycreate">Create Company</Button>
        </ButtonGroup>
          {/* </Paper> */}
          </div>
