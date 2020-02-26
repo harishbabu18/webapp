@@ -219,14 +219,14 @@ export default function MiniDrawer({logoutHandler,component: Component, ...rest}
           </IconButton>
         </div>
         <List>
-            <ListItem button >
+            {/* <ListItem button >
               <ListItemIcon> <DashboardIcon /> </ListItemIcon>
               <ListItemText primary="Dashboard" />
-            </ListItem>    
-            <Calendar />
+            </ListItem>     */}
+            {/* <Calendar /> */}
             <Address />        
-            <Storage />
-            <ListItem button component={Link} to="/admin/ticket/list">
+            {/* <Storage /> */}
+            {/* <ListItem button component={Link} to="/admin/ticket/list">
               <ListItemIcon> <ConfirmationNumberIcon /> </ListItemIcon>
               <ListItemText primary="Ticket" />
             </ListItem>         
@@ -250,7 +250,7 @@ export default function MiniDrawer({logoutHandler,component: Component, ...rest}
             <ListItem button >
               <ListItemIcon> <SettingsIcon /></ListItemIcon>
               <ListItemText primary="Settings" />
-            </ListItem>
+            </ListItem> */}
         </List>
       </Drawer>
       <main className={classes.content}>
