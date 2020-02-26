@@ -226,7 +226,7 @@ class CreateContact extends React.Component {
      }}
      variant="outlined"
    />
-     <TextField
+     {/* <TextField
                         id="demo-simple-select-outlined-label"
                         select 
                         label="Company"
@@ -239,7 +239,7 @@ class CreateContact extends React.Component {
                                     {option.name}
                                 </MenuItem>
                             ))}
-                        </TextField>
+                        </TextField> */}
                         <TextField
                         id="demo-simple-select-outlined-label"
                         select 
@@ -344,6 +344,10 @@ class CreateContact extends React.Component {
      variant="outlined"
    />
 </Grid>
+<Grid item  sm={12} md={4}  component={Paper} square>
+
+</Grid>
+
 
 </Grid>
 
