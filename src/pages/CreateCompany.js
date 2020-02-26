@@ -159,7 +159,7 @@ class CreateCompany extends React.Component {
       country: this.state.countryValue,
       state:this.state.stateValue,
       zip: this.state.zipValue,
-      user:JSON.parse(localStorage.auth).username
+      user:1
     }
 
 
@@ -305,7 +305,7 @@ class CreateCompany extends React.Component {
    />
    <TextField
      id="outlined-full-width"
-     label="WebSite"
+     label="Website"
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
@@ -315,7 +315,7 @@ class CreateCompany extends React.Component {
      }}
      InputProps={{
       startAdornment: <InputAdornment position="start">
-        <LanguageIcon />,
+        <LanguageIcon />
         </InputAdornment>,
     }}
      variant="outlined"
