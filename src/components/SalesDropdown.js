@@ -9,8 +9,12 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import { Link } from "react-router-dom";
-import BusinessIcon from '@material-ui/icons/Business';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
+import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
+import TrendingUpIcon from '@material-ui/icons/TrendingUp';
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -36,7 +40,7 @@ export default function Warehouse (props) {
         <div>
         <ListItem button onClick={handleClick}>
           <ListItemIcon>
-            <ContactsIcon /> 
+            <TrendingUpIcon /> 
           </ListItemIcon>
           <ListItemText primary="Sales" />
           {open ? <ExpandLess /> : <ExpandMore />}
@@ -45,7 +49,7 @@ export default function Warehouse (props) {
           <List component="div" disablePadding>
             <ListItem button className={classes.nested} component={Link} to="/sales/ticket/list">
               <ListItemIcon>
-                <BusinessIcon />
+                <ConfirmationNumberIcon />
               </ListItemIcon>
               <ListItemText primary="Ticket" />
             </ListItem>
@@ -53,7 +57,7 @@ export default function Warehouse (props) {
 
             <ListItem button className={classes.nested}  component={Link} to="/sales/deal/list">
               <ListItemIcon>
-                <ContactsIcon />
+                <CheckCircleIcon />
               </ListItemIcon>
               <ListItemText primary="Deal" />
             </ListItem>
@@ -63,7 +67,7 @@ export default function Warehouse (props) {
             <ListItem button className={classes.nested}  component={Link} to="/sales/offer/list">
 
               <ListItemIcon>
-                <GroupWorkIcon  />
+                <LocalOfferIcon  />
               </ListItemIcon>
               <ListItemText primary="Offer" />
             </ListItem>

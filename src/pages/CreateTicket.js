@@ -210,8 +210,8 @@ class CreateTicket extends React.Component {
           <div  className={classes.root}  >
             <Grid sm={6} md={12}>
        <ButtonGroup fullWidth aria-label="full width outlined button group">
-       <Button className={classes.content} href="/sales/ticket/list">List Employee</Button>
-       <Button className={classes.content} href="/sales/ticket/create">Create Employee</Button>
+       <Button className={classes.content} href="/sales/ticket/list">List Ticket</Button>
+       <Button className={classes.content} href="/sales/ticket/create">Create Ticket</Button>
      </ButtonGroup>
      </Grid>
            </div>

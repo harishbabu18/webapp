@@ -147,17 +147,18 @@ class CreateProduct extends React.Component {
 
   handleSubmit=(event)=>{
     event.preventDefault() 
-    let product={
+    let product = {
      name:this.state.nameValue,
      barcode:this.state.barcode,
      quantity:this.state.quantity,
-     quantityType:this.state.quantitytypeValue,
+     quantityType:this.state.quantityTypeValue,
      price:this.state.price,
      number:this.state.numberValue,
      lot:this.state.lotValue,
-     user:this.userValue,
+     createBy:this.state.userValue,
 
     }
+    console.log('Test'+this.state.quantityTypeValue)
     fetch(SERVER_URL+'/inventory', { 
       method: 'POST',
       headers: {

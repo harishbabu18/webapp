@@ -13,7 +13,8 @@ import BusinessIcon from '@material-ui/icons/Business';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import StoreIcon from '@material-ui/icons/Store';
 import BuildIcon from '@material-ui/icons/Build';
-
+import DnsIcon from '@material-ui/icons/Dns';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,7 +48,7 @@ export default function Warehouse (props) {
           <List component="div" disablePadding>
             <ListItem button className={classes.nested} component={Link} to="/warehouse/product/list">
               <ListItemIcon>
-                <BusinessIcon />
+                <DnsIcon />
               </ListItemIcon>
               <ListItemText primary="Product" />
             </ListItem>
@@ -65,7 +66,7 @@ export default function Warehouse (props) {
             <ListItem button className={classes.nested}  component={Link} to="/warehouse/means/list">
 
               <ListItemIcon>
-                <GroupWorkIcon  />
+                <AssessmentIcon  />
               </ListItemIcon>
               <ListItemText primary="Means" />
             </ListItem>
