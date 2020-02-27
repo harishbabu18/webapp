@@ -142,8 +142,15 @@ class CreateCompany extends React.Component {
 
   handleSubmit=(event)=>{
     event.preventDefault()
-     console.log("Logged In User is "+JSON.parse(localStorage.auth).username)
-     console.log(this.state)
+     console.log("Logged In User is "+JSON.parse(localStorage.auth).username);
+     
+     console.log(this.state);
+
+     const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
+     fetch(url)
+     .then(r => r.json())
+     .then(json => console.log("User Id is"+json.id))
+     .catch(error => console.error('Error retrieving Companies: ' + error));
 
      let CompanyDetail={
       establishedDate:this.state.companyDateCreated,
@@ -154,13 +161,15 @@ class CreateCompany extends React.Component {
       email:this.state.emailValue,
       fax: this.state.faxValue,
       officeType:this.state.officeTypeValue,
-      addresslineone: this.addressValue,
+      addresslineone: this.state.addressValue,
       addresslinetwo:this.state.addressTwoValue,
       country: this.state.countryValue,
       state:this.state.stateValue,
       zip: this.state.zipValue,
       user:1
     }
+
+    console.log("Company Details"+CompanyDetail)
 
 
     fetch(SERVER_URL+'/company', { 
@@ -169,10 +178,25 @@ class CreateCompany extends React.Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(CompanyDetail)
+      body: JSON.stringify({
+        establishedDate:this.state.companyDateCreated,
+        description:this.state.companyDescription,
+        name:this.state.companyName,
+        mobile:this.state.mobileValue,
+        website:this.state.websiteValue,
+        email:this.state.emailValue,
+        fax: this.state.faxValue,
+        officeType:this.state.officeTypeValue,
+        addresslineone: this.state.addressValue,
+        addresslinetwo:this.state.addressTwoValue,
+        country: this.state.countryValue,
+        state:this.state.stateValue,
+        zip: this.state.zipValue,
+        user:1
+      })
     }).then(r=> r.json()).then(json =>{
       let updatedValue = this.state.updatedValue;
-      updatedValue = "Company ID " +json.id+" is Added Successfully"
+      updatedValue = "Company ID " +json.message+" is Added Successfully"
     this.setState({updatedValue})
     }).catch(error =>{
       let updatedValue = this.state.updatedValue;
