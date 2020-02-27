@@ -240,18 +240,33 @@ class CreateCompany extends React.Component {
 
         <div  component="main" className={classes.root}  >
         <div  className={classes.root}  >
-        <ButtonGroup fullWidth aria-label="full width outlined button group">
+          <Grid sm={12} md={12}>
+          <ButtonGroup fullWidth aria-label="full width button group">
+
           <Button className={classes.content} href="/addressbook/company/list">List Company</Button>
-         <Button className={classes.content} href="/addressbook/company/create">Create Company</Button>
-        </ButtonGroup>
+          </ButtonGroup>
+
+          </Grid >
+          <Grid sm={12} md={12} className={classes.content}>
+          <ButtonGroup fullWidth aria-label="full width outlined button group">
+
+          <Button className={classes.content} href="/addressbook/company/create">Create Company</Button>
+          </ButtonGroup>
+
+          </Grid>
          </div>
+
+         <div className={classes.content}>
+
          <Card>
           <form id="create-course-form" onSubmit={this.handleSubmit} >
-            <CardContent>
+            <CardContent >
+            <div className={classes.content}>
 
-    <Grid container component="main" className={classes.root}>
 
+    <Grid container component="main">
     <Grid item  sm={12} md={4} >
+      <div className={classes.root}>
 
 
    <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
@@ -302,9 +317,11 @@ class CreateCompany extends React.Component {
           variant="outlined"
         /> 
 
-  
+  </div>
 </Grid>
-<Grid item  sm={12} md={4}  square>
+<Grid item  sm={12} md={4} className={classes.content}>
+<div className={classes.content}>
+
 <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
     Create Contact
 </Typography>
@@ -381,8 +398,12 @@ class CreateCompany extends React.Component {
     }}
      variant="outlined"
    />
+   </div>
 </Grid>
-<Grid item  sm={12} md={4} square>
+
+<Grid item  sm={12} md={4} className={classes.content} >
+<div className={classes.content}>
+
 <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
     Create Address
 </Typography>
@@ -487,18 +508,22 @@ class CreateCompany extends React.Component {
      variant="outlined"
    />
 
+</div>
 </Grid>
-
 
 </Grid>
 <CardActions>
+<ButtonGroup fullWidth aria-label="full width outlined button group">
 <Button type="Submit" className={classes.Button} variant="contained" size="Medium" color="primary">
           Save
       </Button>
+      </ButtonGroup>
 
+      <ButtonGroup fullWidth aria-label="full width outlined button group">
       <Button type='Submit' onClick={this.handleclear} variant="contained" size="Medium" color="primary">
       {/* <input type="reset" defaultValue="Reset" /> */} Reset
       </Button>
+      </ButtonGroup>
     
       <div className={classes.root}>
           {this.state.updatedValue}
@@ -508,12 +533,13 @@ class CreateCompany extends React.Component {
       </div>
       </CardActions>
 
-  
+  </div>
   </CardContent>
 
 </form>
-
 </Card>
+</div>
+
 
 </div>
 );

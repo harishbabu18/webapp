@@ -22,6 +22,8 @@ import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import LanguageIcon from '@material-ui/icons/Language';
+
 
 const useStyles = theme => ({
   root: {
@@ -62,14 +64,25 @@ class CreateContact extends React.Component {
     super(props);
 
     this.state = {
+      company:[],
+      position:[],
+
       firstname:'',
       lastname:'',
       note:'',
       dob:'',
-      company:[],
       companyValue: '',
-      position:[],
       positionValue: '',
+
+      addressValue:'',
+      addressTwoValue:'',
+      countryValue:'',
+      stateValue:'',
+      zipValue:'',
+      mobileValue:'',
+      websiteValue:'',
+      emailValue:'',
+      faxValue:'',
       updatedValue:'Status',
     }
   }
@@ -94,10 +107,12 @@ class CreateContact extends React.Component {
     this.setState({firstname:event.target.value});
     
   }
+
   handleChangedob=(event)=>{
     this.setState({dob:event.target.value});
     console.log(this.state.dob)
-  } 
+  }
+
   handleChangelastname=(event)=>{
     this.setState({lastname:event.target.value});
 
@@ -106,34 +121,96 @@ class CreateContact extends React.Component {
   handleChangecompany=(event)=>{
     this.setState({companyValue:event.target.value});
     console.log(this.state.companyValue)
+    // console.log(event.target.value)
 
   }
+
   handleChangeposition=(event)=>{
     this.setState({positionValue:event.target.value});
     console.log(this.state.positionValue)
 
   }
+
   handleChangenote=(event)=>{
     this.setState({note:event.target.value});
 
   }
+
+
+  handleChangeMobileValue=(event)=>{
+    this.setState({mobileValue:event.target.value})
+  }
+
+  handleChangeWebsiteValue=(event)=>{
+    this.setState({websiteValue:event.target.value})
+  }
+
+  handleChangeEmailValue=(event)=>{
+    this.setState({emailValue:event.target.value})
+  }
+
+  handleChangeFaxValue=(event)=>{
+    this.setState({faxValue:event.target.value})
+  }
+
+  handleOfficeTypeValue=(event)=>{
+    this.setState({officeTypeValue:event.target.value});
+    
+  }
+
+  handleChangeAddressValue=(event)=>{
+    this.setState({addressValue:event.target.value})
+  }
+
+  handleChangeAddressTwoValue=(event)=>{
+    this.setState({addressTwoValue:event.target.value})
+  }
+
+  handleChangeCountryValue=(event)=>{
+    this.setState({countryValue:event.target.value})
+  }
+
+  handleChangeStateValue=(event)=>{
+    this.setState({stateValue:event.target.value})
+  }
+
+  handleChangeZipValue=(event)=>{
+    this.setState({zipValue:event.target.value})
+  }
+  
   handleSubmit=(event)=>{
     event.preventDefault()
+    let ContactDetail={
+      first_name:this.state.firstname,
+      last_name:this.state.lastname,
+      //
+      
+      name:this.state.note,
+
+      //
+      dob:this.state.dob,
+      company_id:this.state.companyValue,
+      position_id:this.state.positionValue,
+
+      mobile:this.state.mobileValue,
+      website:this.state.websiteValue,
+      email:this.state.emailValue,
+      fax: this.state.faxValue,
+      officeType:this.state.officeTypeValue,
+      addresslineone: this.state.addressValue,
+      addresslinetwo:this.state.addressTwoValue,
+      country: this.state.countryValue,
+      state:this.state.stateValue,
+      zip: this.state.zipValue,
+    }
+
     fetch(SERVER_URL+'/contact', { 
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        company:this.state.companyValue,
-        firstName:this.state.firstname,
-        lastName:this.state.lastname,
-        position:this.state.positionValue,
-        note:this.state.note,
-        dob:this.state.dob
-    
-      })
+      body: JSON.stringify({ContactDetail})
     }).then(r=> {
       r.json()
       console.log("The Status is "+r.status)
@@ -154,28 +231,65 @@ class CreateContact extends React.Component {
     } )
     };
 
+    handleclear=(event)=>{
+      event.preventDefault()
+      document.getElementById("create-course-form").reset()
+
+      this.setState( {
+        firstname:'',
+        lastname:'',
+        note:'',
+        dob:'',
+        companyValue: '',
+        positionValue: '',
+        mobileValue:'',
+        websiteValue:'',
+        emailValue:'',
+        faxValue:'',
+        addressValue:'',
+        addressTwoValue:'',
+        countryValue:"",
+        stateValue:'',
+        zipValue:'',
+      })
+
+    }
+
+
   render(){
   const {classes} = this .props;
 
   return (
 
-   
-    <div  component="main" className={classes.root}  >
-         <div  className={classes.root}  >
-      {/* <Paper > */}
-          <ButtonGroup fullWidth aria-label="full width outlined button group">
+  <div  component="main" className={classes.root}  >
+        <div  className={classes.root}  >
+          <Grid sm={12} md={12}>
+          <ButtonGroup fullWidth aria-label="full width button group">
+
           <Button className={classes.content} href="/admin/contact/list">List Contact</Button>
+          </ButtonGroup>
+
+          </Grid >
+          <Grid sm={12} md={12} className={classes.content}>
+          <ButtonGroup fullWidth aria-label="full width outlined button group">
+
           <Button className={classes.content} href="/admin/contact/create">Create Contact</Button>
-        </ButtonGroup>
-          {/* </Paper> */}
-          </div>
-          <Card>
-          <form  onSubmit={this.handleSubmit} >
-            <CardContent>
+          </ButtonGroup>
 
-    <Grid container component="main" className={classes.root}>
+          </Grid>
+         </div>
 
+         <div className={classes.content}>
+
+         <Card>
+          <form id="create-course-form" onSubmit={this.handleSubmit} >
+            <CardContent >
+            <div className={classes.content}>
+
+
+    <Grid container component="main">
     <Grid item  sm={12} md={4} >
+      <div className={classes.root}>
 
 
    <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
@@ -233,12 +347,12 @@ class CreateContact extends React.Component {
      }}
      variant="outlined"
    />
-     {/* <TextField
+                      <TextField
                         id="demo-simple-select-outlined-label"
                         select 
-                        label="Company"
+                        label="Position"
                         value={this.state.companyValue}
-                        onChange={this.handleChangecompany}
+                        onChange={this.handleChangecompany.bind(this)}
                         variant="outlined"
                         >
                             {this.state.company.map(option =>(
@@ -246,13 +360,14 @@ class CreateContact extends React.Component {
                                     {option.name}
                                 </MenuItem>
                             ))}
-                        </TextField> */}
+                        </TextField>
+
                         <TextField
                         id="demo-simple-select-outlined-label"
                         select 
                         label="Position"
-                        value={this.state. positionValue}
-                        onChange={this.handleChangeposition}
+                        value={this.state.positionValue}
+                        onChange={this.handleChangeposition.bind(this)}
                         variant="outlined"
                         >
                             {this.state.position.map(option =>(
@@ -264,9 +379,8 @@ class CreateContact extends React.Component {
 
       <TextField
     id="date"
-    label="DOB"
+    label="Date Of Birth"
     type="date"
-    defaultValue=""
     onChange={this.handleChangedob}
     className={classes.textField}
     InputLabelProps={{
@@ -275,8 +389,11 @@ class CreateContact extends React.Component {
   />
   
 
+  </div>
 </Grid>
-<Grid item  sm={12} md={4}  square>
+<Grid item  sm={12} md={4} className={classes.content}>
+<div className={classes.content}>
+
 <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
     Create Contact
 </Typography>
@@ -284,10 +401,11 @@ class CreateContact extends React.Component {
      id="outlined-full-width"
      label="Mobile"
      style={{ margin: 8 }}
+     type='number'
      placeholder="Mobile"
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeMobileValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -300,12 +418,30 @@ class CreateContact extends React.Component {
    />
    <TextField
      id="outlined-full-width"
+     label="Website"
+     style={{ margin: 8 }}
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangeWebsiteValue}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        <LanguageIcon />
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+
+   <TextField
+     id="outlined-full-width"
      label="Email"
      style={{ margin: 8 }}
      placeholder="E-Mail"
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeEmailValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -323,7 +459,7 @@ class CreateContact extends React.Component {
      placeholder="Fax"
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeFaxValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -334,19 +470,25 @@ class CreateContact extends React.Component {
     }}
      variant="outlined"
    />
+   </div>
 </Grid>
-<Grid item  sm={12} md={4} square>
+
+<Grid item  sm={12} md={4} className={classes.content} >
+<div className={classes.content}>
+
 <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
     Create Address
 </Typography>
 
+
+                   
 <TextField
      id="outlined-full-width"
      label="Address"
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeAddressValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -363,7 +505,7 @@ class CreateContact extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeAddressTwoValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -379,7 +521,7 @@ class CreateContact extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeCountryValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -396,7 +538,7 @@ class CreateContact extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeStateValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -413,7 +555,7 @@ class CreateContact extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeZipValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -424,15 +566,23 @@ class CreateContact extends React.Component {
      variant="outlined"
    />
 
+</div>
 </Grid>
-
 
 </Grid>
 <CardActions>
+<ButtonGroup fullWidth aria-label="full width outlined button group">
 <Button type="Submit" className={classes.Button} variant="contained" size="Medium" color="primary">
           Save
       </Button>
+      </ButtonGroup>
 
+      <ButtonGroup fullWidth aria-label="full width outlined button group">
+      <Button type='Submit' onClick={this.handleclear} variant="contained" size="Medium" color="primary">
+      {/* <input type="reset" defaultValue="Reset" /> */} Reset
+      </Button>
+      </ButtonGroup>
+    
       <div className={classes.root}>
           {this.state.updatedValue}
           {/* <Alert severity="success" color="info">
@@ -441,12 +591,13 @@ class CreateContact extends React.Component {
       </div>
       </CardActions>
 
-  
+  </div>
   </CardContent>
 
 </form>
-
 </Card>
+</div>
+
 
 </div>
 );
