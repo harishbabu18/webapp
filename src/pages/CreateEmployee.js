@@ -62,7 +62,8 @@ class CreateEmployee extends React.Component {
       firstNameValue:'',
       lastNameValue:'',
       relievingdateValue:'',
-      updatedValue:''
+      updatedValue:'',
+      userValue:'',
     }
   }
   componentDidMount() {
@@ -71,6 +72,13 @@ class CreateEmployee extends React.Component {
     .then(r => r.json())
     .then(json => this.setState({employee: json}))
     .catch(error => console.error('Error retrieving Tickrts: ' + error));
+
+    const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
+    fetch(url)
+    .then(r => r.json())
+    .then(json => this.setState({userValue: json.id}))
+    .catch(error => console.error('Error retrieving Companies: ' + error));
+
     }
 
   handleEmailValue=(event)=>{
@@ -112,25 +120,72 @@ class CreateEmployee extends React.Component {
 
   handleSubmit=(event)=>{
     event.preventDefault()
+
+    let EmployeeDetail ={
+      firstName:this.state.firstNameValue,
+      relievingdate:this.state.relievingdateValue,
+      joinindate:this.state.joinindateValue,
+      lastName:this.state.lastNameValue,
+      profilepic:this.state.profilepicValue,
+      dob:this.state.dobValue,
+      email:this.state.emailValue,
+      user:this.state.userValue,
+    }
+    console.log("Verify",EmployeeDetail)
+
     fetch(SERVER_URL+'/employee', { 
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        firstName:this.state.firstNameValue,
-        relievingdate:this.state.relievingdateValue,
-        joinindate:this.state.joinindateValue,
-        lastName:this.state.lastNameValue,
-        profilepic:this.state.profilepicValue,
-        dob:this.state.dobValue,
-        email:this.state.emailValue,
+      body: JSON.stringify(EmployeeDetail)
+    }).then(r=> r.json()).then(json =>{
+      let updatedValue = this.state.updatedValue;
+      if(typeof json.total==='undefined'){
+        updatedValue="";
+        if(typeof json.message==='undefined'){
+          updatedValue += "Employee is Added Successfully"
+        } 
+        else
+        {
+          updatedValue +=json.message;
+        }
+      }
+      else{
+         updatedValue = "Errors Are "
+         for(let i=0;i<json.total;i++){
+          updatedValue +=json._embedded.errors[i].message
+           
+         }
+
+      }
+      
+    this.setState({updatedValue})
+    }).catch(error =>{
+     
+      console.error("The Error Message is "+error)
+
+
+   
+    } )
+    }
+
+
+    handleclear=(event)=>{
+      event.preventDefault()
+      document.getElementById("create-course-form").reset()
+
+      this.setState( {
+        firstNameValue:'',
+        relievingdateValue:'',
+        joinindateValue:'',
+        lastNameValue:'',
+        profilepicValue:'',
+        dobValue:'',
+        emailValue:'',
       })
-    }).then(r=> r.json()).then(json=>{let updatedValue = this.state.updatedValue;
-      updatedValue = "Employee ID "+json.id+" is Added Successfully";
-      this.setState({updatedValue})
-    })
+
     }
 
   render() {
@@ -139,28 +194,27 @@ class CreateEmployee extends React.Component {
 
   return (
 
-    <div  component="main" className={classes.root} >
-    <div  className={classes.root}  >
- {/* <Paper > */}
+<div>
+  <div  component="main" className={classes.root}  >
+        <div  className={classes.root}  >
+          <Grid sm={6} md={12}>
      <ButtonGroup fullWidth aria-label="full width outlined button group">
-     <Button className={classes.content} href="/admin/employee/list">List Company</Button>
-     <Button className={classes.content} href="/admin/employee/create">Create Company</Button>
+     <Button className={classes.content} href="/admin/employee/list">List Employee</Button>
+     <Button className={classes.content} href="/admin/employee/create">Create Employee</Button>
    </ButtonGroup>
-     {/* </Paper> */}
-     </div>
-     <form  onSubmit={this.handleSubmit} className={classes.root} >
-       <div className={classes.root} >
+   </Grid>
+         </div>
 
-        
+         <div className={classes.content}>
 
-     <Grid container  className={classes.root} >
+         <Card>
+          <form id="create-course-form" onSubmit={this.handleSubmit} >
+            <CardContent >
+            <div className={classes.content}>
 
 
-
-
-      <Grid item  sm={12} md={4}  className={classes.root} >
-      <Card className={classes.root} variant="outlined">
-
+    <Grid container component="main">
+      <div className={classes.root}>
 
        <CardContent >
            <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
@@ -225,33 +279,28 @@ class CreateEmployee extends React.Component {
      variant="outlined"
    />
     
-    <form className={classes.container} noValidate>
-  <TextField
+    <TextField
     id="date"
     label="Date Of Birth"
     type="date"
-    defaultValue=""
     onChange={this.handleDobValue}
     className={classes.textField}
     InputLabelProps={{
       shrink: true,
     }}
   />
-</form>
 
-<form className={classes.container} noValidate>
-  <TextField
+  
+<TextField
     id="date"
     label="Joining Date"
     type="date"
-    defaultValue=""
     onChange={this.handleJoiningDateValue}
     className={classes.textField}
     InputLabelProps={{
       shrink: true,
     }}
   />
-</form>
 
 <input
   accept="image/*"
@@ -268,97 +317,51 @@ class CreateEmployee extends React.Component {
   </Button>
 </label> 
 
-
-    <form className={classes.container} noValidate>
-  <TextField
+  
+<TextField
     id="date"
     label="Relieving Date"
     type="date"
-    defaultValue=""
     onChange={this.handleRelievingDateValue}
     className={classes.textField}
     InputLabelProps={{
       shrink: true,
     }}
   />
-  </form>
-</CardContent>
-</Card>
-</Grid>
-
-
-<Grid item  sm={12} md={4} >
-<Card className={classes.root} variant="outlined">
-
-
-<CardContent >
-           <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
-               Create Employee Contact
-           </Typography>
-
-                        <TextField
-                          id="outlined-uncontrolled"
-                          label="Mobile"
-                          type = 'number'
-                          margin="normal"
-                          onChange={this.handleChange}
-                      
-                          variant="outlined"
-                        />
-
-                        <TextField
-                          id="outlined-uncontrolled"
-                          label="Email"
-                          type="email"
-                          margin="normal"
-                          onChange={this.handleChange}
-                      
-                          variant="outlined"
-                        />
-
-                        <TextField
-                          id="outlined-uncontrolled"
-                          label="Fax"
-                          margin="normal"
-                          onChange={this.handleChange}
-                      
-                          variant="outlined"
-                        />
-
-                        </CardContent>
-
-                      </Card>
-                        </Grid>
-                        
-
 
 <CardActions>
+<ButtonGroup fullWidth aria-label="full width outlined button group">
+<Button type="Submit" className={classes.Button} variant="contained" size="Medium" color="primary">
+          Save
+      </Button>
+      </ButtonGroup>
 
-<Button type="Submit" variant="contained" size="small" color="primary">
-    Save
-</Button>
+      <ButtonGroup fullWidth aria-label="full width outlined button group">
+      <Button type='Submit' onClick={this.handleclear} variant="contained" size="Medium" color="primary">
+      {/* <input type="reset" defaultValue="Reset" /> */} Reset
+      </Button>
+      </ButtonGroup>
+    
+      <div className={classes.root}>
+          {this.state.updatedValue}
+          {/* <Alert severity="success" color="info">
+          {this.state.updatedValue}
+          </Alert> */}
+      </div>
+      </CardActions>
 
-<div className={classes.root}>
-    {this.state.updatedValue}
-    {/* <Alert severity="success" color="info">
-    {this.state.updatedValue}
-    </Alert> */}
+  </CardContent>
+  </div>
+  </Grid>
+  </div>
+  </CardContent>
+  </form>
+
+</Card>
 </div>
 
-</CardActions>
-{/* </Grid> */}
 
-
-
-
-</Grid>
 </div>
-</form>
-
-
-
-
-
 </div>
 );
 }}

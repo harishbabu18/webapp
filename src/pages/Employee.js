@@ -131,18 +131,17 @@ class Employee extends React.Component {
       
 
         return(
-          <Grid container component="main" className={classes.root}>
-               <Grid item  sm={12} md={12}  component={Paper} elevation={6} square>
+          <div>
+          <Grid item  sm={6} md={12} className={classes.root} >
 
-
-          <Paper square>
           <ButtonGroup fullWidth aria-label="full width outlined button group">
           <Button href="/admin/employee/list">List employee</Button>
           <Button href="/admin/employee/create">Create employee</Button>
           
         </ButtonGroup>
-        </Paper>
-            <Paper className={classes.root}>
+        </Grid>
+
+        <Grid item  sm={12} md={12} className={classes.content} >
 
               
       <Table className={classes.table} aria-label="customized table">
@@ -161,9 +160,8 @@ class Employee extends React.Component {
         </TableBody>
         <Button onClick={this.loadMore}>Load More</Button>
       </Table>
-      </Paper>
     </Grid>
-    </Grid>
+    </div>
         );
     }
 }
