@@ -51,7 +51,7 @@ export default function Address (props) {
             </ListItem>
 
 
-            <ListItem button className={classes.nested}  component={Link} to="/admin/contact/list">
+            <ListItem button className={classes.nested}  component={Link} to="/addressbook/contact/list">
               <ListItemIcon>
                 <ContactsIcon />
               </ListItemIcon>
@@ -59,7 +59,9 @@ export default function Address (props) {
             </ListItem>
 
 
-            <ListItem button className={classes.nested}  component={Link} to="/admin/employee/list">
+
+            <ListItem button className={classes.nested}  component={Link} to="/addressbook/employee/list">
+
               <ListItemIcon>
                 <GroupWorkIcon  />
               </ListItemIcon>

@@ -7,18 +7,13 @@ import qs from 'qs';
 export default {
   logIn(auth) { 
     localStorage.auth = JSON.stringify(auth);
-    
-  
   },
-
   logOut() { 
     delete localStorage.auth;
-   
   },
 
   refreshToken() { 
-    return fetch(
-      `${SERVER_URL}/oauth/access_token`,
+    return fetch(SERVER_URL+'/oauth/access_token',
       { method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
