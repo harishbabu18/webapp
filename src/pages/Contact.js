@@ -142,8 +142,8 @@ class Contact extends React.Component {
           <Grid item  sm={6} md={12} className={classes.root} >
 
             <ButtonGroup fullWidth aria-label="full width outlined button group">
-              <Button className={classes.content} href="/admin/contact/list">List Contact</Button>
-              <Button className={classes.content} href="/contact/create">Create Contact</Button>
+              <Button className={classes.content} href="/addressbook/contact/list">List Contact</Button>
+              <Button className={classes.content} href="/addressbook/contact/create">Create Contact</Button>
             </ButtonGroup>
             </Grid>
           {/* </div> */}

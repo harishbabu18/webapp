@@ -135,8 +135,8 @@ class Employee extends React.Component {
           <Grid item  sm={6} md={12} className={classes.root} >
 
           <ButtonGroup fullWidth aria-label="full width outlined button group">
-          <Button href="/admin/employee/list">List employee</Button>
-          <Button href="/admin/employee/create">Create employee</Button>
+          <Button href="/addressbook/employee/list">List employee</Button>
+          <Button href="/addressbook/employee/create">Create employee</Button>
           
         </ButtonGroup>
         </Grid>

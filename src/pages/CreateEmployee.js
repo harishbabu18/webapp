@@ -199,8 +199,8 @@ class CreateEmployee extends React.Component {
         <div  className={classes.root}  >
           <Grid sm={6} md={12}>
      <ButtonGroup fullWidth aria-label="full width outlined button group">
-     <Button className={classes.content} href="/admin/employee/list">List Employee</Button>
-     <Button className={classes.content} href="/admin/employee/create">Create Employee</Button>
+     <Button className={classes.content} href="/addressbook/employee/list">List Employee</Button>
+     <Button className={classes.content} href="/addressbook/employee/create">Create Employee</Button>
    </ButtonGroup>
    </Grid>
          </div>
@@ -304,15 +304,16 @@ class CreateEmployee extends React.Component {
 
 <input
   accept="image/*"
-  className={classes.input}
+  id="outlined-full-width"
+  className={classes.root}
   onChange={this.handleProfilepicValue}
   style={{ display: 'none' }}
   id="raised-button-file"
-  multiple
+  single
   type="file"
 />
 <label htmlFor="raised-button-file">
-  <Button variant="raised" component="span" className={classes.textField}>
+  <Button variant="raised" component="span" className={classes.root}>
     Profile Pic
   </Button>
 </label> 
