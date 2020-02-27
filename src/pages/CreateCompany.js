@@ -62,14 +62,43 @@ class CreateCompany extends React.Component {
           companyDateCreated:'',
           companyDescription:'',
           updatedValue:'',
+          fields: {},
+          errors: {}
           
       }
     }
 
+
+    handleValidation(){
+      let fields = this.state.fields;
+      let errors = {};
+      let formIsValid = true;
+
+      //Name
+      if(!fields["name"]){
+         formIsValid = false;
+         errors["name"] = "Cannot be empty";
+      }
+
+      if(typeof fields["name"] !== "undefined"){
+         if(!fields["name"].match(/^[a-zA-Z]+$/)){
+            formIsValid = false;
+            errors["name"] = "Only letters";
+         }        
+      }
+
+      this.setState({errors: errors});
+      return formIsValid;
+    }
+
   
 
-  handleCompanyNameValue=(event)=>{
+  handleCompanyNameValue=(event,field)=>{
     this.setState({companyName:event.target.value});
+
+    let fields = this.state.fields;
+    fields[field] = event.target.value;        
+    this.setState({fields});
     
   }
 
@@ -86,6 +115,11 @@ class CreateCompany extends React.Component {
 
   handleSubmit=(event)=>{
     event.preventDefault()
+
+    if(this.handleValidation())
+    {
+
+
     fetch(SERVER_URL+'/company', { 
       method: 'POST',
       headers: {
@@ -110,7 +144,14 @@ class CreateCompany extends React.Component {
 
     this.setState({updatedValue})
     } )
-    };
+    }
+
+    
+    else{
+      alert("Form has errors.")
+    }
+  };
+
 
 
 
@@ -150,12 +191,13 @@ class CreateCompany extends React.Component {
           placeholder="Company Name "
           fullWidth
           margin="normal"
-          onChange={this.handleCompanyNameValue}
+          onChange={this.handleCompanyNameValue.bind(this,"cname")}
           InputLabelProps={{
             shrink: true,
           }}
           variant="outlined"
         />
+          <span style={{color: "red"}}>{this.state.errors["cname"]}</span>
 
           
     <form noValidate>

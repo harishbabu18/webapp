@@ -26,7 +26,7 @@ const useStyles = theme => ({
   },
 });
 
-class Company extends React.Component {
+class CompanyDetail extends React.Component {
     constructor() {
         super();
     
@@ -36,29 +36,38 @@ class Company extends React.Component {
           company: [],
           filterList:[],
           searchTicketValue:'',
+          user:[],
           
         }
      
 
       }
-      componentDidMount() {
-       this.loadCompany()
-      }
-      loadCompany= () => {
-        const {offset,max,company} = this.state
-       const url = SERVER_URL+'/company?offset='+offset+'&max='+max
+      componentDidMount () {
+        const { handle } = this.props.params
+    
+        fetch(SERVER_URL+'/company/profile/id:'+{handle})
+          .then((user) => {
+            this.setState(() => ({ user }))
+            console.log(this.state)
+          })}
+    //   componentDidMount() {
+    //    this.loadCompany()
+    //   }
+    //   loadCompany= () => {
+    //     const {offset,max,company} = this.state
+    //    const url = SERVER_URL+'/company?offset='+offset+'&max='+max
       
-        fetch(url)
-        .then(r => r.json())
-        .then(json => this.setState({company:[...company,...json] }))
-        .catch(error => console.error('Error retrieving Companies: ' + error));
-      }
+    //     fetch(url)
+    //     .then(r => r.json())
+    //     .then(json => this.setState({company:[...company,...json] }))
+    //     .catch(error => console.error('Error retrieving Companies: ' + error));
+    //   }
 
-      loadMore=()=>{
-        this.setState(prevState =>({
-          offset:prevState.offset+10
-        }),this.loadCompany)     
-      }
+    //   loadMore=()=>{
+    //     this.setState(prevState =>({
+    //       offset:prevState.offset+10
+    //     }),this.loadCompany)     
+    //   }
 
 
       render() {
@@ -84,16 +93,15 @@ class Company extends React.Component {
           
           
 
-          function renderCompanyRow(Company) {
+        //   function renderCompanyRow(Company) {
 
-            return (<StyledTableRow key={Company.id}>
-              <StyledTableCell component="th" scope="row">
-              {/* <a href="/admin/company/list"> {Company.name} </a> */}
-            <Link to='/admin/companydetail/'> {Company.name} </Link>
-              <Button ></Button>
-              </StyledTableCell>
-            </StyledTableRow>);
-          }
+        //     return (<StyledTableRow key={Company.id}>
+        //       <StyledTableCell component="th" scope="row">
+        //       {/* <a href="/admin/company/list"> {Company.name} </a> */}
+        //       <Link to={{ pathname: '/', state: { id: Company.id} }}>{Company.name}</Link>
+        //       </StyledTableCell>
+        //     </StyledTableRow>);
+        //   }
       
 
         return(
@@ -105,11 +113,19 @@ class Company extends React.Component {
 
           <Paper square>
           <ButtonGroup fullWidth aria-label="full width outlined button group">
-          <Button href="/admin/company/list">List company</Button>
-          <Button href="/admin/company/create">Create company</Button>
+          <Button href="/admin/company/list">General Info</Button>
+          <Button href="/admin/company/create">Activity</Button>
+          
+          <Button href="/admin/company/list">Ticket</Button>
+          <Button href="/admin/company/create">Oppertunity</Button>
+          <Button href="/admin/company/list">Offer</Button>
+          <Button href="/admin/company/create">Subscription</Button>
+          <Button href="/admin/company/list">Odders</Button>
+          <Button href="/admin/company/create">Acounting</Button>
+
         </ButtonGroup>
           </Paper>
-            <Paper className={classes.root}>
+            {/* <Paper className={classes.root}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -124,11 +140,11 @@ class Company extends React.Component {
         </TableBody>
       </Table>
       <Button onClick={this.loadMore}>Load More</Button>
-    </Paper>
+    </Paper> */}
     </Grid>
     </Grid>
         );
     }
 }
 
-export default  withStyles(useStyles)(Company);
+export default  withStyles(useStyles)(CompanyDetail);
