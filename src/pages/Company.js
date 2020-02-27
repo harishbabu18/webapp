@@ -11,6 +11,7 @@ import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../config';
 import { Button } from '@material-ui/core';
 import { ButtonGroup} from '@material-ui/core';
+import { Link } from "react-router-dom";
 
 
 
@@ -113,7 +114,9 @@ class Company extends React.Component {
 
             return (<StyledTableRow key={Company.id}>
               <StyledTableCell component="th" scope="row">
-                {Company.name}
+              {/* <a href="/admin/company/list"> {Company.name} </a> */}
+            <Link to='/admin/companydetail/'> {Company.name} </Link>
+              <Button ></Button>
               </StyledTableCell>
             </StyledTableRow>);
           }

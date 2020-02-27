@@ -17,6 +17,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = theme => ({
   root: {
+   
+    
     '& .MuiTextField-root ': {
       margin: theme.spacing(1),
       marginBottom: 12,
@@ -34,8 +36,10 @@ const useStyles = theme => ({
 
     },
 
-    },
+    }
   },
+
+
   title: {
     fontSize: 18,
   },
@@ -60,6 +64,11 @@ class CreateCompany extends React.Component {
           companyName: '',
           companyDateCreated:'',
           companyDescription:'',
+
+          updatedValue:'',
+          fields: {},
+          errors: {},
+
           officeType:[],
           officeTypeValue:'',
           addressValue:'',
@@ -71,10 +80,20 @@ class CreateCompany extends React.Component {
           websiteValue:'',
           emailValue:'',
           faxValue:'',
+
+
+
+          helperTextEmail: '',
+          helperTextComapanyName: '',
+          helperTextWebsite: '',
           userValue:'',
           
       }
     }
+
+
+
+
 
     componentDidMount(){
         
@@ -94,7 +113,18 @@ class CreateCompany extends React.Component {
   
 
   handleCompanyNameValue=(event)=>{
-    this.setState({companyName:event.target.value});
+
+
+  if(!event.target.value) {
+      this.setState({ helperTextComapanyName: 'field should not be empty' })
+    }
+   else if (event.target.value.match(/^[^A-Za-z0-9]+$/)) {
+      this.setState({ helperTextComapanyName: '' })
+      this.setState({companyName:event.target.value});
+    } 
+  
+
+  
     
   }
 
@@ -113,11 +143,27 @@ class CreateCompany extends React.Component {
   }
 
   handleChangeWebsiteValue=(event)=>{
+    if(event.target.value.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g))
+    {
     this.setState({websiteValue:event.target.value})
+    this.setState({ helperTextWebsite: '' })
+    }
+    else
+    {
+      this.setState({ helperTextWebsite: 'Bad website format' })
+    }
   }
 
   handleChangeEmailValue=(event)=>{
+
+    if(event.target.value.match(/^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/))
+    {
     this.setState({emailValue:event.target.value})
+    this.setState({ helperTextEmail: '' })
+    }
+    else{
+      this.setState({ helperTextEmail: 'Bad email format' })
+    }
   }
 
   handleChangeFaxValue=(event)=>{
@@ -152,6 +198,18 @@ class CreateCompany extends React.Component {
   handleSubmit=(event)=>{
     event.preventDefault()
 
+  
+    
+     console.log("Logged In User is "+JSON.parse(localStorage.auth).username);
+     
+     console.log(this.state);
+
+     const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
+     fetch(url)
+     .then(r => r.json())
+     .then(json => console.log("User Id is"+json.id))
+     .catch(error => console.error('Error retrieving Companies: ' + error));
+
      let CompanyDetail={
       establishedDate:this.state.companyDateCreated,
       description:this.state.companyDescription,
@@ -184,6 +242,7 @@ class CreateCompany extends React.Component {
     console.log("Company Details "+CompanyDetail.zip)
     console.log("Company Details "+CompanyDetail.user)
    
+
 
 
     fetch(SERVER_URL+'/company', { 
@@ -222,7 +281,12 @@ class CreateCompany extends React.Component {
 
    
     } )
-    };
+    
+
+    
+   
+  };
+
 
     handleclear=(event)=>{
       event.preventDefault()
@@ -292,14 +356,16 @@ class CreateCompany extends React.Component {
           fullWidth
           margin="normal"
           onChange={this.handleCompanyNameValue}
+          helperText= {this.state.helperTextComapanyName}
           InputLabelProps={{
             shrink: true,
           }}
           variant="outlined"
         />
+         
 
           
-    <form noValidate>
+    <form >
   <TextField
     id="date"
     label="Company Created On"
@@ -362,6 +428,7 @@ class CreateCompany extends React.Component {
      fullWidth
      margin="normal"
      onChange={this.handleChangeWebsiteValue}
+     helperText= {this.state.helperTextWebsite}
      InputLabelProps={{
        shrink: true,
      }}
@@ -381,6 +448,7 @@ class CreateCompany extends React.Component {
      fullWidth
      margin="normal"
      onChange={this.handleChangeEmailValue}
+     helperText= {this.state.helperTextEmail}
      InputLabelProps={{
        shrink: true,
      }}

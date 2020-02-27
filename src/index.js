@@ -16,6 +16,7 @@ import User from './pages/User';
 import Role from './pages/Role';
 import LayoutTextFields from './pages/LayoutTextField';
 import CreateCompany from './pages/CreateCompany';
+import CompanyDetail from './pages/CompanyDetail';
 import CreateEmployee from './pages/CreateEmployee';
 import CreateTicket from './pages/CreateTicket';
 import Ticket from './pages/Ticket';
@@ -309,6 +310,9 @@ class Index extends React.Component {
         </Admin>
         <Admin path="/admin/employee/create">
           <CreateEmployee />
+        </Admin>
+        <Admin path="/admin/companydetail">
+          <CompanyDetail />
         </Admin>
 
         </Switch>
