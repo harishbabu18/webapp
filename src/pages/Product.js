@@ -146,8 +146,8 @@ class Product extends React.Component {
           <Grid item  sm={6} md={12} className={classes.root} >
 
           <ButtonGroup fullWidth aria-label="full width outlined button group">
-          <Button href="/warehouse/employee/list">List Products</Button>
-          <Button href="/warehouse/employee/create">Create Products</Button>
+          <Button href="/warehouse/product/list">List Products</Button>
+          <Button href="/warehouse/product/create">Create Products</Button>
           
         </ButtonGroup>
         </Grid>
