@@ -65,6 +65,7 @@ class CreateTicket extends React.Component {
       contact:[],
       contactValue:'',
       updatedValue:'Status',
+      userValue:'',
     }
   }
   componentDidMount() {
@@ -126,66 +127,111 @@ class CreateTicket extends React.Component {
 
   handleSubmit=(event)=>{
     event.preventDefault()
+    let TicketDetails={
+      description:this.state.descriptionValue,
+      urgent:false,
+      import:false,
+      ticketSource:this.state.ticketSourceValue,
+      ticketStatus:this.state.ticketStatusTypeValue,
+      createdBy:this.state.employeeValue,
+      assignedTo:this.state.employeeValue,
+      company:this.state.companyValue,
+      contact:this.state.contactValue,
+      user:this.state.userValue,
+    }
+
+    console.log("Verify",TicketDetails)
+
     fetch(SERVER_URL+'/ticket', { 
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        description:this.state.descriptionValue,
-        urgent:false,
-        import:false,
-        ticketSource:this.state.ticketSourceValue,
-        ticketStatus:this.state.ticketStatusTypeValue,
-        createdBy:this.state.employeeValue,
-        assignedTo:this.state.employeeValue,
-        company:this.state.companyValue,
-        contact:this.state.contactValue
-      })
+      body: JSON.stringify(TicketDetails)
     }).then(r=> r.json()).then(json =>{
       let updatedValue = this.state.updatedValue;
-      updatedValue = "Ticket ID " +json.id+" is Added Successfully"
+      if(typeof json.total==='undefined'){
+        updatedValue="";
+        if(typeof json.message==='undefined'){
+          updatedValue += "Employee is Added Successfully"
+        } 
+        else
+        {
+          updatedValue +=json.message;
+        }
+      }
+      else{
+         updatedValue = "Errors Are "
+         for(let i=0;i<json.total;i++){
+          updatedValue +=json._embedded.errors[i].message
+           
+         }
+
+      }
+      
     this.setState({updatedValue})
     }).catch(error =>{
-      let updatedValue = this.state.updatedValue;
-      updatedValue = "The Error is " +error.message;
-    this.setState({updatedValue})
+     
+      console.error("The Error Message is "+error)
 
+
+   
     } )
     };
+
+
+    handleclear=(event)=>{
+      event.preventDefault()
+      document.getElementById("create-course-form").reset()
+
+      this.setState( {
+          descriptionValue:'',
+          urgent:false,
+          import:false,
+          ticketSourceValue:'',
+          ticketStatusTypeValue:'',
+          employeeValue:'',
+          employeeValue:'',
+          companyValue:'',
+          contactValue:'',
+      })
+
+    }
+
 
   render() {
     const { classes } = this.props;
 
   return (
 
+    <div>
     <div  component="main" className={classes.root}  >
-         <div  className={classes.root}  >
-          <ButtonGroup fullWidth aria-label="full width outlined button group">
-          <Button className={classes.content} href="/admin/ticket/list">List Ticket</Button>
-          <Button className={classes.content} href="/admin/ticket/create">Create ticket</Button>
-        </ButtonGroup>
-          </div>
-
-          <Grid item  sm={12} md={12} className={classes.content} >
-
-          
-    <Card className={classes.root} variant="outlined">
-
-      <Grid item  sm={12} md={4} className={classes.content} >
-
-      
-        <div>
-
+          <div  className={classes.root}  >
+            <Grid sm={6} md={12}>
+       <ButtonGroup fullWidth aria-label="full width outlined button group">
+       <Button className={classes.content} href="/sales/ticket/list">List Employee</Button>
+       <Button className={classes.content} href="/sales/ticket/create">Create Employee</Button>
+     </ButtonGroup>
+     </Grid>
+           </div>
+  
+           <div className={classes.content}>
+  
+           <Card>
+            <form id="create-course-form" onSubmit={this.handleSubmit} >
+              <CardContent >
+              <div className={classes.content}>
+  
+  
+      <Grid container component="main">
+        <div className={classes.root}>
           {/* <Card className={classes.root} variant="outlined"> */}
               <CardContent >
                   <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
                       Create Ticket Profile
                   </Typography>
 
-                  <form  onSubmit={this.handleSubmit} >
-                      <Grid item >
                           <TextField
                           id="outlined-uncontrolled"
                           label="Description"
@@ -269,9 +315,7 @@ class CreateTicket extends React.Component {
                                   </MenuItem>
                               ))}
                           </TextField>
-                        </Grid>
 
-                      <Grid item  sm={12} md={4} square>
                         <TextField
                           id="outlined-uncontrolled"
                           label="Mobile"
@@ -302,44 +346,39 @@ class CreateTicket extends React.Component {
                         />
 
 
-                        </Grid>
+<CardActions>
+<ButtonGroup fullWidth aria-label="full width outlined button group">
+<Button type="Submit" className={classes.Button} variant="contained" size="Medium" color="primary">
+          Save
+      </Button>
+      </ButtonGroup>
+
+      <ButtonGroup fullWidth aria-label="full width outlined button group">
+      <Button type='Submit' onClick={this.handleclear} variant="contained" size="Medium" color="primary">
+      {/* <input type="reset" defaultValue="Reset" /> */} Reset
+      </Button>
+      </ButtonGroup>
+    
+      <div className={classes.root}>
+          {this.state.updatedValue}
+          {/* <Alert severity="success" color="info">
+          {this.state.updatedValue}
+          </Alert> */}
+      </div>
+      </CardActions>
+
+  </CardContent>
+  </div>
+  </Grid>
+  </div>
+  </CardContent>
+  </form>
+
+</Card>
+</div>
 
 
-                          <CardActions>
-
-                            <Button type="Submit" variant="contained" size="small" color="primary">
-                                Save
-                            </Button>
-
-                            <div className={classes.root}>
-                                {this.state.updatedValue}
-                                {/* <Alert severity="success" color="info">
-                                {this.state.updatedValue}
-                                </Alert> */}
-                            </div>
-
-                          </CardActions>
-
-                  </form>
-
-                </CardContent>
-
-              </div>
-
-            </Grid>
-          </Card>
-          </Grid>
-
-<Grid item  sm={12} md={6} square>
-<Grid item  sm={12} component={Paper} square>
-
-
-
- </Grid>
- <Grid item  sm={12} component={Paper} square>
-  
- </Grid>
-</Grid>
+</div>
 </div>
   );
 }}

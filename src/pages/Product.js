@@ -12,16 +12,39 @@ import { Button ,ButtonGroup} from '@material-ui/core';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Barcode from 'react-barcode';
 
+
 const useStyles = theme => ({
   root: {
-    width: '100%',
-    marginTop: theme.spacing(3),
-    overflowX: 'auto',
+    '& .MuiTextField-root ': {
+      margin: theme.spacing(1),
+      marginBottom: 12,
+      flexGrow:1,
+
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+        width:'100%',
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: 305,
+
+    },
+
+    },
   },
-  table: {
-    minWidth: 700,
+  title: {
+    fontSize: 18,
   },
-});
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1,0),
+  },
+
+
+
+})
+
 
 class Product extends React.Component {
  
@@ -119,15 +142,18 @@ class Product extends React.Component {
 
 
         return(
-          <Grid container component="main" className={classes.root}>
-          <Grid item  sm={12} md={12}  component={Paper} elevation={6} square>
-          <Paper square>
+          <div>
+          <Grid item  sm={6} md={12} className={classes.root} >
+
           <ButtonGroup fullWidth aria-label="full width outlined button group">
-          <Button href="/admin/product/list">List Product</Button>
-          <Button href="/admin/product/create">Create Product</Button>
+          <Button href="/warehouse/employee/list">List Products</Button>
+          <Button href="/warehouse/employee/create">Create Products</Button>
+          
         </ButtonGroup>
-          </Paper>
-            <Paper className={classes.root}>
+        </Grid>
+
+        <Grid item  sm={12} md={12} className={classes.content} >
+
 
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
@@ -148,12 +174,10 @@ class Product extends React.Component {
             <renderProductRow product={products}/>
         {this.state.product.map(renderProductRow)}
         </TableBody>
+        <Button onClick={this.loadMore}>Load More</Button>
       </Table>
-
-      <Button onClick={this.loadMore}>Load More</Button>
-    </Paper>
     </Grid>
-    </Grid>
+    </div>
         );
     }
 }

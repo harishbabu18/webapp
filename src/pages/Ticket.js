@@ -13,16 +13,38 @@ import { Button } from '@material-ui/core';
 import { ButtonGroup} from '@material-ui/core';
 
 
+
 const useStyles = theme => ({
   root: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-    overflowX: 'auto',
+    '& .MuiTextField-root ': {
+      margin: theme.spacing(1),
+      marginBottom: 12,
+      flexGrow:1,
+
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+        width:'100%',
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: 305,
+
+    },
+
+    },
   },
-  table: {
-    minWidth: 700,
+  title: {
+    fontSize: 18,
   },
-});
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1,0),
+  },
+
+
+
+})
 
 class Ticket extends React.Component {
     constructor() {
@@ -100,17 +122,18 @@ class Ticket extends React.Component {
       
 
         return(
-          <Grid container component="main" className={classes.root}>
-          <Grid item  sm={12} md={12}  component={Paper} elevation={6} square>
+          <div>
+          <Grid item  sm={6} md={12} className={classes.root} >
 
-
-          <Paper square>
           <ButtonGroup fullWidth aria-label="full width outlined button group">
-          <Button href="/admin/ticket/list">List Ticket</Button>
-          <Button href="/admin/ticket/create">Create Ticket</Button>
+          <Button href="/sales/ticket/list">List Ticket</Button>
+          <Button href="/sales/ticket/create">Create Ticket</Button>
+          
         </ButtonGroup>
-          </Paper>
-            <Paper className={classes.root}>
+        </Grid>
+
+        <Grid item  sm={12} md={12} className={classes.content} >
+
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -127,11 +150,10 @@ class Ticket extends React.Component {
         <TableBody>
         {this.state.ticket.map(renderTicketRow)}
         </TableBody>
+        <Button onClick={this.loadMore}>Load More</Button>
       </Table>
-      <Button onClick={this.loadMore}>Load More</Button>
-    </Paper>
     </Grid>
-    </Grid>
+    </div>
         );
     }
 }

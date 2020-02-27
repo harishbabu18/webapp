@@ -18,17 +18,16 @@ const useStyles = theme => ({
     '& .MuiTextField-root ': {
       margin: theme.spacing(1),
       marginBottom: 12,
+      flexGrow:1,
 
     [theme.breakpoints.down('sm')]: {
         width: '100%',
     },
     [theme.breakpoints.up('md')]: {
         width:'100%',
-        justify:"center",
       },
       [theme.breakpoints.up('lg')]: {
         width: 305,
-        display:'Center',
 
     },
 
@@ -44,7 +43,7 @@ const useStyles = theme => ({
 
 
 
-});
+})
 
 
 class CreateProduct extends React.Component {
@@ -68,6 +67,8 @@ class CreateProduct extends React.Component {
       numberValue:0,
       lot:[],
       lotValue:'',
+      userValue:'',
+
       
     }
   }
@@ -94,6 +95,14 @@ class CreateProduct extends React.Component {
     .then(r => r.json())
     .then(json => this.setState({address: json}))
     .catch(error => console.error('Error retrieving Tickrts: ' + error));
+
+
+    const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
+    fetch(url)
+    .then(r => r.json())
+    .then(json => this.setState({userValue: json.id}))
+    .catch(error => console.error('Error retrieving Companies: ' + error));
+
 
   
   }
@@ -144,9 +153,9 @@ class CreateProduct extends React.Component {
      quantity:this.state.quantity,
      quantityType:this.state.quantitytypeValue,
      price:this.state.price,
-     createBy:1,
      number:this.state.numberValue,
-     lot:this.state.lotValue
+     lot:this.state.lotValue,
+     user:this.userValue,
 
     }
     fetch(SERVER_URL+'/inventory', { 
@@ -156,11 +165,54 @@ class CreateProduct extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(product)
-    }).then(r=> r.json()).then(json=>{let updatedValue = this.state.updatedValue;
-      updatedValue = "Product "+json.id+" is Added Successfully";
-      this.setState({updatedValue})
-    })
+    }).then(r=> r.json()).then(json =>{
+      let updatedValue = this.state.updatedValue;
+      if(typeof json.total==='undefined'){
+        updatedValue="";
+        if(typeof json.message==='undefined'){
+          updatedValue += "Employee is Added Successfully"
+        } 
+        else
+        {
+          updatedValue +=json.message;
+        }
+      }
+      else{
+         updatedValue = "Errors Are "
+         for(let i=0;i<json.total;i++){
+          updatedValue +=json._embedded.errors[i].message
+           
+         }
+
+      }
+      
+    this.setState({updatedValue})
+    }).catch(error =>{
+     
+      console.error("The Error Message is "+error)
+
+
+   
+    } )
     };
+
+    handleclear=(event)=>{
+      event.preventDefault()
+      document.getElementById("create-course-form").reset()
+
+      this.setState( {
+        nameValue:'',
+        barcode:'',
+        quantity:'',
+        quantitytypeValue:'',
+        price:'',
+        numberValue:'',
+        lotValue:'',
+      })
+
+    }
+
+
 
   render() {
     const { classes} = this.props;
@@ -171,27 +223,34 @@ class CreateProduct extends React.Component {
  
   return (
 
-    <div  component="main" className={classes.root}  >
-    <div  className={classes.root}  >
-     <ButtonGroup fullWidth aria-label="full width outlined button group">
-     <Button className={classes.content} href="/admin/product/list">List Product</Button>
-     <Button className={classes.content} href="/admin/product/create">Create Product</Button>
-   </ButtonGroup>
-     </div>
-<Card className={classes.root} variant="outlined">
-
-<Grid item  sm={12} md={4} className={classes.content} >
-
 
 <div>
+  <div  component="main" className={classes.root}  >
+        <div  className={classes.root}  >
+          <Grid sm={6} md={12}>
+     <ButtonGroup fullWidth aria-label="full width outlined button group">
+     <Button className={classes.content} href="/warehouse/product/list">List Product</Button>
+     <Button className={classes.content} href="/warehouse/product/create">Create Product</Button>
+   </ButtonGroup>
+   </Grid>
+         </div>
+
+         <div className={classes.content}>
+
+         <Card>
+          <form id="create-course-form" onSubmit={this.handleSubmit} >
+            <CardContent >
+            <div className={classes.content}>
+
+
+    <Grid container component="main">
+      <div className={classes.root}>
 
        <CardContent >
            <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
                Create Product Profile
            </Typography>
 
-           <form  onSubmit={this.handleSubmit} >
-               <Grid item >
    
                <TextField
                         id="demo-simple-select-outlined-label"
@@ -303,42 +362,41 @@ class CreateProduct extends React.Component {
                             ))}
                         </TextField>
 
-                        </Grid>
 
-      <CardActions>
+                        <CardActions>
+<ButtonGroup fullWidth aria-label="full width outlined button group">
+<Button type="Submit" className={classes.Button} variant="contained" size="Medium" color="primary">
+          Save
+      </Button>
+      </ButtonGroup>
 
-<Button type="Submit" variant="contained" size="small" color="primary">
-    Save
-</Button>
+      <ButtonGroup fullWidth aria-label="full width outlined button group">
+      <Button type='Submit' onClick={this.handleclear} variant="contained" size="Medium" color="primary">
+      {/* <input type="reset" defaultValue="Reset" /> */} Reset
+      </Button>
+      </ButtonGroup>
+    
+      <div className={classes.root}>
+          {this.state.updatedValue}
+          {/* <Alert severity="success" color="info">
+          {this.state.updatedValue}
+          </Alert> */}
+      </div>
+      </CardActions>
 
-<div className={classes.root}>
-    {this.state.updatedValue}
-    {/* <Alert severity="success" color="info">
-    {this.state.updatedValue}
-    </Alert> */}
-</div>
 
-</CardActions>
+  </CardContent>
+  </div>
+  </Grid>
+  </div>
+  </CardContent>
+  </form>
 
-</form>
-
-</CardContent>
-
-</div>
-
-</Grid>
 </Card>
-
-<Grid item  sm={12} md={6} square>
-<Grid item  sm={12} component={Paper} square>
+</div>
 
 
-
-</Grid>
-<Grid item  sm={12} component={Paper} square>
-
-</Grid>
-</Grid>
+</div>
 </div>
 );
 }}        
