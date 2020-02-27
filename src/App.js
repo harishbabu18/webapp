@@ -6,7 +6,7 @@ function App() {
   const dispatch = useDispatch();
   return (
     <div>
-      <button onClick={()=> dispatch(isLogged(true))}>+</button>
+      {/* <button onClick={()=> dispatch(isLogged(true))}>+</button> */}
     </div>
   );
 }

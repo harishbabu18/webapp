@@ -160,7 +160,15 @@ class CreateContact extends React.Component {
   }
 
   handleChangeEmailValue=(event)=>{
+    if(event.target.value.match(/^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/))
+    {
     this.setState({emailValue:event.target.value})
+    this.setState({ helperTextEmail: '' })
+    }
+    else{
+      this.setState({ helperTextEmail: 'Bad email format' })
+
+    }
   }
 
   handleChangeFaxValue=(event)=>{
@@ -277,6 +285,8 @@ class CreateContact extends React.Component {
         countryValue:"",
         stateValue:'',
         zipValue:'',
+
+        helperTextEmail: '',
       })
 
     }
@@ -447,6 +457,8 @@ class CreateContact extends React.Component {
      fullWidth
      margin="normal"
      onChange={this.handleChangeEmailValue}
+
+     helperText= {this.state.helperTextEmail}
      InputLabelProps={{
        shrink: true,
      }}

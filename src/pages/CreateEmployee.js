@@ -64,6 +64,8 @@ class CreateEmployee extends React.Component {
       relievingdateValue:'',
       updatedValue:'',
       userValue:'',
+
+      helperTextEmail: '',
     }
   }
   componentDidMount() {
@@ -82,8 +84,17 @@ class CreateEmployee extends React.Component {
     }
 
   handleEmailValue=(event)=>{
+    
+    if(event.target.value.match(/^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/))
+    {
     this.setState({emailValue:event.target.value});
+    this.setState({ helperTextEmail: '' })
   }
+  else{
+    this.setState({ helperTextEmail: 'Bad email format' })
+  }
+}
+
 
   handleFirstnameValue=(event)=>{
     this.setState({firstNameValue:event.target.value});
@@ -261,6 +272,8 @@ class CreateEmployee extends React.Component {
      margin="normal"
      className={classes.textField}
      onChange={this.handleEmailValue}
+
+     helperText= {this.state.helperTextEmail}
      InputLabelProps={{
        shrink: true,
      }}

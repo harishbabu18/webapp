@@ -181,9 +181,9 @@ class Index extends React.Component {
       <BrowserRouter>
        <div>
       <Switch>
-        <PrivateRoute logoutHandler={this.logoutHandler}  exact path="/" >
+        <Admin logoutHandler={this.logoutHandler}  exact path="/" >
             <App />
-        </PrivateRoute>
+        </Admin>
         <PrivateRoute  exact path="/admin" >
           <Admin /> 
         </PrivateRoute>
