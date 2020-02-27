@@ -115,7 +115,7 @@ class Company extends React.Component {
             return (<StyledTableRow key={Company.id}>
               <StyledTableCell component="th" scope="row">
               {/* <a href="/admin/company/list"> {Company.name} </a> */}
-            <Link to='/admin/companydetail/'> {Company.name} </Link>
+            <Link to='/admin/companydetail'> {Company.name} </Link>
               <Button ></Button>
               </StyledTableCell>
             </StyledTableRow>);

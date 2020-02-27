@@ -42,14 +42,17 @@ class CompanyDetail extends React.Component {
      
 
       }
-      componentDidMount () {
-        const { handle } = this.props.params
+      // componentDidMount () {
+      //   const { handle } = this.props.params
     
-        fetch(SERVER_URL+'/company/profile/id:'+{handle})
-          .then((user) => {
-            this.setState(() => ({ user }))
-            console.log(this.state)
-          })}
+      //   fetch(SERVER_URL+'/company/profile/id:'+{handle})
+      //     .then((user) => {
+      //       this.setState(() => ({ user }))
+      //       console.log(this.state)
+      //     })}
+
+
+      
     //   componentDidMount() {
     //    this.loadCompany()
     //   }
