@@ -16,6 +16,7 @@ import User from './pages/User';
 import Role from './pages/Role';
 import LayoutTextFields from './pages/LayoutTextField';
 import CreateCompany from './pages/CreateCompany';
+import CompanyDetail from './pages/CompanyDetail';
 import CreateEmployee from './pages/CreateEmployee';
 import CreateTicket from './pages/CreateTicket';
 import Ticket from './pages/Ticket';
@@ -288,27 +289,32 @@ class Index extends React.Component {
           <CreateTicket />
         </Admin>
 
-
         <Admin path="/addressbook/company/list">
         <Company />
         </Admin>
+
         <Admin logoutHandler={this.logoutHandler} path="/addressbook/company/create">
         <CreateCompany />
         </Admin>
-        <Admin path="/admin/contact/list">
+        <Admin  logoutHandler={this.logoutHandler}  path="/addressbook/contact/list">
           <Contact />
         </Admin>
-        <Admin logoutHandler={this.logoutHandler}  path="/contact/create">
+        <Admin logoutHandler={this.logoutHandler}  path="/addressbook/contact/create">
           <CreateContact />
         </Admin>
-        <Admin path="/admin/employee/list">
+        <Admin logoutHandler={this.logoutHandler}  path="/addressbook/employee/list">
           <Employee />
         </Admin>
+        <Admin logoutHandler={this.logoutHandler} path="/addressbook/employee/create">
+          <CreateEmployee />
+        </Admin>
+
         <Admin path="/admin/calendar/activities">
           <Calendar />
         </Admin>
-        <Admin path="/admin/employee/create">
-          <CreateEmployee />
+        
+        <Admin path="/admin/companydetail">
+          <CompanyDetail />
         </Admin>
 
         </Switch>

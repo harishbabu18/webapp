@@ -22,6 +22,7 @@ import { ButtonGroup} from '@material-ui/core';
 // });
 
 
+
 const useStyles = theme => ({
   root: {
     '& .MuiTextField-root ': {
@@ -30,6 +31,8 @@ const useStyles = theme => ({
 
     [theme.breakpoints.down('sm')]: {
         width: '100%',
+        display:'Center',
+
     },
     [theme.breakpoints.up('md')]: {
         width:'100%',
@@ -57,7 +60,6 @@ const useStyles = theme => ({
 
 
 });
-
 class Contact extends React.Component {
     constructor() {
         super();
@@ -135,14 +137,17 @@ class Contact extends React.Component {
           <div>
           {/* <Grid container component="main" className={classes.root}> */}
          
-         <div  component="main" className={classes.root}  >
-          <div  className={classes.root}  >
+         {/* <div  component="main" className={classes.root}  > */}
+          {/* <div  className={classes.root}  > */}
+          <Grid item  sm={6} md={12} className={classes.root} >
+
             <ButtonGroup fullWidth aria-label="full width outlined button group">
               <Button className={classes.content} href="/admin/contact/list">List Contact</Button>
-              <Button className={classes.content} href="/admin/contact/create">Create Contact</Button>
+              <Button className={classes.content} href="/contact/create">Create Contact</Button>
             </ButtonGroup>
-          </div>
-        </div>
+            </Grid>
+          {/* </div> */}
+        {/* </div> */}
 
           <Grid item  sm={12} md={12} className={classes.content} >
 

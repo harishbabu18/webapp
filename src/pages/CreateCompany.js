@@ -17,6 +17,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const useStyles = theme => ({
   root: {
+   
+    
     '& .MuiTextField-root ': {
       margin: theme.spacing(1),
       marginBottom: 12,
@@ -34,8 +36,10 @@ const useStyles = theme => ({
 
     },
 
-    },
+    }
   },
+
+
   title: {
     fontSize: 18,
   },
@@ -60,6 +64,11 @@ class CreateCompany extends React.Component {
           companyName: '',
           companyDateCreated:'',
           companyDescription:'',
+
+          updatedValue:'',
+          fields: {},
+          errors: {},
+
           officeType:[],
           officeTypeValue:'',
           addressValue:'',
@@ -71,10 +80,20 @@ class CreateCompany extends React.Component {
           websiteValue:'',
           emailValue:'',
           faxValue:'',
+
+
+
+          helperTextEmail: '',
+          helperTextComapanyName: '',
+          helperTextWebsite: '',
           userValue:'',
           
       }
     }
+
+
+
+
 
     componentDidMount(){
         
@@ -94,7 +113,18 @@ class CreateCompany extends React.Component {
   
 
   handleCompanyNameValue=(event)=>{
-    this.setState({companyName:event.target.value});
+
+
+  if(!event.target.value) {
+      this.setState({ helperTextComapanyName: 'field should not be empty' })
+    }
+   else if (event.target.value.match(/^[^A-Za-z0-9]+$/)) {
+      this.setState({ helperTextComapanyName: '' })
+      this.setState({companyName:event.target.value});
+    } 
+  
+
+  
     
   }
 
@@ -113,11 +143,27 @@ class CreateCompany extends React.Component {
   }
 
   handleChangeWebsiteValue=(event)=>{
+    if(event.target.value.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g))
+    {
     this.setState({websiteValue:event.target.value})
+    this.setState({ helperTextWebsite: '' })
+    }
+    else
+    {
+      this.setState({ helperTextWebsite: 'Bad website format' })
+    }
   }
 
   handleChangeEmailValue=(event)=>{
+
+    if(event.target.value.match(/^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/))
+    {
     this.setState({emailValue:event.target.value})
+    this.setState({ helperTextEmail: '' })
+    }
+    else{
+      this.setState({ helperTextEmail: 'Bad email format' })
+    }
   }
 
   handleChangeFaxValue=(event)=>{
@@ -181,7 +227,7 @@ class CreateCompany extends React.Component {
       country: this.state.countryValue,
       state:this.state.stateValue,
       zip: this.state.zipValue,
-      user:this.state.userValue
+      user:this.state.userValue,
     }
 
     fetch(SERVER_URL+'/company', { 
@@ -214,15 +260,18 @@ class CreateCompany extends React.Component {
       
     this.setState({updatedValue})
     }).catch(error =>{
-      let updatedValue = this.state.updatedValue;
-      updatedValue = "The Error is " +error.response.data.errors;
-
+     
       console.error("The Error Message is "+error)
 
 
-    this.setState({updatedValue})
+   
     } )
-    };
+    
+
+    
+   
+  };
+
 
     handleclear=(event)=>{
       event.preventDefault()
@@ -255,18 +304,29 @@ class CreateCompany extends React.Component {
 
         <div  component="main" className={classes.root}  >
         <div  className={classes.root}  >
-        <ButtonGroup fullWidth aria-label="full width outlined button group">
+          <Grid sm={6} md={12}>
+          <ButtonGroup fullWidth aria-label="full width button group">
+
           <Button className={classes.content} href="/addressbook/company/list">List Company</Button>
-         <Button className={classes.content} href="/addressbook/company/create">Create Company</Button>
-        </ButtonGroup>
+
+
+          <Button className={classes.content} href="/addressbook/company/create">Create Company</Button>
+          </ButtonGroup>
+
+          </Grid>
          </div>
+
+         <div className={classes.content}>
+
          <Card>
           <form id="create-course-form" onSubmit={this.handleSubmit} >
-            <CardContent>
+            <CardContent >
+            <div className={classes.content}>
 
-    <Grid container component="main" className={classes.root}>
 
+    <Grid container component="main">
     <Grid item  sm={12} md={4} >
+      <div className={classes.root}>
 
 
    <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
@@ -281,14 +341,16 @@ class CreateCompany extends React.Component {
           fullWidth
           margin="normal"
           onChange={this.handleCompanyNameValue}
+          helperText= {this.state.helperTextComapanyName}
           InputLabelProps={{
             shrink: true,
           }}
           variant="outlined"
         />
+         
 
           
-    <form noValidate>
+    <form >
   <TextField
     id="date"
     label="Company Created On"
@@ -317,9 +379,11 @@ class CreateCompany extends React.Component {
           variant="outlined"
         /> 
 
-  
+  </div>
 </Grid>
-<Grid item  sm={12} md={4}  square>
+<Grid item  sm={12} md={4} className={classes.content}>
+<div className={classes.content}>
+
 <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
     Create Contact
 </Typography>
@@ -349,6 +413,7 @@ class CreateCompany extends React.Component {
      fullWidth
      margin="normal"
      onChange={this.handleChangeWebsiteValue}
+     helperText= {this.state.helperTextWebsite}
      InputLabelProps={{
        shrink: true,
      }}
@@ -368,6 +433,7 @@ class CreateCompany extends React.Component {
      fullWidth
      margin="normal"
      onChange={this.handleChangeEmailValue}
+     helperText= {this.state.helperTextEmail}
      InputLabelProps={{
        shrink: true,
      }}
@@ -396,8 +462,12 @@ class CreateCompany extends React.Component {
     }}
      variant="outlined"
    />
+   </div>
 </Grid>
-<Grid item  sm={12} md={4} square>
+
+<Grid item  sm={12} md={4} className={classes.content} >
+<div className={classes.content}>
+
 <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
     Create Address
 </Typography>
@@ -501,18 +571,24 @@ class CreateCompany extends React.Component {
     }}
      variant="outlined"
    />
-</Grid>
 
+
+</div>
+</Grid>
 
 </Grid>
 <CardActions>
+<ButtonGroup fullWidth aria-label="full width outlined button group">
 <Button type="Submit" className={classes.Button} variant="contained" size="Medium" color="primary">
           Save
       </Button>
+      </ButtonGroup>
 
+      <ButtonGroup fullWidth aria-label="full width outlined button group">
       <Button type='Submit' onClick={this.handleclear} variant="contained" size="Medium" color="primary">
       {/* <input type="reset" defaultValue="Reset" /> */} Reset
       </Button>
+      </ButtonGroup>
     
       <div className={classes.root}>
           {this.state.updatedValue}
@@ -522,12 +598,13 @@ class CreateCompany extends React.Component {
       </div>
       </CardActions>
 
-  
+  </div>
   </CardContent>
 
 </form>
-
 </Card>
+</div>
+
 
 </div>
 );

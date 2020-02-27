@@ -22,6 +22,9 @@ import Select from '@material-ui/core/Select';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import LanguageIcon from '@material-ui/icons/Language';
+
+
 
 const useStyles = theme => ({
   root: {
@@ -31,6 +34,8 @@ const useStyles = theme => ({
 
     [theme.breakpoints.down('sm')]: {
         width: '100%',
+        display:'Center',
+
     },
     [theme.breakpoints.up('md')]: {
         width:'100%',
@@ -47,14 +52,16 @@ const useStyles = theme => ({
   title: {
     fontSize: 18,
   },
+  table: {
+    minWidth: 700,
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(1,0),
   },
-  Button:{
-    width: '100%',
 
-  }
+
+
 });
 
 class CreateContact extends React.Component {
@@ -62,15 +69,27 @@ class CreateContact extends React.Component {
     super(props);
 
     this.state = {
+      company:[],
+      position:[],
+
       firstname:'',
       lastname:'',
       note:'',
       dob:'',
-      company:[],
       companyValue: '',
-      position:[],
       positionValue: '',
-      updatedValue:'Status',
+
+      addressValue:'',
+      addressTwoValue:'',
+      countryValue:'',
+      stateValue:'',
+      zipValue:'',
+      mobileValue:'',
+      websiteValue:'',
+      emailValue:'',
+      faxValue:'',
+      updatedValue:'',
+      userValue:'',
     }
   }
 
@@ -87,6 +106,14 @@ class CreateContact extends React.Component {
     .then(r => r.json())
     .then(json => this.setState({position: json}))
     .catch(error => console.error('Error retrieving Tickrts: ' + error));
+
+    console.log("Logged In User is "+JSON.parse(localStorage.auth).username);
+    console.log(this.state);
+    const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
+    fetch(url)
+    .then(r => r.json())
+    .then(json => this.setState({userValue: json.id}))
+    .catch(error => console.error('Error retrieving Companies: ' + error));
   }
   
   
@@ -94,10 +121,12 @@ class CreateContact extends React.Component {
     this.setState({firstname:event.target.value});
     
   }
+
   handleChangedob=(event)=>{
     this.setState({dob:event.target.value});
     console.log(this.state.dob)
-  } 
+  }
+
   handleChangelastname=(event)=>{
     this.setState({lastname:event.target.value});
 
@@ -106,76 +135,183 @@ class CreateContact extends React.Component {
   handleChangecompany=(event)=>{
     this.setState({companyValue:event.target.value});
     console.log(this.state.companyValue)
+    // console.log(event.target.value)
 
   }
+
   handleChangeposition=(event)=>{
     this.setState({positionValue:event.target.value});
     console.log(this.state.positionValue)
 
   }
+
   handleChangenote=(event)=>{
     this.setState({note:event.target.value});
 
   }
+
+
+  handleChangeMobileValue=(event)=>{
+    this.setState({mobileValue:event.target.value})
+  }
+
+  handleChangeWebsiteValue=(event)=>{
+    this.setState({websiteValue:event.target.value})
+  }
+
+  handleChangeEmailValue=(event)=>{
+    this.setState({emailValue:event.target.value})
+  }
+
+  handleChangeFaxValue=(event)=>{
+    this.setState({faxValue:event.target.value})
+  }
+
+  handleOfficeTypeValue=(event)=>{
+    this.setState({officeTypeValue:event.target.value});
+    
+  }
+
+  handleChangeAddressValue=(event)=>{
+    this.setState({addressValue:event.target.value})
+  }
+
+  handleChangeAddressTwoValue=(event)=>{
+    this.setState({addressTwoValue:event.target.value})
+  }
+
+  handleChangeCountryValue=(event)=>{
+    this.setState({countryValue:event.target.value})
+  }
+
+  handleChangeStateValue=(event)=>{
+    this.setState({stateValue:event.target.value})
+  }
+
+  handleChangeZipValue=(event)=>{
+    this.setState({zipValue:event.target.value})
+  }
+  
   handleSubmit=(event)=>{
     event.preventDefault()
+    let ContactDetail={
+      firstName:this.state.firstname,
+      lastName:this.state.lastname,
+      //
+
+      note:this.state.note,
+
+      //
+      dob:this.state.dob,
+      company:this.state.companyValue,
+      position:this.state.positionValue,
+
+      mobile:this.state.mobileValue,
+      email:this.state.emailValue,
+      addresslineone: this.state.addressValue,
+      addresslinetwo:this.state.addressTwoValue,
+      country: this.state.countryValue,
+      state:this.state.stateValue,
+      zip: this.state.zipValue,
+      user:this.state.userValue
+
+    }
+    console.log(ContactDetail)
+
+
     fetch(SERVER_URL+'/contact', { 
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        company:this.state.companyValue,
-        firstName:this.state.firstname,
-        lastName:this.state.lastname,
-        position:this.state.positionValue,
-        note:this.state.note,
-        dob:this.state.dob
-    
-      })
-    }).then(r=> {
-      r.json()
-      console.log("The Status is "+r.status)
-    }).then(json =>{
-
-      console.log("Json status "+json.status)
-
-    
-
+      body: JSON.stringify(ContactDetail)
+    }).then(r=> r.json()).then(json =>{
       let updatedValue = this.state.updatedValue;
-      updatedValue = "contact " +json.id+" is Added Successfully"
+      if(typeof json.total==='undefined'){
+        updatedValue="";
+        if(typeof json.message==='undefined'){
+          updatedValue += "Contact is Added Successfully"
+        } 
+        else
+        {
+          updatedValue +=json.message;
+        }
+      }
+      else{
+         updatedValue = "Errors Are "
+         for(let i=0;i<json.total;i++){
+          updatedValue +=json._embedded.errors[i].message
+           
+         }
+
+      }
+      
     this.setState({updatedValue})
     }).catch(error =>{
-      let updatedValue = this.state.updatedValue;
-      updatedValue = "The Error is " +error.message;
-    this.setState({updatedValue})
+     
+      console.error("The Error Message is "+error)
 
+
+   
     } )
     };
+
+    handleclear=(event)=>{
+      event.preventDefault()
+      document.getElementById("create-course-form").reset()
+
+      this.setState( {
+        firstname:'',
+        lastname:'',
+        note:'',
+        dob:'',
+        companyValue: '',
+        positionValue: '',
+        mobileValue:'',
+        websiteValue:'',
+        emailValue:'',
+        faxValue:'',
+        addressValue:'',
+        addressTwoValue:'',
+        countryValue:"",
+        stateValue:'',
+        zipValue:'',
+      })
+
+    }
+
 
   render(){
   const {classes} = this .props;
 
   return (
+<div>
+  <div  component="main" className={classes.root}  >
+        <div  className={classes.root}  >
+          <Grid sm={6} md={12}>
+          <ButtonGroup fullWidth aria-label="full width button group">
 
-   
-    <div  component="main" className={classes.root}  >
-         <div  className={classes.root}  >
-      {/* <Paper > */}
-          <ButtonGroup fullWidth aria-label="full width outlined button group">
           <Button className={classes.content} href="/admin/contact/list">List Contact</Button>
-          <Button className={classes.content} href="/admin/contact/create">Create Contact</Button>
-        </ButtonGroup>
-          {/* </Paper> */}
-          </div>
-          <Card>
-          <form  onSubmit={this.handleSubmit} >
-            <CardContent>
+        
 
-    <Grid container component="main" className={classes.root}>
+          <Button className={classes.content} href="/contact/create">Create Contact</Button>
+          </ButtonGroup>
 
+          </Grid>
+         </div>
+
+         <div className={classes.content}>
+
+         <Card>
+          <form id="create-course-form" onSubmit={this.handleSubmit} >
+            <CardContent >
+            <div className={classes.content}>
+
+
+    <Grid container component="main">
     <Grid item  sm={12} md={4} >
+      <div className={classes.root}>
 
 
    <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
@@ -233,12 +369,12 @@ class CreateContact extends React.Component {
      }}
      variant="outlined"
    />
-     {/* <TextField
-                        id="demo-simple-select-outlined-label"
+                      <TextField
+                        id="company"
                         select 
                         label="Company"
                         value={this.state.companyValue}
-                        onChange={this.handleChangecompany}
+                        onChange={this.handleChangecompany.bind(this)}
                         variant="outlined"
                         >
                             {this.state.company.map(option =>(
@@ -246,13 +382,14 @@ class CreateContact extends React.Component {
                                     {option.name}
                                 </MenuItem>
                             ))}
-                        </TextField> */}
+                        </TextField>
+
                         <TextField
-                        id="demo-simple-select-outlined-label"
+                        id="position"
                         select 
                         label="Position"
-                        value={this.state. positionValue}
-                        onChange={this.handleChangeposition}
+                        value={this.state.positionValue}
+                        onChange={this.handleChangeposition.bind(this)}
                         variant="outlined"
                         >
                             {this.state.position.map(option =>(
@@ -264,9 +401,8 @@ class CreateContact extends React.Component {
 
       <TextField
     id="date"
-    label="DOB"
+    label="Date Of Birth"
     type="date"
-    defaultValue=""
     onChange={this.handleChangedob}
     className={classes.textField}
     InputLabelProps={{
@@ -275,8 +411,11 @@ class CreateContact extends React.Component {
   />
   
 
+  </div>
 </Grid>
-<Grid item  sm={12} md={4}  square>
+<Grid item  sm={12} md={4} className={classes.content}>
+<div className={classes.content}>
+
 <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
     Create Contact
 </Typography>
@@ -284,10 +423,11 @@ class CreateContact extends React.Component {
      id="outlined-full-width"
      label="Mobile"
      style={{ margin: 8 }}
+     type='number'
      placeholder="Mobile"
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeMobileValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -298,6 +438,7 @@ class CreateContact extends React.Component {
     }}
      variant="outlined"
    />
+
    <TextField
      id="outlined-full-width"
      label="Email"
@@ -305,7 +446,7 @@ class CreateContact extends React.Component {
      placeholder="E-Mail"
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeEmailValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -316,37 +457,26 @@ class CreateContact extends React.Component {
     }}
      variant="outlined"
    />
-   <TextField
-     id="outlined-full-width"
-     label="Fax"
-     style={{ margin: 8 }}
-     placeholder="Fax"
-     fullWidth
-     margin="normal"
-     onChange={this.handleChangelastname}
-     InputLabelProps={{
-       shrink: true,
-     }}
-     InputProps={{
-      startAdornment: <InputAdornment position="start">
-        <Email />
-        </InputAdornment>,
-    }}
-     variant="outlined"
-   />
+  
+   </div>
 </Grid>
-<Grid item  sm={12} md={4} square>
+
+<Grid item  sm={12} md={4} className={classes.content} >
+<div className={classes.content}>
+
 <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
     Create Address
 </Typography>
 
+
+                   
 <TextField
      id="outlined-full-width"
      label="Address"
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeAddressValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -363,7 +493,7 @@ class CreateContact extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeAddressTwoValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -379,7 +509,7 @@ class CreateContact extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeCountryValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -396,7 +526,7 @@ class CreateContact extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeStateValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -413,7 +543,7 @@ class CreateContact extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeZipValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -424,15 +554,23 @@ class CreateContact extends React.Component {
      variant="outlined"
    />
 
+</div>
 </Grid>
-
 
 </Grid>
 <CardActions>
+<ButtonGroup fullWidth aria-label="full width outlined button group">
 <Button type="Submit" className={classes.Button} variant="contained" size="Medium" color="primary">
           Save
       </Button>
+      </ButtonGroup>
 
+      <ButtonGroup fullWidth aria-label="full width outlined button group">
+      <Button type='Submit' onClick={this.handleclear} variant="contained" size="Medium" color="primary">
+      {/* <input type="reset" defaultValue="Reset" /> */} Reset
+      </Button>
+      </ButtonGroup>
+    
       <div className={classes.root}>
           {this.state.updatedValue}
           {/* <Alert severity="success" color="info">
@@ -441,13 +579,15 @@ class CreateContact extends React.Component {
       </div>
       </CardActions>
 
-  
+  </div>
   </CardContent>
 
 </form>
-
 </Card>
+</div>
 
+
+</div>
 </div>
 );
 }}
