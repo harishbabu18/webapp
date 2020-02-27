@@ -43,7 +43,7 @@ export default function Address (props) {
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested} component={Link} to="/admin/company/list">
+            <ListItem button className={classes.nested} component={Link} to="/addressbook/company/list">
               <ListItemIcon>
                 <BusinessIcon />
               </ListItemIcon>

@@ -1,6 +1,5 @@
 import {SERVER_URL} from './../config';
 import {checkResponseStatus} from './../handlers/responseHandlers';
-//import headers from './../security/headers';
 import 'whatwg-fetch';
 import qs from 'qs';
 
@@ -8,10 +7,13 @@ import qs from 'qs';
 export default {
   logIn(auth) { 
     localStorage.auth = JSON.stringify(auth);
+   
+  
   },
 
   logOut() { 
     delete localStorage.auth;
+    delete localStorage.user;
   },
 
   refreshToken() { 

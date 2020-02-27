@@ -290,11 +290,11 @@ class Index extends React.Component {
         </Admin>
 
 
-        <Admin path="/admin/company/list">
-          <Company />
+        <Admin path="/addressbook/company/list">
+        <Company />
         </Admin>
-        <Admin logoutHandler={this.logoutHandler} path="/company/create">
-          <CreateCompany />
+        <Admin logoutHandler={this.logoutHandler} path="/addressbook/company/create">
+        <CreateCompany />
         </Admin>
         <Admin path="/admin/contact/list">
           <Contact />

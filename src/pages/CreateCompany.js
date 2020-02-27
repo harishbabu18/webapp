@@ -3,21 +3,22 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button ,ButtonGroup} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-
 import {SERVER_URL} from '../config';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Email from '@material-ui/icons/Email';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import PhoneAndroid from '@material-ui/icons/PhoneAndroid';
+import LanguageIcon from '@material-ui/icons/Language';
+import MenuItem from '@material-ui/core/MenuItem';
 
 
 const useStyles = theme => ({
   root: {
+   
+    
     '& .MuiTextField-root ': {
       margin: theme.spacing(1),
       marginBottom: 12,
@@ -35,8 +36,10 @@ const useStyles = theme => ({
 
     },
 
-    },
+    }
   },
+
+
   title: {
     fontSize: 18,
   },
@@ -61,44 +64,57 @@ class CreateCompany extends React.Component {
           companyName: '',
           companyDateCreated:'',
           companyDescription:'',
+
           updatedValue:'',
           fields: {},
-          errors: {}
+          errors: {},
+
+          officeType:[],
+          officeTypeValue:'',
+          addressValue:'',
+          addressTwoValue:'',
+          countryValue:'',
+          stateValue:'',
+          zipValue:'',
+          mobileValue:'',
+          websiteValue:'',
+          emailValue:'',
+          faxValue:'',
+
+
+          helperTextEmail: '',
+          helperTextComapanyName: '',
+          helperTextWebsite: '',
           
       }
     }
 
 
-    handleValidation(){
-      let fields = this.state.fields;
-      let errors = {};
-      let formIsValid = true;
 
-      //Name
-      if(!fields["name"]){
-         formIsValid = false;
-         errors["name"] = "Cannot be empty";
-      }
 
-      if(typeof fields["name"] !== "undefined"){
-         if(!fields["name"].match(/^[a-zA-Z]+$/)){
-            formIsValid = false;
-            errors["name"] = "Only letters";
-         }        
-      }
 
-      this.setState({errors: errors});
-      return formIsValid;
+    componentDidMount(){
+        
+    fetch(SERVER_URL+'/officeType')
+    .then(r => r.json())
+    .then(json => this.setState({officeType: json}))
+    .catch(error => console.error('Error retrieving Tickrts: ' + error));
     }
-
   
 
-  handleCompanyNameValue=(event,field)=>{
-    this.setState({companyName:event.target.value});
+  handleCompanyNameValue=(event)=>{
 
-    let fields = this.state.fields;
-    fields[field] = event.target.value;        
-    this.setState({fields});
+
+  if(!event.target.value) {
+      this.setState({ helperTextComapanyName: 'field should not be empty' })
+    }
+   else if (event.target.value.match(/^[^A-Za-z0-9]+$/)) {
+      this.setState({ helperTextComapanyName: '' })
+      this.setState({companyName:event.target.value});
+    } 
+  
+
+  
     
   }
 
@@ -112,12 +128,97 @@ class CreateCompany extends React.Component {
     
   }
 
+  handleChangeMobileValue=(event)=>{
+    this.setState({mobileValue:event.target.value})
+  }
+
+  handleChangeWebsiteValue=(event)=>{
+    if(event.target.value.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g))
+    {
+    this.setState({websiteValue:event.target.value})
+    this.setState({ helperTextWebsite: '' })
+    }
+    else
+    {
+      this.setState({ helperTextWebsite: 'Bad website format' })
+    }
+  }
+
+  handleChangeEmailValue=(event)=>{
+
+    if(event.target.value.match(/^[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/))
+    {
+    this.setState({emailValue:event.target.value})
+    this.setState({ helperTextEmail: '' })
+    }
+    else{
+      this.setState({ helperTextEmail: 'Bad email format' })
+    }
+  }
+
+  handleChangeFaxValue=(event)=>{
+    this.setState({faxValue:event.target.value})
+  }
+
+  handleOfficeTypeValue=(event)=>{
+    this.setState({officeTypeValue:event.target.value});
+    
+  }
+
+  handleChangeAddressValue=(event)=>{
+    this.setState({addressValue:event.target.value})
+  }
+
+  handleChangeAddressTwoValue=(event)=>{
+    this.setState({addressTwoValue:event.target.value})
+  }
+
+  handleChangeCountryValue=(event)=>{
+    this.setState({countryValue:event.target.value})
+  }
+
+  handleChangeStateValue=(event)=>{
+    this.setState({stateValue:event.target.value})
+  }
+
+  handleChangeZipValue=(event)=>{
+    this.setState({zipValue:event.target.value})
+  }
 
   handleSubmit=(event)=>{
     event.preventDefault()
 
-    if(this.handleValidation())
-    {
+  
+    
+     console.log("Logged In User is "+JSON.parse(localStorage.auth).username);
+     
+     console.log(this.state);
+
+     const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
+     fetch(url)
+     .then(r => r.json())
+     .then(json => console.log("User Id is"+json.id))
+     .catch(error => console.error('Error retrieving Companies: ' + error));
+
+     let CompanyDetail={
+      establishedDate:this.state.companyDateCreated,
+      description:this.state.companyDescription,
+      name:this.state.companyName,
+      mobile:this.state.mobileValue,
+      website:this.state.websiteValue,
+      email:this.state.emailValue,
+      fax: this.state.faxValue,
+      officeType:this.state.officeTypeValue,
+      addresslineone: this.state.addressValue,
+      addresslinetwo:this.state.addressTwoValue,
+      country: this.state.countryValue,
+      state:this.state.stateValue,
+      zip: this.state.zipValue,
+      user:1
+    }
+
+    console.log("Company Details"+CompanyDetail)
+
 
 
     fetch(SERVER_URL+'/company', { 
@@ -127,13 +228,24 @@ class CreateCompany extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        dateCreated:this.state.companyDateCreated,
+        establishedDate:this.state.companyDateCreated,
         description:this.state.companyDescription,
-        name:this.state.companyName
+        name:this.state.companyName,
+        mobile:this.state.mobileValue,
+        website:this.state.websiteValue,
+        email:this.state.emailValue,
+        fax: this.state.faxValue,
+        officeType:this.state.officeTypeValue,
+        addresslineone: this.state.addressValue,
+        addresslinetwo:this.state.addressTwoValue,
+        country: this.state.countryValue,
+        state:this.state.stateValue,
+        zip: this.state.zipValue,
+        user:1
       })
     }).then(r=> r.json()).then(json =>{
       let updatedValue = this.state.updatedValue;
-      updatedValue = "Company ID " +json.id+" is Added Successfully"
+      updatedValue = "Company ID " +json.message+" is Added Successfully"
     this.setState({updatedValue})
     }).catch(error =>{
       let updatedValue = this.state.updatedValue;
@@ -144,14 +256,34 @@ class CreateCompany extends React.Component {
 
     this.setState({updatedValue})
     } )
-    }
+    
 
     
-    else{
-      alert("Form has errors.")
-    }
+   
   };
 
+
+    handleclear=(event)=>{
+      event.preventDefault()
+      document.getElementById("create-course-form").reset()
+
+      this.setState( {
+        companyDateCreated:'',
+        companyDescription:'',
+        companyName:'',
+        mobileValue:'',
+        websiteValue:'',
+        emailValue:'',
+        faxValue:'',
+        officeTypeValue:'',
+        addressValue:'',
+        addressTwoValue:'',
+        countryValue:"",
+        stateValue:'',
+        zipValue:'',
+      })
+
+    }
 
 
 
@@ -162,15 +294,13 @@ class CreateCompany extends React.Component {
 
         <div  component="main" className={classes.root}  >
         <div  className={classes.root}  >
-     {/* <Paper > */}
-         <ButtonGroup fullWidth aria-label="full width outlined button group">
-         <Button className={classes.content} href="/admin/company/list">List Company</Button>
-         <Button className={classes.content} href="/admin/company/create">Create Company</Button>
-       </ButtonGroup>
-         {/* </Paper> */}
+        <ButtonGroup fullWidth aria-label="full width outlined button group">
+          <Button className={classes.content} href="/addressbook/company/list">List Company</Button>
+         <Button className={classes.content} href="/addressbook/company/create">Create Company</Button>
+        </ButtonGroup>
          </div>
          <Card>
-          <form  onSubmit={this.handleSubmit} >
+          <form id="create-course-form" onSubmit={this.handleSubmit} >
             <CardContent>
 
     <Grid container component="main" className={classes.root}>
@@ -179,11 +309,9 @@ class CreateCompany extends React.Component {
 
 
    <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
-    Create Contact Profile
+    Create Company Profile
    </Typography>
-
-
-              <TextField
+   <TextField
           id="outlined-full-width"
           className={classes.textField}
           label="Company Name"
@@ -191,16 +319,17 @@ class CreateCompany extends React.Component {
           placeholder="Company Name "
           fullWidth
           margin="normal"
-          onChange={this.handleCompanyNameValue.bind(this,"cname")}
+          onChange={this.handleCompanyNameValue}
+          helperText= {this.state.helperTextComapanyName}
           InputLabelProps={{
             shrink: true,
           }}
           variant="outlined"
         />
-          <span style={{color: "red"}}>{this.state.errors["cname"]}</span>
+         
 
           
-    <form noValidate>
+    <form >
   <TextField
     id="date"
     label="Company Created On"
@@ -239,10 +368,11 @@ class CreateCompany extends React.Component {
      id="outlined-full-width"
      label="Mobile"
      style={{ margin: 8 }}
+     type='number'
      placeholder="Mobile"
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeMobileValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -255,12 +385,32 @@ class CreateCompany extends React.Component {
    />
    <TextField
      id="outlined-full-width"
+     label="Website"
+     style={{ margin: 8 }}
+     fullWidth
+     margin="normal"
+     onChange={this.handleChangeWebsiteValue}
+     helperText= {this.state.helperTextWebsite}
+     InputLabelProps={{
+       shrink: true,
+     }}
+     InputProps={{
+      startAdornment: <InputAdornment position="start">
+        <LanguageIcon />
+        </InputAdornment>,
+    }}
+     variant="outlined"
+   />
+
+   <TextField
+     id="outlined-full-width"
      label="Email"
      style={{ margin: 8 }}
      placeholder="E-Mail"
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeEmailValue}
+     helperText= {this.state.helperTextEmail}
      InputLabelProps={{
        shrink: true,
      }}
@@ -278,7 +428,7 @@ class CreateCompany extends React.Component {
      placeholder="Fax"
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeFaxValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -295,13 +445,29 @@ class CreateCompany extends React.Component {
     Create Address
 </Typography>
 
+
+                      <TextField
+                          id="demo-simple-select-outlined-label"
+                          select 
+                          label="Assigned To"
+                          value={this.state.officeTypeValue}
+                          onChange={this.handleOfficeTypeValue.bind(this)}
+                          variant="outlined"
+                          >
+                              {this.state.officeType.map(option =>(
+                                  <MenuItem key={option.id} value={option.id}>
+                                      {option.name}
+                                  </MenuItem>
+                              ))}
+                          </TextField>
+
 <TextField
      id="outlined-full-width"
      label="Address"
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeAddressValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -318,7 +484,7 @@ class CreateCompany extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeAddressTwoValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -334,7 +500,7 @@ class CreateCompany extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeCountryValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -351,7 +517,7 @@ class CreateCompany extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeStateValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -368,7 +534,7 @@ class CreateCompany extends React.Component {
      style={{ margin: 8 }}
      fullWidth
      margin="normal"
-     onChange={this.handleChangelastname}
+     onChange={this.handleChangeZipValue}
      InputLabelProps={{
        shrink: true,
      }}
@@ -388,6 +554,10 @@ class CreateCompany extends React.Component {
           Save
       </Button>
 
+      <Button type='Submit' onClick={this.handleclear} variant="contained" size="Medium" color="primary">
+      {/* <input type="reset" defaultValue="Reset" /> */} Reset
+      </Button>
+    
       <div className={classes.root}>
           {this.state.updatedValue}
           {/* <Alert severity="success" color="info">
