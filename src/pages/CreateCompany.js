@@ -152,6 +152,21 @@ class CreateCompany extends React.Component {
   handleSubmit=(event)=>{
     event.preventDefault()
 
+    console.log("Company Details establishedDate"+CompanyDetail.establishedDate)
+    console.log("Company Details description"+CompanyDetail.description)
+    console.log("Company Details name"+CompanyDetail.name)
+    console.log("Company Details mobile"+CompanyDetail.mobile)
+    console.log("Company Details website"+CompanyDetail.website)
+    console.log("Company Details email"+CompanyDetail.email)
+    console.log("Company Details fax"+CompanyDetail.fax)
+    console.log("Company Details officeType"+CompanyDetail.officeType)
+    console.log("Company Details addresslineone"+CompanyDetail.addresslineone)
+    console.log("Company Details addresslinetwo"+CompanyDetail.addresslinetwo)
+    console.log("Company Details country"+CompanyDetail.country)
+    console.log("Company Details state"+CompanyDetail.state)
+    console.log("Company Details zip"+CompanyDetail.zip)
+    console.log("Company Details user"+CompanyDetail.user)
+   
      let CompanyDetail={
       establishedDate:this.state.companyDateCreated,
       description:this.state.companyDescription,
@@ -168,23 +183,6 @@ class CreateCompany extends React.Component {
       zip: this.state.zipValue,
       user:this.state.userValue
     }
-
-    console.log("Company Details "+CompanyDetail.establishedDate)
-    console.log("Company Details "+CompanyDetail.description)
-    console.log("Company Details "+CompanyDetail.name)
-    console.log("Company Details "+CompanyDetail.mobile)
-    console.log("Company Details "+CompanyDetail.website)
-    console.log("Company Details "+CompanyDetail.email)
-    console.log("Company Details "+CompanyDetail.fax)
-    console.log("Company Details "+CompanyDetail.officeType)
-    console.log("Company Details "+CompanyDetail.addresslineone)
-    console.log("Company Details "+CompanyDetail.addresslinetwo)
-    console.log("Company Details "+CompanyDetail.country)
-    console.log("Company Details "+CompanyDetail.state)
-    console.log("Company Details "+CompanyDetail.zip)
-    console.log("Company Details "+CompanyDetail.user)
-   
-
 
     fetch(SERVER_URL+'/company', { 
       method: 'POST',
