@@ -71,6 +71,7 @@ class CreateCompany extends React.Component {
           websiteValue:'',
           emailValue:'',
           faxValue:'',
+          userValue:'',
           
       }
     }
@@ -81,6 +82,14 @@ class CreateCompany extends React.Component {
     .then(r => r.json())
     .then(json => this.setState({officeType: json}))
     .catch(error => console.error('Error retrieving Tickrts: ' + error));
+    console.log("Logged In User is "+JSON.parse(localStorage.auth).username);
+    console.log(this.state);
+    const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
+    fetch(url)
+    .then(r => r.json())
+    .then(json => this.setState({userValue: json.id}))
+    .catch(error => console.error('Error retrieving Companies: ' + error));
+
     }
   
 
@@ -142,15 +151,6 @@ class CreateCompany extends React.Component {
 
   handleSubmit=(event)=>{
     event.preventDefault()
-     console.log("Logged In User is "+JSON.parse(localStorage.auth).username);
-     
-     console.log(this.state);
-
-     const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
-     fetch(url)
-     .then(r => r.json())
-     .then(json => console.log("User Id is"+json.id))
-     .catch(error => console.error('Error retrieving Companies: ' + error));
 
      let CompanyDetail={
       establishedDate:this.state.companyDateCreated,
@@ -166,10 +166,24 @@ class CreateCompany extends React.Component {
       country: this.state.countryValue,
       state:this.state.stateValue,
       zip: this.state.zipValue,
-      user:1
+      user:this.state.userValue
     }
 
-    console.log("Company Details"+CompanyDetail)
+    console.log("Company Details "+CompanyDetail.establishedDate)
+    console.log("Company Details "+CompanyDetail.description)
+    console.log("Company Details "+CompanyDetail.name)
+    console.log("Company Details "+CompanyDetail.mobile)
+    console.log("Company Details "+CompanyDetail.website)
+    console.log("Company Details "+CompanyDetail.email)
+    console.log("Company Details "+CompanyDetail.fax)
+    console.log("Company Details "+CompanyDetail.officeType)
+    console.log("Company Details "+CompanyDetail.addresslineone)
+    console.log("Company Details "+CompanyDetail.addresslinetwo)
+    console.log("Company Details "+CompanyDetail.country)
+    console.log("Company Details "+CompanyDetail.state)
+    console.log("Company Details "+CompanyDetail.zip)
+    console.log("Company Details "+CompanyDetail.user)
+   
 
 
     fetch(SERVER_URL+'/company', { 
@@ -178,25 +192,28 @@ class CreateCompany extends React.Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        establishedDate:this.state.companyDateCreated,
-        description:this.state.companyDescription,
-        name:this.state.companyName,
-        mobile:this.state.mobileValue,
-        website:this.state.websiteValue,
-        email:this.state.emailValue,
-        fax: this.state.faxValue,
-        officeType:this.state.officeTypeValue,
-        addresslineone: this.state.addressValue,
-        addresslinetwo:this.state.addressTwoValue,
-        country: this.state.countryValue,
-        state:this.state.stateValue,
-        zip: this.state.zipValue,
-        user:1
-      })
+      body: JSON.stringify(CompanyDetail)
     }).then(r=> r.json()).then(json =>{
       let updatedValue = this.state.updatedValue;
-      updatedValue = "Company ID " +json.message+" is Added Successfully"
+      if(typeof json.total==='undefined'){
+        updatedValue="";
+        if(typeof json.message==='undefined'){
+          updatedValue += "Company is Added Successfully"
+        } 
+        else
+        {
+          updatedValue +=json.message;
+        }
+      }
+      else{
+         updatedValue = "Errors Are "
+         for(let i=0;i<json.total;i++){
+          updatedValue +=json._embedded.errors[i].message
+           
+         }
+
+      }
+      
     this.setState({updatedValue})
     }).catch(error =>{
       let updatedValue = this.state.updatedValue;
@@ -486,7 +503,6 @@ class CreateCompany extends React.Component {
     }}
      variant="outlined"
    />
-
 </Grid>
 
 

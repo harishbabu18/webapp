@@ -7,13 +7,13 @@ import qs from 'qs';
 export default {
   logIn(auth) { 
     localStorage.auth = JSON.stringify(auth);
-   
+    
   
   },
 
   logOut() { 
     delete localStorage.auth;
-    delete localStorage.user;
+   
   },
 
   refreshToken() { 
