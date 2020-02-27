@@ -277,17 +277,17 @@ class Index extends React.Component {
             <Calender />
         </PrivateRoute>
         
-          <Admin path="/admin/product/create">
+          <Admin path="/warehouse/product/create">
             <CreateProduct />
           </Admin>
-          <Admin path="/admin/product/list">
+          <Admin path="/warehouse/product/list">
             <Product />
         </Admin>
 
-        <Admin path="/admin/ticket/list">
+        <Admin path="/sales/ticket/list">
           <Ticket />
         </Admin>
-        <Admin path="/admin/ticket/create">
+        <Admin path="/sales/ticket/create">
           <CreateTicket />
         </Admin>
 
