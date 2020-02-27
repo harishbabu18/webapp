@@ -149,6 +149,7 @@ class CreateProduct extends React.Component {
     event.preventDefault() 
     let product = {
      name:this.state.nameValue,
+    // name:1,
      barcode:this.state.barcode,
      quantity:this.state.quantity,
      quantityType:this.state.quantityTypeValue,
@@ -158,7 +159,7 @@ class CreateProduct extends React.Component {
      createBy:this.state.userValue,
 
     }
-    console.log('Test'+this.state.quantityTypeValue)
+    // console.log('Test'+products)
     fetch(SERVER_URL+'/inventory', { 
       method: 'POST',
       headers: {
@@ -205,7 +206,7 @@ class CreateProduct extends React.Component {
         nameValue:'',
         barcode:'',
         quantity:'',
-        quantitytypeValue:'',
+        quantityTypeValue:'',
         price:'',
         numberValue:'',
         lotValue:'',
