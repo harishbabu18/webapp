@@ -114,14 +114,14 @@ class CreateCompany extends React.Component {
 
   handleCompanyNameValue=(event)=>{
 
-
-  if(!event.target.value) {
-      this.setState({ helperTextComapanyName: 'field should not be empty' })
-    }
-   else if (event.target.value.match(/^[^A-Za-z0-9]+$/)) {
-      this.setState({ helperTextComapanyName: '' })
-      this.setState({companyName:event.target.value});
-    } 
+    this.setState({companyName:event.target.value});
+  // if(!event.target.value) {
+  //     this.setState({ helperTextComapanyName: 'field should not be empty' })
+  //   }
+  //  else if (event.target.value.match(/^[^A-Za-z0-9]+$/)) {
+  //     this.setState({ helperTextComapanyName: '' })
+  //     this.setState({companyName:event.target.value});
+  //   } 
   
 
   
@@ -198,20 +198,7 @@ class CreateCompany extends React.Component {
   handleSubmit=(event)=>{
     event.preventDefault()
 
-    console.log("Company Details establishedDate"+CompanyDetail.establishedDate)
-    console.log("Company Details description"+CompanyDetail.description)
-    console.log("Company Details name"+CompanyDetail.name)
-    console.log("Company Details mobile"+CompanyDetail.mobile)
-    console.log("Company Details website"+CompanyDetail.website)
-    console.log("Company Details email"+CompanyDetail.email)
-    console.log("Company Details fax"+CompanyDetail.fax)
-    console.log("Company Details officeType"+CompanyDetail.officeType)
-    console.log("Company Details addresslineone"+CompanyDetail.addresslineone)
-    console.log("Company Details addresslinetwo"+CompanyDetail.addresslinetwo)
-    console.log("Company Details country"+CompanyDetail.country)
-    console.log("Company Details state"+CompanyDetail.state)
-    console.log("Company Details zip"+CompanyDetail.zip)
-    console.log("Company Details user"+CompanyDetail.user)
+    
    
      let CompanyDetail={
       establishedDate:this.state.companyDateCreated,
@@ -229,6 +216,20 @@ class CreateCompany extends React.Component {
       zip: this.state.zipValue,
       user:this.state.userValue,
     }
+    console.log("Company Details establishedDate"+CompanyDetail.establishedDate)
+    console.log("Company Details description"+CompanyDetail.description)
+    console.log("Company Details name"+CompanyDetail.name)
+    console.log("Company Details mobile"+CompanyDetail.mobile)
+    console.log("Company Details website"+CompanyDetail.website)
+    console.log("Company Details email"+CompanyDetail.email)
+    console.log("Company Details fax"+CompanyDetail.fax)
+    console.log("Company Details officeType"+CompanyDetail.officeType)
+    console.log("Company Details addresslineone"+CompanyDetail.addresslineone)
+    console.log("Company Details addresslinetwo"+CompanyDetail.addresslinetwo)
+    console.log("Company Details country"+CompanyDetail.country)
+    console.log("Company Details state"+CompanyDetail.state)
+    console.log("Company Details zip"+CompanyDetail.zip)
+    console.log("Company Details user"+CompanyDetail.user)
 
     fetch(SERVER_URL+'/company', { 
       method: 'POST',
@@ -476,7 +477,7 @@ class CreateCompany extends React.Component {
                       <TextField
                           id="demo-simple-select-outlined-label"
                           select 
-                          label="Assigned To"
+                          label="Office Type"
                           value={this.state.officeTypeValue}
                           onChange={this.handleOfficeTypeValue.bind(this)}
                           variant="outlined"

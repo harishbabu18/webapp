@@ -256,6 +256,9 @@ export default function MiniDrawer({logoutHandler,component: Component, ...rest}
       <main className={classes.content}>
       <div className={classes.toolbar} />
       <Route {...rest} render={Component } />
+
+
+
       </main>
       </div>
   );

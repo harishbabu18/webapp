@@ -178,8 +178,10 @@ class Index extends React.Component {
 
   render() {
     return (
+      
       <BrowserRouter>
        <div>
+   
       <Switch>
         <Admin logoutHandler={this.logoutHandler}  exact path="/" >
             <App />
