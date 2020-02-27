@@ -25,6 +25,7 @@ import CardContent from '@material-ui/core/CardContent';
 import LanguageIcon from '@material-ui/icons/Language';
 
 
+
 const useStyles = theme => ({
   root: {
     '& .MuiTextField-root ': {
@@ -33,6 +34,8 @@ const useStyles = theme => ({
 
     [theme.breakpoints.down('sm')]: {
         width: '100%',
+        display:'Center',
+
     },
     [theme.breakpoints.up('md')]: {
         width:'100%',
@@ -49,14 +52,16 @@ const useStyles = theme => ({
   title: {
     fontSize: 18,
   },
+  table: {
+    minWidth: 700,
+  },
   content: {
     flexGrow: 1,
     padding: theme.spacing(1,0),
   },
-  Button:{
-    width: '100%',
 
-  }
+
+
 });
 
 class CreateContact extends React.Component {
@@ -83,7 +88,8 @@ class CreateContact extends React.Component {
       websiteValue:'',
       emailValue:'',
       faxValue:'',
-      updatedValue:'Status',
+      updatedValue:'',
+      userValue:'',
     }
   }
 
@@ -100,6 +106,14 @@ class CreateContact extends React.Component {
     .then(r => r.json())
     .then(json => this.setState({position: json}))
     .catch(error => console.error('Error retrieving Tickrts: ' + error));
+
+    console.log("Logged In User is "+JSON.parse(localStorage.auth).username);
+    console.log(this.state);
+    const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
+    fetch(url)
+    .then(r => r.json())
+    .then(json => this.setState({userValue: json.id}))
+    .catch(error => console.error('Error retrieving Companies: ' + error));
   }
   
   
@@ -181,28 +195,29 @@ class CreateContact extends React.Component {
   handleSubmit=(event)=>{
     event.preventDefault()
     let ContactDetail={
-      first_name:this.state.firstname,
-      last_name:this.state.lastname,
+      firstName:this.state.firstname,
+      lastName:this.state.lastname,
       //
-      
-      name:this.state.note,
+
+      note:this.state.note,
 
       //
       dob:this.state.dob,
-      company_id:this.state.companyValue,
-      position_id:this.state.positionValue,
+      company:this.state.companyValue,
+      position:this.state.positionValue,
 
       mobile:this.state.mobileValue,
-      website:this.state.websiteValue,
       email:this.state.emailValue,
-      fax: this.state.faxValue,
-      officeType:this.state.officeTypeValue,
       addresslineone: this.state.addressValue,
       addresslinetwo:this.state.addressTwoValue,
       country: this.state.countryValue,
       state:this.state.stateValue,
       zip: this.state.zipValue,
+      user:this.state.userValue
+
     }
+    console.log(ContactDetail)
+
 
     fetch(SERVER_URL+'/contact', { 
       method: 'POST',
@@ -210,24 +225,35 @@ class CreateContact extends React.Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ContactDetail})
-    }).then(r=> {
-      r.json()
-      console.log("The Status is "+r.status)
-    }).then(json =>{
-
-      console.log("Json status "+json.status)
-
-    
-
+      body: JSON.stringify(ContactDetail)
+    }).then(r=> r.json()).then(json =>{
       let updatedValue = this.state.updatedValue;
-      updatedValue = "contact " +json.id+" is Added Successfully"
+      if(typeof json.total==='undefined'){
+        updatedValue="";
+        if(typeof json.message==='undefined'){
+          updatedValue += "Contact is Added Successfully"
+        } 
+        else
+        {
+          updatedValue +=json.message;
+        }
+      }
+      else{
+         updatedValue = "Errors Are "
+         for(let i=0;i<json.total;i++){
+          updatedValue +=json._embedded.errors[i].message
+           
+         }
+
+      }
+      
     this.setState({updatedValue})
     }).catch(error =>{
-      let updatedValue = this.state.updatedValue;
-      updatedValue = "The Error is " +error.message;
-    this.setState({updatedValue})
+     
+      console.error("The Error Message is "+error)
 
+
+   
     } )
     };
 
@@ -260,20 +286,16 @@ class CreateContact extends React.Component {
   const {classes} = this .props;
 
   return (
-
+<div>
   <div  component="main" className={classes.root}  >
         <div  className={classes.root}  >
-          <Grid sm={12} md={12}>
+          <Grid sm={6} md={12}>
           <ButtonGroup fullWidth aria-label="full width button group">
 
           <Button className={classes.content} href="/admin/contact/list">List Contact</Button>
-          </ButtonGroup>
+        
 
-          </Grid >
-          <Grid sm={12} md={12} className={classes.content}>
-          <ButtonGroup fullWidth aria-label="full width outlined button group">
-
-          <Button className={classes.content} href="/admin/contact/create">Create Contact</Button>
+          <Button className={classes.content} href="/contact/create">Create Contact</Button>
           </ButtonGroup>
 
           </Grid>
@@ -348,9 +370,9 @@ class CreateContact extends React.Component {
      variant="outlined"
    />
                       <TextField
-                        id="demo-simple-select-outlined-label"
+                        id="company"
                         select 
-                        label="Position"
+                        label="Company"
                         value={this.state.companyValue}
                         onChange={this.handleChangecompany.bind(this)}
                         variant="outlined"
@@ -363,7 +385,7 @@ class CreateContact extends React.Component {
                         </TextField>
 
                         <TextField
-                        id="demo-simple-select-outlined-label"
+                        id="position"
                         select 
                         label="Position"
                         value={this.state.positionValue}
@@ -416,23 +438,6 @@ class CreateContact extends React.Component {
     }}
      variant="outlined"
    />
-   <TextField
-     id="outlined-full-width"
-     label="Website"
-     style={{ margin: 8 }}
-     fullWidth
-     margin="normal"
-     onChange={this.handleChangeWebsiteValue}
-     InputLabelProps={{
-       shrink: true,
-     }}
-     InputProps={{
-      startAdornment: <InputAdornment position="start">
-        <LanguageIcon />
-        </InputAdornment>,
-    }}
-     variant="outlined"
-   />
 
    <TextField
      id="outlined-full-width"
@@ -452,24 +457,7 @@ class CreateContact extends React.Component {
     }}
      variant="outlined"
    />
-   <TextField
-     id="outlined-full-width"
-     label="Fax"
-     style={{ margin: 8 }}
-     placeholder="Fax"
-     fullWidth
-     margin="normal"
-     onChange={this.handleChangeFaxValue}
-     InputLabelProps={{
-       shrink: true,
-     }}
-     InputProps={{
-      startAdornment: <InputAdornment position="start">
-        <Email />
-        </InputAdornment>,
-    }}
-     variant="outlined"
-   />
+  
    </div>
 </Grid>
 
@@ -599,6 +587,7 @@ class CreateContact extends React.Component {
 </div>
 
 
+</div>
 </div>
 );
 }}
