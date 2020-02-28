@@ -159,7 +159,7 @@ class Index extends React.Component {
   customLoginHandler = () => { 
    console.log("From "+this.state.from);
    history.push(this.state.from);
-     window.location.href = window.location.href;
+   window.location.href = window.location.href;
   };
 
   customErrorHandler = (error) => { //<2>
@@ -179,19 +179,18 @@ class Index extends React.Component {
   render() {
     return (
       
-      <BrowserRouter>
+      <BrowserRouter forceRefresh={true}>
        <div>
    
       <Switch>
-        <Admin logoutHandler={this.logoutHandler}  exact path="/" >
-            <App />
-        </Admin>
-        <PrivateRoute  exact path="/admin" >
-          <Admin /> 
-        </PrivateRoute>
-        <LoggedInRedirect  exact path="/login" >
+      <LoggedInRedirect  exact path="/login" >
         <Login LoginSubmit={this.LoginSubmit} _usernameValue={this._usernameValue} _passwordValue={this._passwordValue}/>
-        </LoggedInRedirect>
+      </LoggedInRedirect>
+
+      <Admin logoutHandler={this.logoutHandler}>
+        <PrivateRoute exact path="/" >
+            <App />
+        </PrivateRoute>
         <PrivateRoute  exact path="/dashboard">
         <Dashboard/>
         </PrivateRoute>
@@ -236,9 +235,7 @@ class Index extends React.Component {
         <PrivateRoute  exact  path="/employee">
           <Employee />
         </PrivateRoute>
-        {/* <PrivateRoute  exact  path="/ticket">
-          <Ticket />
-        </PrivateRoute> */}
+      
         <PrivateRoute  exact  path="/ticket/search">
           <TicketSearch />
         </PrivateRoute>
@@ -276,47 +273,48 @@ class Index extends React.Component {
         <PrivateRoute exact path="/calendar">
             <Calender />
         </PrivateRoute>
-        
-          <Admin path="/warehouse/product/create">
+      
+          <PrivateRoute path="/warehouse/product/create">
             <CreateProduct />
-          </Admin>
-          <Admin path="/warehouse/product/list">
+          </PrivateRoute>
+          <PrivateRoute path="/warehouse/product/list">
             <Product />
-        </Admin>
+        </PrivateRoute>
 
-        <Admin path="/sales/ticket/list">
+        <PrivateRoute path="/sales/ticket/list">
           <Ticket />
-        </Admin>
-        <Admin path="/sales/ticket/create">
+        </PrivateRoute>
+        <PrivateRoute path="/sales/ticket/create">
           <CreateTicket />
-        </Admin>
+        </PrivateRoute>
 
-        <Admin path="/addressbook/company/list">
+        <PrivateRoute path="/addressbook/company/list">
         <Company />
-        </Admin>
+        </PrivateRoute>
 
-        <Admin logoutHandler={this.logoutHandler} path="/addressbook/company/create">
+        <PrivateRoute path="/addressbook/company/create">
         <CreateCompany />
-        </Admin>
-        <Admin  logoutHandler={this.logoutHandler}  path="/addressbook/contact/list">
+        </PrivateRoute>
+        <PrivateRoute path="/addressbook/contact/list">
           <Contact />
-        </Admin>
-        <Admin logoutHandler={this.logoutHandler}  path="/addressbook/contact/create">
+        </PrivateRoute>
+        <PrivateRoute path="/addressbook/contact/create">
           <CreateContact />
-        </Admin>
-        <Admin logoutHandler={this.logoutHandler}  path="/addressbook/employee/list">
+        </PrivateRoute>
+        <PrivateRoute  path="/addressbook/employee/list">
           <Employee />
-        </Admin>
-        <Admin logoutHandler={this.logoutHandler} path="/addressbook/employee/create">
+        </PrivateRoute>
+        <PrivateRoute path="/addressbook/employee/create">
           <CreateEmployee />
-        </Admin>
+        </PrivateRoute>
 
-        <Admin path="/admin/calendar/activities">
+        <PrivateRoute path="/PrivateRoute/calendar/activities">
           <Calendar />
-        </Admin>
+        </PrivateRoute>
         
-        <Admin path="/admin/companydetail">
+        <PrivateRoute path="/PrivateRoute/companydetail">
           <CompanyDetail />
+        </PrivateRoute>
         </Admin>
 
         </Switch>
