@@ -1,34 +1,18 @@
 import { SERVER_URL } from "../../config";
 
-const postProductsToDatabase=(path,post)=> {
+const postProductsToDatabase=(items)=> {
     return dispatch => {
         dispatch(postProductsPending());
-        console.log('hii',{path})
-        // const url = SERVER_URL+'/contact'
-        // return fetch(SERVER_URL+path)
-        // .then(res => res.json())
-        // .then(json => {
-        //     if(json.status === 422) {
-        //         dispatch(postProductsError);
-        //     }
-        //     const send = JSON.stringify(json)
-
-        //     // console.log("in fetch "+send)
-        //     dispatch(postProductsSuccess(send.id + "is Added Successfully"));
-        //     return send;
-          
-        // })
-        // .catch(error => {
-        //     dispatch(fetchProductsError(error));
-        // })
-        return fetch(SERVER_URL+path, { 
+        console.log('hii',{items})
+        
+        return fetch(SERVER_URL+items.path, { 
 
                 method: 'POST',
                 headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(post)
+                body: JSON.stringify(items.post)
             }).then(r=> r.json())
               .then(json =>{
                 let updatedValue = '';
@@ -59,7 +43,7 @@ const postProductsToDatabase=(path,post)=> {
 
         }).catch(error =>{
         
-                dispatch(fetchProductsError(error));
+                dispatch(postProductsError(error));
     
             })
     }
@@ -69,14 +53,14 @@ const postProductsToDatabase=(path,post)=> {
 export const POST_PRODUCTS_PENDING = 'POST_PRODUCTS_PENDING';
 export const POST_PRODUCTS_SUCCESS = 'POST_PRODUCTS_SUCCESS';
 export const POST_PRODUCTS_ERROR = 'POST_PRODUCTS_ERROR';
-export const POST_PRODUCTS_TO_DATABASE = 'POST_PRODUCTS_TO_DATABASE';
+// export const POST_PRODUCTS_TO_DATABASE_ACTION = 'POST_PRODUCTS_TO_DATABASE_ACTION';
 
-export function postProductsToDatabase(payload) {
-    return {
-        type: POST_PRODUCTS_TO_DATABASE,
-        payload
-    }
-}
+// export function postProductsToDatabaseAction(payload) {
+//     return {
+//         type: POST_PRODUCTS_TO_DATABASE_ACTION,
+//         payload
+//     }
+// }
 
 export function postProductsPending() {
     return {
@@ -99,4 +83,4 @@ export function postProductsError(error) {
     }
 }
 
-export default postProducts;
+export default postProductsToDatabase;

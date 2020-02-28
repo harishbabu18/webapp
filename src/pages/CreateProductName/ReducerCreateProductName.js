@@ -1,4 +1,5 @@
-import postProducts, {POST_PRODUCTS_PENDING, POST_PRODUCTS_SUCCESS, POST_PRODUCTS_ERROR} from './ActionCreateProductName';
+import postProductsToDatabase, {POST_PRODUCTS_PENDING, POST_PRODUCTS_TO_DATABASE_ACTION, POST_PRODUCTS_SUCCESS, POST_PRODUCTS_ERROR, postProductsToDatabaseAction} from './ActionCreateProductName';
+// import { connect, useDispatch } from 'react-redux';
 
   
   const initialState = {
@@ -12,14 +13,13 @@ import postProducts, {POST_PRODUCTS_PENDING, POST_PRODUCTS_SUCCESS, POST_PRODUCT
 
     switch (action.type) {
 
-      case POST_PRODUCTS_TO_DATABASE:
-        const u = action.payload
+      // case POST_PRODUCTS_TO_DATABASE_ACTION:
+      //   const u = action.payload
 
-        Object.assign({},state,{
-            items:u
-        })
-        dispatch(postProducts(path,state.items))
-        break;
+      //   return(Object.assign({},state,{
+      //       items:u
+      //   }),
+      //   postProductsToDatabase(state.items))
 
 
       case POST_PRODUCTS_PENDING:
@@ -34,12 +34,12 @@ import postProducts, {POST_PRODUCTS_PENDING, POST_PRODUCTS_SUCCESS, POST_PRODUCT
   
       case POST_PRODUCTS_SUCCESS:
       
-        const u = action.payload.send
+        const k = action.payload.send
         // console.log(u)
         return Object.assign({}, state, {
           loading:false,
           error:null,
-          postSuccess:u,
+          postSuccess:k,
           });
   
       case POST_PRODUCTS_ERROR:
@@ -55,6 +55,8 @@ import postProducts, {POST_PRODUCTS_PENDING, POST_PRODUCTS_SUCCESS, POST_PRODUCT
         return state;
     }
   }
+
+
 
 
 // export const getProducts = state =>  state.items;

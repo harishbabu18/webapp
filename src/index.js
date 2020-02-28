@@ -46,6 +46,10 @@ import { MuiThemeProvider,createMuiTheme } from '@material-ui/core/styles';
 import CreateProduct from './pages/crud/CreateProduct';
 import Product from './pages/Product';
 
+import CreateProductName from './pages/CreateProductName/CreateProductName'
+import store from './pages/CreateProductName/Store' 
+
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -315,6 +319,13 @@ class Index extends React.Component {
         <PrivateRoute path="/PrivateRoute/companydetail">
           <CompanyDetail />
         </PrivateRoute>
+
+        <Provider store={store}>
+          <PrivateRoute path="/PrivateRoute/productnamecreate">
+            <CreateProductName />
+          </PrivateRoute>
+        </Provider>
+
         </Admin>
 
         </Switch>
@@ -372,7 +383,7 @@ function LoggedInRedirect({ children, ...rest }){
 
 }
 
-const store = createStore(allReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+// const store = createStore(allReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
   
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
