@@ -43,16 +43,8 @@ import allReducers from './reducers'
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider,createMuiTheme } from '@material-ui/core/styles';
-// import CreateProduct from './pages/crud/CreateProduct';
-// import Product from './pages/Product';
-
-import CreateProductName from './pages/CreateProductName/CreateProductName';
-import CreateProduct from './pages/CreateProductName/CreateProduct'
-import Product from './pages/CreateProductName/Product'
-
-
-import store from './pages/CreateProductName/Store' 
-
+import CreateProduct from './pages/crud/CreateProduct';
+import Product from './pages/Product';
 
 const theme = createMuiTheme({
   palette: {
@@ -281,16 +273,13 @@ class Index extends React.Component {
         <PrivateRoute exact path="/calendar">
             <Calender />
         </PrivateRoute>
-
-        <Provider store = {store} >
+      
           <PrivateRoute path="/warehouse/product/create">
             <CreateProduct />
           </PrivateRoute>
           <PrivateRoute path="/warehouse/product/list">
             <Product />
-          </PrivateRoute>
-        </Provider>
-
+        </PrivateRoute>
 
         <PrivateRoute path="/sales/ticket/list">
           <Ticket />
@@ -326,13 +315,6 @@ class Index extends React.Component {
         <PrivateRoute path="/PrivateRoute/companydetail">
           <CompanyDetail />
         </PrivateRoute>
-
-        <Provider store={store}>
-          <PrivateRoute path="/PrivateRoute/productnamecreate">
-            <CreateProductName />
-          </PrivateRoute>
-        </Provider>
-
         </Admin>
 
         </Switch>
@@ -390,7 +372,7 @@ function LoggedInRedirect({ children, ...rest }){
 
 }
 
-// const store = createStore(allReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(allReducers, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
   
 ReactDOM.render(
   <MuiThemeProvider theme={theme}>
