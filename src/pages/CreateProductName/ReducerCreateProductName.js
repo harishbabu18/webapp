@@ -70,9 +70,8 @@ import {
         // };
 
         return Object.assign({}, state, {
-          ...state,
-          ...state.items,
-          items: u,
+         
+          items: state.items.concat(u),
           loading:false,
           error:null,
           });

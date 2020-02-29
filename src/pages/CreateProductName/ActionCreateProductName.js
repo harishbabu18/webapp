@@ -78,7 +78,7 @@ const postProductsToDatabase=(items)=> {
 // }
 
 export const fetchDetails = (props) => {
-    return dispatch => {
+    return (dispatch) => {
         dispatch(fetchProductsPending());
         console.log('hii',{props})
         // const url = SERVER_URL+'/contact'
@@ -92,7 +92,7 @@ export const fetchDetails = (props) => {
 
             // console.log("in fetch "+send)
             dispatch(fetchProductsSuccess(send,props));
-            return send;
+            // return send;
           
         })
         .catch(error => {

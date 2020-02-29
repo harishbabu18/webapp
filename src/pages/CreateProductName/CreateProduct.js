@@ -14,6 +14,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Barcode from 'react-barcode';
 
 import {fetchDetails} from './ActionCreateProductName';
+import { useStore } from 'react-redux'
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -59,9 +61,9 @@ const useStyles = makeStyles(theme => ({
 
 function CreateProduct ({fetchDetails, load, fetched, user}) {
 
+  console.log("checking")
 
-
-  React.useEffect(() => {
+  // React.useEffect(() => {
 
   // //   if (!load) {
   // //     return undefined;
@@ -82,7 +84,7 @@ function CreateProduct ({fetchDetails, load, fetched, user}) {
 
   //     // if (load) {
   //     //   // setOptions(Object.keys(countries).map(key => countries[key].item[0]));
-    },[load]);
+    // },[load]);
 
     // React.useEffect(() => {
     //   fetchData();
@@ -114,7 +116,8 @@ function CreateProduct ({fetchDetails, load, fetched, user}) {
     
     
 
-
+    const store = useStore()
+    console.log('getting state',store.getState())
 
 
 
@@ -155,9 +158,9 @@ function CreateProduct ({fetchDetails, load, fetched, user}) {
 
     // let Total=0;
     // Total=parseFloat(this.state.price)*parseFloat(this.state.numberValue)
+    
 
-
-    return load ? (
+    return !load ? (
     
       // <React.Fragment>
 
@@ -363,7 +366,7 @@ function CreateProduct ({fetchDetails, load, fetched, user}) {
     
                                   
 
-// }
+// 
 
 const mapStateToProps = state =>  (console.log(state),{
   username:state.products.postSuccess,
