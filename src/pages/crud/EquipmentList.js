@@ -67,7 +67,7 @@ class Equipment extends React.Component {
       }
       loadContacts = () => {
         const {offset,max,equipment} = this.state
-       const url = SERVER_URL+'/equipment?offset='+offset+'&max='+max
+       const url = SERVER_URL+'/company?offset='+offset+'&max='+max
         fetch(url)
         .then(r => r.json())
         .then(json => this.setState({equipment:[...equipment,...json] }))
@@ -109,12 +109,12 @@ class Equipment extends React.Component {
               <StyledTableCell component="th" scope="row">
                 {equipment.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{equipment.description}</StyledTableCell>
+              {/* <StyledTableCell align="right">{equipment.description}</StyledTableCell>
               <StyledTableCell align="right">{equipment.type}</StyledTableCell>
               <StyledTableCell align="right">{ equipment.serial}</StyledTableCell>
               <StyledTableCell align="right">{equipment.supplier}</StyledTableCell>
               <StyledTableCell align="right">{equipment.salesPrice}</StyledTableCell>
-              <StyledTableCell align="right">{equipment.purchasePrice}</StyledTableCell>
+              <StyledTableCell align="right">{equipment.purchasePrice}</StyledTableCell> */}
 
               
             </StyledTableRow>);

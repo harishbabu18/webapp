@@ -247,7 +247,9 @@ class CreateEquipment extends React.Component {
          <div className={classes.content}>
 
          <Card>
-          <form id="create-course-form" onSubmit={this.handleSubmit} >
+          <form id="create-course-form" 
+        //   onSubmit={this.handleSubmit}
+           >
             <CardContent >
             <div className={classes.content}>
 

@@ -62,18 +62,15 @@ class CreateOffer extends React.Component {
           ticketValue:'',
           dateValue:'',
           deadlineValue:'',
-
-          purchasePriceValue:'',
-          saleValue:'',
-
-
-          fields: {},
-          errors: {},
-
-          type:[],
-
-          supplierValue:'',
-          thresholdValue:'',
+          durationValue:'',
+          referenceValue:'',
+          commissionValue: '',
+          generalInformationValue: '',
+          company:[],
+          ticket:[],
+          reference:[],
+          updatedValue:'',
+        
           userValue:'',
           
       }
@@ -85,11 +82,20 @@ class CreateOffer extends React.Component {
 
     componentDidMount(){
         
-    fetch(SERVER_URL+'/officeType')
+    fetch(SERVER_URL+'/company')
     .then(r => r.json())
-    .then(json => this.setState({type: json}))
-    .catch(error => console.error('Error retrieving Offers: ' + error));
+    .then(json => this.setState({company: json}))
+    .catch(error => console.error('Error retrieving company: ' + error));
    
+    fetch(SERVER_URL+'/ticket')
+    .then(r => r.json())
+    .then(json => this.setState({ticket: json}))
+    .catch(error => console.error('Error retrieving ticket: ' + error));
+
+    fetch(SERVER_URL+'/employee')
+    .then(r => r.json())
+    .then(json => this.setState({reference: json}))
+    .catch(error => console.error('Error retrieving Offers: ' + error));
 
     const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
     fetch(url)
@@ -135,6 +141,10 @@ class CreateOffer extends React.Component {
     handleChangeGeneralInformationValue=(event)=>{
     this.setState({generalInformationValue:event.target.value})
   }
+
+    handleChangeServiceValue = (event) => {
+        this.setState({serialValue:event.target.value})
+    }
 
 
 
@@ -371,18 +381,33 @@ class CreateOffer extends React.Component {
                 <div className={classes.content}>
 
                 <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
-                    Supplier
+                    Service
                 </Typography>
 
-                <TextField
-                          id="demo-simple-select-outlined-label"
-                          select 
-                          label="Supplier"
-                          value={this.state.supplierValue}
-                          onChange={this.handleChangeSupplierValue.bind(this)}
-                          variant="outlined"
+                        <TextField
+                            id="demo-simple-select-outlined-label"
+                            select 
+                            label="Service"
+                            value={this.state.serviceValue}
+                            onChange={this.handleChangeServiceValue.bind(this)}
+                            variant="outlined"
                           >
-                              {this.state.supplier.map(option =>(
+                              {['DD45','KX67','GXC454'].map(option =>(
+                                  <MenuItem key={option.id} value={option.id}>
+                                      {option.name}
+                                  </MenuItem>
+                              ))}
+                          </TextField>
+
+                          <TextField
+                            id="demo-simple-select-outlined-label"
+                            select 
+                            label="Place"
+                            value={this.state.placeValue}
+                            onChange={this.handleChangePlaceValue.bind(this)}
+                            variant="outlined"
+                          >
+                              {['Bengaluru', 'Mangaluru', 'Tumkuru', 'Mandya'].map(option =>(
                                   <MenuItem key={option.id} value={option.id}>
                                       {option.name}
                                   </MenuItem>
@@ -391,38 +416,187 @@ class CreateOffer extends React.Component {
 
                           <TextField
                           id="outlined-uncontrolled"
-                          label="Threshold"
+                          label="Number Of Intervention"
                           type="number"
                           margin="normal"
-                          onChange={this.handleChangeThresholdValue}
+                        //   onChange={this.handleChangeInterventionValue}
                       
                           variant="outlined"
                           />
 
                         <TextField
                           id="outlined-uncontrolled"
-                          label="Purchase Price"
+                          label="Cost Of Service"
                           type="number"
                           margin="normal"
-                          onChange={this.handleChangePurchasePriceValue}
+                        //   onChange={this.handleChangeCostOfServiveValue}
                       
                           variant="outlined"
                           />
 
-                        <TextField
-                          id="outlined-uncontrolled"
-                          label="Sales Price"
-                          type="number"
-                          margin="normal"
-                          onChange={this.handleChangeSalesValue}
-                      
-                          variant="outlined"
-                          />
-                          
                 </div>
 
                
-</Grid>
+            </Grid>
+
+            <Grid item  sm={12} md={4} className={classes.content}>
+                <div className={classes.content}>
+
+                <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+                    Facility
+                </Typography>
+
+                        <TextField
+                            id="demo-simple-select-outlined-label"
+                            select 
+                            label="Crew"
+                            value={this.state.serviceValue}
+                            onChange={this.handleChangeServiceValue.bind(this)}
+                            variant="outlined"
+                          >
+                              {['DD45','KX67','GXC454'].map(option =>(
+                                  <MenuItem key={option.id} value={option.id}>
+                                      {option.name}
+                                  </MenuItem>
+                              ))}
+                          </TextField>
+
+
+                          <TextField
+                          id="outlined-uncontrolled"
+                          label="Typology"
+                          margin="normal"
+                        //   onChange={this.handleChangeInterventionValue}
+                      
+                          variant="outlined"
+                          />
+
+                        <TextField
+                          id="outlined-uncontrolled"
+                          label="Quantity"
+                          type="number"
+                          margin="normal"
+                        //   onChange={this.handleChangeCostOfServiveValue}
+                      
+                          variant="outlined"
+                          />
+
+                </div>
+
+               
+            </Grid>
+
+            <Grid item  sm={12} md={4} className={classes.content}>
+                <div className={classes.content}>
+
+                <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+                    Product
+                </Typography>
+
+                        <TextField
+                            id="demo-simple-select-outlined-label"
+                            select 
+                            label="Product"
+                            value={this.state.serviceValue}
+                            onChange={this.handleChangeServiceValue.bind(this)}
+                            variant="outlined"
+                          >
+                              {['DD45','KX67','GXC454'].map(option =>(
+                                  <MenuItem key={option.id} value={option.id}>
+                                      {option.name}
+                                  </MenuItem>
+                              ))}
+                          </TextField>
+
+                          
+
+                          <TextField
+                          id="outlined-uncontrolled"
+                          label="Quantity "
+                          type="number"
+                          margin="normal"
+                        //   onChange={this.handleChangeInterventionValue}
+                      
+                          variant="outlined"
+                          />
+
+                        <TextField
+                          id="outlined-uncontrolled"
+                          label="Cost "
+                          type="number"
+                          margin="normal"
+                        //   onChange={this.handleChangeCostOfServiveValue}
+                      
+                          variant="outlined"
+                          />
+
+                </div>
+
+               
+            </Grid>
+
+            <Grid item  sm={12} md={4} className={classes.content}>
+                <div className={classes.content}>
+
+                <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+                    Payment
+                </Typography>
+
+
+                          <TextField
+                          id="outlined-uncontrolled"
+                          label="Payment Method"
+                          margin="normal"
+                        //   onChange={this.handleChangeInterventionValue}
+                      
+                          variant="outlined"
+                          />
+
+                        <TextField
+                          id="outlined-uncontrolled"
+                          label="Taxable"
+                          type="number"
+                          margin="normal"
+                        //   onChange={this.handleChangeCostOfServiveValue}
+                      
+                          variant="outlined"
+                          />
+
+                        <TextField
+                          id="outlined-uncontrolled"
+                          label="Discount"
+                          type="number"
+                          margin="normal"
+                        //   onChange={this.handleChangeCostOfServiveValue}
+                      
+                          variant="outlined"
+                          />
+                          <TextField
+                          id="outlined-uncontrolled"
+                          label="IVA"
+                          type="number"
+                          margin="normal"
+                        //   onChange={this.handleChangeCostOfServiveValue}
+                      
+                          variant="outlined"
+                          />
+
+                          <TextField
+                          id="outlined-uncontrolled"
+                          label="total"
+                          type="number"
+                          margin="normal"
+                        //   onChange={this.handleChangeCostOfServiveValue}
+                      
+                          variant="outlined"
+                          />
+
+
+
+                </div>
+
+               
+            </Grid>
 
 </Grid>
 <CardActions>
