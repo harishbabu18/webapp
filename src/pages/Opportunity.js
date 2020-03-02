@@ -11,14 +11,36 @@ import {SERVER_URL} from '../config';
 import { Button } from '@material-ui/core';
 const useStyles = theme => ({
   root: {
-    width: '100%',
-    marginTop: theme.spacing(1),
-    overflowX: 'auto',
+    '& .MuiTextField-root ': {
+      margin: theme.spacing(1),
+      marginBottom: 12,
+      flexGrow:1,
+
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+        width:'100%',
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: 305,
+
+    },
+
+    },
   },
-  table: {
-    minWidth: 700,
+  title: {
+    fontSize: 18,
   },
-});
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1,0),
+  },
+
+
+
+})
+
 
 class Opportunity extends React.Component {
  
@@ -54,24 +76,24 @@ class Opportunity extends React.Component {
       }
 
     render() {
-        const { classes } = this.props;
-        const StyledTableCell = withStyles(theme => ({
-            head: {
-              backgroundColor: theme.palette.common.black,
-              color: theme.palette.common.white,
+      const { classes } = this.props;
+      const StyledTableCell = withStyles(theme => ({
+          head: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+          },
+          body: {
+            fontSize: 14,
+          },
+        }))(TableCell);
+        
+        const StyledTableRow = withStyles(theme => ({
+          root: {
+            '&:nth-of-type(odd)': {
+              backgroundColor: theme.palette.background.default,
             },
-            body: {
-              fontSize: 14,
-            },
-          }))(TableCell);
-          
-          const StyledTableRow = withStyles(theme => ({
-            root: {
-              '&:nth-of-type(odd)': {
-                backgroundColor: theme.palette.background.default,
-              },
-            },
-          }))(TableRow);
+          },
+        }))(TableRow);
           
           
           
