@@ -7,10 +7,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import ContactsIcon from '@material-ui/icons/Contacts';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 import { Link } from "react-router-dom";
-import BusinessIcon from '@material-ui/icons/Business';
+import LoopIcon from '@material-ui/icons/Loop';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import TransferWithinAStationIcon from '@material-ui/icons/TransferWithinAStation';
 
 
 const useStyles = makeStyles(theme => ({
@@ -36,7 +38,7 @@ export default function Commercial (props) {
         <div>
         <ListItem button onClick={handleClick}>
           <ListItemIcon>
-            <ContactsIcon /> 
+            <TransferWithinAStationIcon /> 
           </ListItemIcon>
           <ListItemText primary="Commercial" />
           {open ? <ExpandLess /> : <ExpandMore />}
@@ -45,7 +47,7 @@ export default function Commercial (props) {
           <List component="div" disablePadding>
             <ListItem button className={classes.nested} component={Link} to="/commercial/offer/list">
               <ListItemIcon>
-                <BusinessIcon />
+                <LocalOfferIcon />
               </ListItemIcon>
               <ListItemText primary="Offers" />
             </ListItem>
@@ -53,7 +55,7 @@ export default function Commercial (props) {
 
             <ListItem button className={classes.nested}  component={Link} to="/commercial/opportunity/list">
               <ListItemIcon>
-                <ContactsIcon />
+                <LoopIcon />
               </ListItemIcon>
               <ListItemText primary="Opportunity" />
             </ListItem>
@@ -63,7 +65,7 @@ export default function Commercial (props) {
             <ListItem button className={classes.nested}  component={Link} to="/commercial/contract/list">
 
               <ListItemIcon>
-                <GroupWorkIcon  />
+                <FileCopyIcon  />
               </ListItemIcon>
               <ListItemText primary="Contract" />
             </ListItem>

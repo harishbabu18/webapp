@@ -9,8 +9,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ContactsIcon from '@material-ui/icons/Contacts';
 import { Link } from "react-router-dom";
-import BusinessIcon from '@material-ui/icons/Business';
-import GroupWorkIcon from '@material-ui/icons/GroupWork';
+import AirportShuttleIcon from '@material-ui/icons/AirportShuttle';
 import StoreIcon from '@material-ui/icons/Store';
 import BuildIcon from '@material-ui/icons/Build';
 import DnsIcon from '@material-ui/icons/Dns';
@@ -66,7 +65,7 @@ export default function Warehouse (props) {
             <ListItem button className={classes.nested}  component={Link} to="/warehouse/transport/list">
 
               <ListItemIcon>
-                <AssessmentIcon  />
+                <AirportShuttleIcon  />
               </ListItemIcon>
               <ListItemText primary="Means" />
             </ListItem>

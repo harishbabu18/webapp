@@ -7,13 +7,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import ContactsIcon from '@material-ui/icons/Contacts';
 import { Link } from "react-router-dom";
-import GroupWorkIcon from '@material-ui/icons/GroupWork';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 
 
@@ -52,24 +48,6 @@ export default function Warehouse (props) {
                 <ConfirmationNumberIcon />
               </ListItemIcon>
               <ListItemText primary="Ticket" />
-            </ListItem>
-
-
-            <ListItem button className={classes.nested}  component={Link} to="/sales/deal/list">
-              <ListItemIcon>
-                <CheckCircleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Deal" />
-            </ListItem>
-
-
-
-            <ListItem button className={classes.nested}  component={Link} to="/sales/offer/list">
-
-              <ListItemIcon>
-                <LocalOfferIcon  />
-              </ListItemIcon>
-              <ListItemText primary="Offer" />
             </ListItem>
           </List>
         </Collapse>

@@ -15,35 +15,21 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
-import BorderColorIcon from '@material-ui/icons/BorderColor';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
-import TimerIcon from '@material-ui/icons/Timer';
-import SettingsIcon from '@material-ui/icons/Settings';
-import Calendar from './../components/DropDownSide'
 import Address from './../components/AddressDropdown'
 import Commercial from '../components/CommercialDropdown'
 import Warehouse from './../components/WarehouseDropdown'
 import Sales from './../components/SalesDropdown'
-import Storage from './../components/StorageDropdown'
-import Opportunities from './../components/OpportunitiesDropdown'
 
-import { Route ,Redirect} from 'react-router-dom';  
+import { Route } from 'react-router-dom';  
 import { Link } from "react-router-dom";
-import Auth from './../security/auth';
 import logo from "../qualifica.png";
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
-
-
-
-
-                  
 
 const drawerWidth = 240;
 
@@ -113,12 +99,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-
-
-
-
-
-
 export default function MiniDrawer({logoutHandler,component: Component, ...rest}) {
   const classes = useStyles();
   const theme = useTheme();
@@ -149,7 +129,6 @@ export default function MiniDrawer({logoutHandler,component: Component, ...rest}
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
-      // anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
       id={menuId}
       keepMounted
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -197,7 +176,6 @@ export default function MiniDrawer({logoutHandler,component: Component, ...rest}
             >
             <AccountCircle />
           </IconButton>
-        {/* </div> */}
           
         </Toolbar>
       </AppBar>
@@ -222,42 +200,15 @@ export default function MiniDrawer({logoutHandler,component: Component, ...rest}
           </IconButton>
         </div>
         <List>
-            {/* <ListItem button >
-              <ListItemIcon> <DashboardIcon /> </ListItemIcon>
-              <ListItemText primary="Dashboard" />
-            </ListItem>     */}
-            {/* <Calendar /> */}
             <Address />   
             <Warehouse />  
             <Sales />      
-            {/* <Storage /> */}
             <ListItem button component={Link} to="/service/list">
-              <ListItemIcon> <ConfirmationNumberIcon /> </ListItemIcon>
+              <ListItemIcon> <AddCircleOutlineIcon /> </ListItemIcon>
               <ListItemText primary="Services" />
             </ListItem>  
             <Commercial /> 
 
-            {/* <Opportunities />
-            <ListItem button >
-              <ListItemIcon> <BorderColorIcon /> </ListItemIcon>
-              <ListItemText primary="Contracts" />
-            </ListItem>       
-            <ListItem button >
-              <ListItemIcon> <AddShoppingCartIcon /> </ListItemIcon>
-              <ListItemText primary="Orders" />
-            </ListItem>
-            <ListItem button >
-              <ListItemIcon> <AccountBalanceIcon /> </ListItemIcon>
-              <ListItemText primary="Accounting" />
-            </ListItem>
-            <ListItem button >
-              <ListItemIcon> <TimerIcon /> </ListItemIcon>
-              <ListItemText primary="Time Keeping" />
-            </ListItem>
-            <ListItem button >
-              <ListItemIcon> <SettingsIcon /></ListItemIcon>
-              <ListItemText primary="Settings" />
-            </ListItem> */}
         </List>
       </Drawer>
       <main className={classes.content}>

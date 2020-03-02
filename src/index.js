@@ -344,7 +344,7 @@ class Index extends React.Component {
           <Calendar />
         </PrivateRoute>
         
-        <PrivateRoute path="/PrivateRoute/companydetail">
+        <PrivateRoute path="/admin/companydetail">
           <CompanyDetail />
         </PrivateRoute>
 {/* 

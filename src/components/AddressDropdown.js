@@ -11,7 +11,7 @@ import ContactsIcon from '@material-ui/icons/Contacts';
 import { Link } from "react-router-dom";
 import BusinessIcon from '@material-ui/icons/Business';
 import GroupWorkIcon from '@material-ui/icons/GroupWork';
-
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -72,7 +72,7 @@ export default function Address (props) {
             <ListItem button className={classes.nested}  component={Link} to="/addressbook/provider/list">
 
               <ListItemIcon>
-                <GroupWorkIcon  />
+                <AddShoppingCartIcon  />
               </ListItemIcon>
               <ListItemText primary="Provider" />
             </ListItem>
