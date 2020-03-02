@@ -24,10 +24,10 @@ const useStyles = theme => ({
         width: '100%',
     },
     [theme.breakpoints.up('md')]: {
-        width:'100%',
+        width:'85%',
       },
       [theme.breakpoints.up('lg')]: {
-        width: 305,
+        width: 295,
 
     },
 
@@ -48,6 +48,7 @@ const useStyles = theme => ({
 
 
 });
+
 class CreateOffer extends React.Component {
 
 

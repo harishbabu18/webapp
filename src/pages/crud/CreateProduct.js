@@ -13,26 +13,30 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Barcode from 'react-barcode';
 
+
 const useStyles = theme => ({
   root: {
+   
+    
     '& .MuiTextField-root ': {
       margin: theme.spacing(1),
       marginBottom: 12,
-      flexGrow:1,
 
     [theme.breakpoints.down('sm')]: {
         width: '100%',
     },
     [theme.breakpoints.up('md')]: {
-        width:'100%',
+        width:'85%',
       },
       [theme.breakpoints.up('lg')]: {
-        width: 305,
+        width: 295,
 
     },
 
-    },
+    }
   },
+
+
   title: {
     fontSize: 18,
   },
@@ -40,12 +44,13 @@ const useStyles = theme => ({
     flexGrow: 1,
     padding: theme.spacing(1,0),
   },
+  Button: {
+    width: '100%',
+  }
 
 
-
-})
-
-
+});
+ 
 class CreateProduct extends React.Component {
 
 

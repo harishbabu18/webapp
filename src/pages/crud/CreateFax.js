@@ -12,8 +12,11 @@ import { Button ,ButtonGroup} from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import Paper from '@material-ui/core/Paper';
 
+
 const useStyles = theme => ({
   root: {
+   
+    
     '& .MuiTextField-root ': {
       margin: theme.spacing(1),
       marginBottom: 12,
@@ -22,17 +25,17 @@ const useStyles = theme => ({
         width: '100%',
     },
     [theme.breakpoints.up('md')]: {
-        width:'100%',
-        justify:"center",
+        width:'85%',
       },
       [theme.breakpoints.up('lg')]: {
-        width: 305,
-        display:'Center',
+        width: 295,
 
     },
 
-    },
+    }
   },
+
+
   title: {
     fontSize: 18,
   },
@@ -40,7 +43,9 @@ const useStyles = theme => ({
     flexGrow: 1,
     padding: theme.spacing(1,0),
   },
-
+  Button: {
+    width: '100%',
+  }
 
 
 });

@@ -25,45 +25,43 @@ import CardContent from '@material-ui/core/CardContent';
 import LanguageIcon from '@material-ui/icons/Language';
 
 
-
 const useStyles = theme => ({
   root: {
+   
+    
     '& .MuiTextField-root ': {
       margin: theme.spacing(1),
       marginBottom: 12,
 
     [theme.breakpoints.down('sm')]: {
         width: '100%',
-        display:'Center',
-
     },
     [theme.breakpoints.up('md')]: {
-        width:'100%',
-        justify:"center",
+        width:'85%',
       },
       [theme.breakpoints.up('lg')]: {
-        width: 305,
-        display:'Center',
+        width: 295,
 
     },
 
-    },
+    }
   },
+
+
   title: {
     fontSize: 18,
-  },
-  table: {
-    minWidth: 700,
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(1,0),
   },
-
+  Button: {
+    width: '100%',
+  }
 
 
 });
-
+ 
 class CreateContact extends React.Component {
   constructor(props) {
     super(props);

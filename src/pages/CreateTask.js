@@ -9,21 +9,44 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {SERVER_URL} from '../config';
 
+
 const useStyles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    padding:theme.spacing(2),
+  root: {
+   
+    
+    '& .MuiTextField-root ': {
+      margin: theme.spacing(1),
+      marginBottom: 12,
+
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
+    },
+    [theme.breakpoints.up('md')]: {
+        width:'85%',
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: 295,
+
+    },
+
+    }
   },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    width: 240,
+
+
+  title: {
+    fontSize: 18,
   },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1,0),
+  },
+  Button: {
+    width: '100%',
+  }
+
+
 });
-
-
+ 
 class CreateTask extends React.Component {
 
 

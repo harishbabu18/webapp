@@ -17,26 +17,42 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 
 const useStyles = theme => ({
-  container: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    padding:theme.spacing(2),
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-    width: 240,
-  },
   root: {
-    width: '100%',
-    '& > * + *': {
-      marginTop: theme.spacing(2),
+   
+    
+    '& .MuiTextField-root ': {
+      margin: theme.spacing(1),
+      marginBottom: 12,
+
+    [theme.breakpoints.down('sm')]: {
+        width: '100%',
     },
+    [theme.breakpoints.up('md')]: {
+        width:'85%',
+      },
+      [theme.breakpoints.up('lg')]: {
+        width: 295,
+
+    },
+
+    }
   },
+
+
+  title: {
+    fontSize: 18,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1,0),
+  },
+  Button: {
+    width: '100%',
+  }
+
 
 });
-
+ 
 class CreateTransport extends React.Component {
 
 

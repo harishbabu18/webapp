@@ -12,6 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import MenuItem from '@material-ui/core/MenuItem';
 
 
+
 const useStyles = theme => ({
   root: {
    
@@ -24,12 +25,10 @@ const useStyles = theme => ({
         width: '100%',
     },
     [theme.breakpoints.up('md')]: {
-        width:'100%',
-        justify:"center",
+        width:'85%',
       },
       [theme.breakpoints.up('lg')]: {
-        width: 305,
-        display:'Center',
+        width: 295,
 
     },
 
@@ -50,6 +49,7 @@ const useStyles = theme => ({
 
 
 });
+ 
 class CreateEquipment extends React.Component {
 
 
