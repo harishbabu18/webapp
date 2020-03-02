@@ -2,14 +2,8 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import PhoneAndroid from '@material-ui/icons/PhoneAndroid';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
 
-import Select from '@material-ui/core/Select';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
@@ -213,16 +207,7 @@ class CreatePhone extends React.Component {
   </div>
 
 </Grid>
-<Grid item  sm={12} md={6} square>
-<Grid item  sm={12} component={Paper} square>
 
-
-
-</Grid>
-<Grid item  sm={12} component={Paper} square>
-
-</Grid>
-</Grid>
 </div>
 
       )

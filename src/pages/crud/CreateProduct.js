@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import {SERVER_URL} from '../../config';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -317,7 +316,7 @@ class CreateProduct extends React.Component {
           }}
           variant="outlined"
         />
-          <Barcode value={this.state.barcode} />,
+          <Barcode id= 'barcodeValue' value={this.state.barcode} />,
 
              
      

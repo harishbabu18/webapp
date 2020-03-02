@@ -47,22 +47,23 @@ import Service from './pages/Service';
 // import CreateService from './pages/CreateService';
 import Opportunity from './pages/Opportunity';
 import Admin from './layout/Admin';
-import allReducers from './reducers'
-import { createStore } from 'redux';
+
 import { Provider } from 'react-redux';
 import { MuiThemeProvider,createMuiTheme } from '@material-ui/core/styles';
 // import CreateProduct from './pages/crud/CreateProduct';
 // import Product from './pages/Product';
 
 // import CreateProductName from './pages/CreateProductName';
-import CreateProduct from './pages/crud/CreateProduct'
-import ContractList from './pages/crud/ContractList'
+import CreateProduct from './pages/crud/CreateProduct';
+import ContractList from './pages/crud/ContractList';
 
 import Product from './pages/Product';
 
 
 
-import store from './pages/CreateProductName/Store' 
+import store from './pages/CreateProductName/Store';
+import CreateProvider from './pages/crud/CreateProviders';
+import ProviderList from './pages/crud/ProviderList';
 
 
 const theme = createMuiTheme({
@@ -369,6 +370,12 @@ class Index extends React.Component {
           <PrivateRoute path="/service/list">
           <Service/>
 
+          </PrivateRoute>
+          <PrivateRoute path="/addressbook/provider/list">
+          <ProviderList/>
+          </PrivateRoute>
+          <PrivateRoute path="/addressbook/provider/create">
+          <CreateProvider/>
           </PrivateRoute>
         </Admin>
 

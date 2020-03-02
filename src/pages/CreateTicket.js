@@ -9,7 +9,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../config';
-import Paper from '@material-ui/core/Paper';
 
 
 const useStyles = theme => ({

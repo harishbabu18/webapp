@@ -10,7 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../../config';
 import { Button ,ButtonGroup} from '@material-ui/core';
 import Card from '@material-ui/core/Card';
-import Paper from '@material-ui/core/Paper';
 
 
 const useStyles = theme => ({
@@ -209,16 +208,7 @@ class CreateContact extends React.Component {
     </div>
 
 </Grid>
-<Grid item  sm={12} md={6} square>
-<Grid item  sm={12} component={Paper} square>
 
-
-
- </Grid>
- <Grid item  sm={12} component={Paper} square>
-  
- </Grid>
-</Grid>
 </div>
 
       )

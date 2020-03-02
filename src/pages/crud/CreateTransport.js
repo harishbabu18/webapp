@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
 import { Button ,ButtonGroup} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import {SERVER_URL} from '../../config';
@@ -12,7 +11,6 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-
 import MenuItem from '@material-ui/core/MenuItem';
 
 
@@ -196,124 +194,108 @@ class CreateTransport extends React.Component {
       }
 
       return(
+        <div>
         <div  component="main" className={classes.root}  >
-        <div  className={classes.root}  >
-          <Grid sm={6} md={12}>
-          <ButtonGroup fullWidth aria-label="full width button group">
-
-          <Button className={classes.content} href="/warehouse/transport/list">List Transport</Button>
-
-
-          <Button className={classes.content} href="/warehouse/transport/create">Create Transport</Button>
-          </ButtonGroup>
-
-          </Grid>
-         </div>
-
-         <div className={classes.content}>
-
-         <Card>
-          <form id="create-course-form" onSubmit={this.handleSubmit} >
-            <CardContent >
-            <div className={classes.content}>
-
-
-    <Grid container component="main">
-    <Grid item  sm={12} md={6} >
-      <div className={classes.root}>
-
+              <div  className={classes.root}  >
+                <Grid sm={6} md={12}>
+           <ButtonGroup fullWidth aria-label="full width outlined button group">
+           <Button className={classes.content} href="/warehouse/transport/list">List Transport</Button>
+           <Button className={classes.content} href="/warehouse/transport/create">Create Transport</Button>
+         </ButtonGroup>
+         </Grid>
+               </div>
+      
+               <div className={classes.content}>
+      
+               <Card>
+                <form id="create-course-form" onSubmit={this.handleSubmit} >
+                  <CardContent >
+                  <div className={classes.content}>
+      
+      
+          <Grid container component="main">
+            <div className={classes.root}>
+      
+             <CardContent >
 
    <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
     Create Transport
    </Typography>
+                        <TextField
+                          id="demo-simple-select-outlined-label"
+                          select 
+                          label="Loading"
+                          value={this.state.loadingValue}
+                          onChange={this.handleChangeLoadingValue.bind(this)}
+                          variant="outlined"
+                        >
+                            {this.state.address.map(option =>(
+                                <MenuItem key={option.id} value={option.id}>
+                                    {option.name}
+                                </MenuItem>
+                            ))}
+                        </TextField>
 
-<FormControl variant="outlined" className={classes.textField}>
-<InputLabel
- //ref={inputLabel}
-  id="demo-simple-select-outlined-label">
-  Loading
-</InputLabel>
-<Select
-  labelId="demo-simple-select-outlined-label"
-  id="demo-simple-select-outlined"
-  value={this.state.loadingValue}
-  onChange={this.handleChangeLoadingValue.bind(this)}
- // labelWidth={labelWidth}
->
-  <MenuItem value="">
-    <em>None</em>
-  </MenuItem>
-  {this.state.address.map(renderLoadingRow)}
-</Select>
-</FormControl>
+                        <TextField
+                          id="demo-simple-select-outlined-label"
+                          select 
+                          label="Unloading"
+                          value={this.state.unloadingValue}
+                          onChange={this.handleChangeUnloadingValue.bind(this)}
+                          variant="outlined"
+                        >
+                            {this.state.address.map(option =>(
+                                <MenuItem key={option.id} value={option.id}>
+                                    {option.name}
+                                </MenuItem>
+                            ))}
+                        </TextField>
 
-<FormControl variant="outlined" className={classes.textField}>
-<InputLabel
- //ref={inputLabel}
-  id="demo-simple-select-outlined-label">
-  UnLoading
-</InputLabel>
-<Select
-  labelId="demo-simple-select-outlined-label"
-  id="demo-simple-select-outlined"
-  value={this.state.unloadingValue}
-  onChange={this.handleChangeUnloadingValue.bind(this)}
- // labelWidth={labelWidth}
->
-  <MenuItem value="">
-    <em>None</em>
-  </MenuItem>
-  {this.state.address.map(renderUnloadingRow)}
-</Select>
-</FormControl>
+                        <TextField
+                          id="Schedule Date"
+                          label="Schedule Date"
+                          placeholder="Schedule Date"
+                          type="date"
+                          defaultValue=""
+                          onChange={this.handleChangeScheduleValue}
+                          className={classes.textField}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                        />
 
-<form noValidate>
-  <TextField
-    id="Schedule Date"
-    label="Schedule Date"
-    placeholder="Schedule Date"
-    type="date"
-    defaultValue=""
-    onChange={this.handleChangeScheduleValue}
-    className={classes.textField}
-    InputLabelProps={{
-      shrink: true,
-    }}
-  />
-</form>
-</div>
-
-</Grid>
-<CardActions>
-<ButtonGroup fullWidth aria-label="full width outlined button group">
-<Button type="Submit" className={classes.Button} variant="contained" size="Medium" color="primary">
-          Save
-      </Button>
-      </ButtonGroup>
+          <CardActions>
+            <ButtonGroup fullWidth aria-label="full width outlined button group">
+              <Button type="Submit" className={classes.Button} variant="contained" size="Medium" color="primary">
+                  Save
+              </Button>
+            </ButtonGroup>
 
       <ButtonGroup fullWidth aria-label="full width outlined button group">
-      <Button type='Submit' onClick={this.handleclear} variant="contained" size="Medium" color="primary">
-      {/* <input type="reset" defaultValue="Reset" /> */} Reset
-      </Button>
+        <Button type='Submit' onClick={this.handleclear} variant="contained" size="Medium" color="primary">
+         Reset
+        </Button>
       </ButtonGroup>
     
       <div className={classes.root}>
           {this.state.updatedValue}
-          {/* <Alert severity="success" color="info">
-          {this.state.updatedValue}
-          </Alert> */}
+       
       </div>
       </CardActions>
-      </Grid>
 
+
+  </CardContent>
+  </div>
+  </Grid>
   </div>
   </CardContent>
+  </form>
 
-</form>
 </Card>
 </div>
 
 
+</div>
 </div>
       )
 

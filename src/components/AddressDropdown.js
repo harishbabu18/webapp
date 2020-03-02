@@ -67,6 +67,15 @@ export default function Address (props) {
               </ListItemIcon>
               <ListItemText primary="Collaborator" />
             </ListItem>
+
+
+            <ListItem button className={classes.nested}  component={Link} to="/addressbook/provider/list">
+
+              <ListItemIcon>
+                <GroupWorkIcon  />
+              </ListItemIcon>
+              <ListItemText primary="Provider" />
+            </ListItem>
           </List>
         </Collapse>
         </div>
