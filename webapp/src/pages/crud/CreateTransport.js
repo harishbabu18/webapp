@@ -46,23 +46,14 @@ class CreateTransport extends React.Component {
           loadingValue:'',
           scheduleValue:'',
           updatedValue:'',
-          userValue:'',
       }
     }
 
     componentDidMount() {
-      
-      fetch(SERVER_URL+'/transport')
-      .then(r => r.json())
-      .then(json => this.setState({transport: json}))
-      .catch(error => console.error('Error retrieving Tickrts: ' + error));
-      console.log("Logged In User is "+JSON.parse(localStorage.auth).username);
-      console.log(this.state);
-      const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
-      fetch(url)
-      .then(r => r.json())
-      .then(json => this.setState({userValue: json.id}))
-      .catch(error => console.error('Error retrieving Companies: ' + error));
+    fetch(SERVER_URL+'/transport')
+    .then(r => r.json())
+    .then(json => this.setState({transport: json}))
+    .catch(error => console.error('Error retrieving Transport: ' + error));
     }
 
 
@@ -90,77 +81,27 @@ class CreateTransport extends React.Component {
 
   handleSubmit=(event)=>{
     event.preventDefault()
-
-    
-   
-     let TransportDetail={
-      
-      unloading:this.state.unloadingValue,
-        loading:this.state.loadingValue,
-        schedule:this.state.scheduleValue,
-        user:this.state.userValue
-        
-    }
- 
-
     fetch(SERVER_URL+'/transport', { 
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(TransportDetail)
+      body: JSON.stringify({
+        unloading:this.state.unloadingValue,
+        loading:this.state.loadingValue,
+        schedule:this.state.scheduleValue
+      })
     }).then(r=> r.json()).then(json =>{
       let updatedValue = this.state.updatedValue;
-      if(typeof json.total==='undefined'){
-        updatedValue="";
-        if(typeof json.message==='undefined'){
-          updatedValue += "Company is Added Successfully"
-        } 
-        else
-        {
-          updatedValue +=json.message;
-        }
-      }
-      else{
-         updatedValue = "Errors Are "
-         for(let i=0;i<json.total;i++){
-          updatedValue +=json._embedded.errors[i].message
-           
-         }
-
-      }
-      
+      updatedValue = "Transport ID " +json.id+" is Added Successfully"
     this.setState({updatedValue})
     }).catch(error =>{
-     
-      console.error("The Error Message is "+error)
-
-
-   
+      let updatedValue = this.state.updatedValue;
+      updatedValue = "The Error is " +error.message;
+    this.setState({updatedValue})
     } )
-    
-
-    
-   
-  };
-
-
-    handleclear=(event)=>{
-      event.preventDefault()
-      document.getElementById("create-course-form").reset()
-
-      this.setState( {
-         
-        unloadingValue: '',
-        loadingValue:'',
-        scheduleValue:'',
-        updatedValue:'',
-        userValue:'',
-        
-      })
-
-    }
+    };
 
 
 
@@ -175,36 +116,13 @@ class CreateTransport extends React.Component {
       }
 
       return(
-        <div  component="main" className={classes.root}  >
-        <div  className={classes.root}  >
-          <Grid sm={6} md={12}>
-          <ButtonGroup fullWidth aria-label="full width button group">
+          <div>
+               <div  className={classes.container}>
+          <form onSubmit={this.handleSubmit} >
+        <Typography component="h1" variant="h5" inline>
+                Create Transport
+              </Typography>
 
-          <Button className={classes.content} href="/warehouse/transport/list">List Transport</Button>
-
-
-          <Button className={classes.content} href="/warehouse/transport/create">Create Transport</Button>
-          </ButtonGroup>
-
-          </Grid>
-         </div>
-
-         <div className={classes.content}>
-
-         <Card>
-          <form id="create-course-form" onSubmit={this.handleSubmit} >
-            <CardContent >
-            <div className={classes.content}>
-
-
-    <Grid container component="main">
-    <Grid item  sm={12} md={6} >
-      <div className={classes.root}>
-
-
-   <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
-    Create Transport
-   </Typography>
 
 <FormControl variant="outlined" className={classes.textField}>
 <InputLabel
@@ -260,39 +178,18 @@ class CreateTransport extends React.Component {
     }}
   />
 </form>
-</div>
 
-</Grid>
-<CardActions>
-<ButtonGroup fullWidth aria-label="full width outlined button group">
-<Button type="Submit" className={classes.Button} variant="contained" size="Medium" color="primary">
-          Save
-      </Button>
-      </ButtonGroup>
 
-      <ButtonGroup fullWidth aria-label="full width outlined button group">
-      <Button type='Submit' onClick={this.handleclear} variant="contained" size="Medium" color="primary">
-      {/* <input type="reset" defaultValue="Reset" /> */} Reset
-      </Button>
-      </ButtonGroup>
-    
-      <div className={classes.root}>
-          {this.state.updatedValue}
-          {/* <Alert severity="success" color="info">
-          {this.state.updatedValue}
-          </Alert> */}
-      </div>
-      </CardActions>
-      </Grid>
-
-  </div>
-  </CardContent>
-
+<Button className={classes.textField} type="Submit">Save</Button>
 </form>
-</Card>
+
+<div className={classes.root}>
+{this.state.updatedValue}
+{/* <Alert severity="success" color="info">
+{this.state.updatedValue}
+</Alert> */}
 </div>
-
-
+</div>
 </div>
       )
 

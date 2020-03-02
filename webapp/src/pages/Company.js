@@ -5,10 +5,15 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import CreateCompany from './CreateCompany';
 import Grid from '@material-ui/core/Grid';
 import {SERVER_URL} from '../config';
 import { Button } from '@material-ui/core';
 import { ButtonGroup} from '@material-ui/core';
+import { Link } from "react-router-dom";
+
+
 
 const useStyles = theme => ({
   root: {
@@ -47,40 +52,39 @@ const useStyles = theme => ({
 
 
 });
-  
-  class Transport extends React.Component {
-      constructor() {
-          super();
-      
-          this.state = {
-            offset:0,
-            max:10,
-            transport: [],
-            filterList:[],
-            searchTicketValue:'',
-            
-          }
+class Company extends React.Component {
+    constructor() {
+        super();
+    
+        this.state = {
+          offset:0,
+          max:10,
+          company: [],
+          filterList:[],
+          searchTicketValue:'',
+          
         }
-
-        componentDidMount() {
-            this.loadTransport()
-           }
-           loadTransport = () => {
-             const {offset,max,transport} = this.state
-            const url = SERVER_URL+'/transport?offset='+offset+'&max='+max
-           
-             fetch(url)
-             .then(r => r.json())
-             .then(json => this.setState({transport:[...transport,...json] }))
-             .catch(error => console.error('Error retrieving transport: ' + error));
-           }
      
-           loadMore=()=>{
-             this.setState(prevState =>({
-               offset:prevState.offset+10
-             }),this.loadTransport)     
-           }
 
+      }
+      componentDidMount() {
+       this.loadCompany()
+      }
+      loadCompany= () => {
+        const {offset,max,company} = this.state
+       const url = SERVER_URL+'/company?offset='+offset+'&max='+max
+      
+        fetch(url)
+        .then(r => r.json())
+        .then(json => this.setState({company:[...company,...json] }))
+        .catch(error => console.error('Error retrieving Companies: ' + error));
+      }
+
+      loadMore=()=>{
+        this.setState(prevState =>({
+          offset:prevState.offset+10
+        }),this.loadCompany)     
+      }
 
 
       render() {
@@ -106,51 +110,56 @@ const useStyles = theme => ({
           
           
 
-          function renderTransportRow(Transport) {
+          function renderCompanyRow(Company) {
 
-            return (<StyledTableRow key={Transport.id}>
+            return (<StyledTableRow key={Company.id}>
               <StyledTableCell component="th" scope="row">
-               {Transport.loading}</StyledTableCell>
-              <StyledTableCell align="right">{Transport.unloading}</StyledTableCell>
-              <StyledTableCell align="right">{Transport.schedule}</StyledTableCell>
-               </StyledTableRow>
-            );
+              {/* <a href="/admin/company/list"> {Company.name} </a> */}
+            <Link to='/admin/companydetail'> {Company.name} </Link>
+              <Button ></Button>
+              </StyledTableCell>
+            </StyledTableRow>);
           }
       
 
         return(
           <div>
-         
+          {/* <div  component="main" className={classes.root}  >
+          <div  className={classes.root}  > */}
+
           <Grid item  sm={6} md={12} className={classes.root} >
 
-            <ButtonGroup fullWidth aria-label="full width outlined button group">
-              <Button className={classes.content} href="/warehouse/transport/list">List Transport</Button>
-              <Button className={classes.content} href="/warehouse/transport/create">Create Transport</Button>
-            </ButtonGroup>
-            </Grid>
-         
 
-          <Grid item  sm={12} md={12} className={classes.content} >
+          <ButtonGroup fullWidth aria-label="full width outlined button group">
+          <Button className={classes.content} href="/addressbook/company/list">List Company</Button>
+         <Button className={classes.content} href="/addressbook/company/create">Create Company</Button>
+        </ButtonGroup>
+        </Grid>
+        {/* </div>
+        </div> */}
+
+<Grid item  sm={12} md={12} className={classes.content} >
 
 
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Loading Transport</StyledTableCell>
-            <StyledTableCell align="right"> Unloading Transport </StyledTableCell>
-            <StyledTableCell align="right"> Scheduled Transport</StyledTableCell>
-  
-            </TableRow>
+          <StyledTableCell > name </StyledTableCell>
+         
+          
+
+          </TableRow>
         </TableHead>
         <TableBody>
-        {this.state.transport.map(renderTransportRow)}
+        {this.state.company.map(renderCompanyRow)}
         </TableBody>
       </Table>
       <Button onClick={this.loadMore}>Load More</Button>
     </Grid>
+
     </div>
         );
-      }
-
     }
-export default  withStyles(useStyles)(Transport);
+}
+
+export default  withStyles(useStyles)(Company);

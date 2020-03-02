@@ -1,10 +1,17 @@
-import postProductsToDatabase, {POST_PRODUCTS_PENDING, POST_PRODUCTS_TO_DATABASE_ACTION, POST_PRODUCTS_SUCCESS, POST_PRODUCTS_ERROR, postProductsToDatabaseAction} from './ActionCreateProductName';
-// import { connect, useDispatch } from 'react-redux';
+import {
+   POST_PRODUCTS_PENDING,
+   POST_PRODUCTS_SUCCESS, 
+   POST_PRODUCTS_ERROR,
+   FETCH_PRODUCTS_SUCCESS,
+   FETCH_PRODUCTS_ERROR,
+   FETCH_PRODUCTS_PENDING,
+
+  } from './ActionCreateProductName';
 
   
   const initialState = {
     items: [],
-    loading: false,
+    loading: true,
     error: null,
     postSuccess:'',
   };
@@ -12,15 +19,6 @@ import postProductsToDatabase, {POST_PRODUCTS_PENDING, POST_PRODUCTS_TO_DATABASE
   export default function productReducer(state = initialState,action) {
 
     switch (action.type) {
-
-      // case POST_PRODUCTS_TO_DATABASE_ACTION:
-      //   const u = action.payload
-
-      //   return(Object.assign({},state,{
-      //       items:u
-      //   }),
-      //   postProductsToDatabase(state.items))
-
 
       case POST_PRODUCTS_PENDING:
      
@@ -35,7 +33,6 @@ import postProductsToDatabase, {POST_PRODUCTS_PENDING, POST_PRODUCTS_TO_DATABASE
       case POST_PRODUCTS_SUCCESS:
       
         const k = action.payload.send
-        // console.log(u)
         return Object.assign({}, state, {
           loading:false,
           error:null,
@@ -50,6 +47,45 @@ import postProductsToDatabase, {POST_PRODUCTS_PENDING, POST_PRODUCTS_TO_DATABASE
           error: action.error,
           items: []
         };
+
+        case FETCH_PRODUCTS_PENDING:
+
+        return {
+          ...state,
+          loading: true,
+          error: null
+        };
+  
+  
+  
+      case FETCH_PRODUCTS_SUCCESS:
+
+        const u = {[action.payload.props]:[action.payload.send]}
+        // return {
+        //   ...state,
+        //   ...state.items,
+        //   loading : false,
+         
+        //   items: u
+        // };
+
+        return Object.assign({}, state, {
+          ...state,
+          ...state.items,
+          items: u,
+          loading:false,
+          error:null,
+          });
+  
+      case FETCH_PRODUCTS_ERROR:
+    
+        return {
+          ...state,
+          loading: false,
+          error: action.error,
+          items: []
+        };
+  
   
       default:
         return state;
