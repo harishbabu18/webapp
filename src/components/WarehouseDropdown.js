@@ -63,7 +63,7 @@ export default function Warehouse (props) {
 
 
 
-            <ListItem button className={classes.nested}  component={Link} to="/warehouse/means/list">
+            <ListItem button className={classes.nested}  component={Link} to="/warehouse/transport/list">
 
               <ListItemIcon>
                 <AssessmentIcon  />

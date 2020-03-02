@@ -31,7 +31,7 @@ import CreateService from './pages/CreateService';
 import CreateOpportunity from './pages/CreateOpportunity';
 import CreateTask from './pages/CreateTask';
 import CreateEmail from './pages/crud/CreateEmail';
-import Equipment from './pages/crud/EquipmentList';
+import EquipmentList from './pages/crud/EquipmentList';
 import Offer from './pages/crud/ListOffer';
 import CreatePhone from './pages/crud/CreatePhone';
 import CreateFax from './pages/crud/CreateFax';
@@ -40,11 +40,11 @@ import Fax from './pages/crud/FaxList';
 import CreateTransport from './pages/crud/CreateTransport';
 import CreateEquipment from './pages/crud/CreateEquipment';
 import CreateOffer from './pages/crud/CreateOffer';
-import Transport from './pages/crud/TransportList';
+import TransportList from './pages/crud/TransportList';
 import Calendar from './pages/Calendar';
 import Task from './pages/Task';
 import Service from './pages/Service';
-import CreateService from './pages/CreateService';
+// import CreateService from './pages/CreateService';
 import Opportunity from './pages/Opportunity';
 import Admin from './layout/Admin';
 import allReducers from './reducers'
@@ -54,9 +54,12 @@ import { MuiThemeProvider,createMuiTheme } from '@material-ui/core/styles';
 // import CreateProduct from './pages/crud/CreateProduct';
 // import Product from './pages/Product';
 
-import CreateProductName from './pages/CreateProductName/CreateProductName';
-import CreateProduct from './pages/CreateProductName/CreateProduct'
-import Product from './pages/CreateProductName/Product'
+// import CreateProductName from './pages/CreateProductName';
+import CreateProduct from './pages/crud/CreateProduct'
+import ContractList from './pages/crud/ContractList'
+
+import Product from './pages/Product';
+
 
 
 import store from './pages/CreateProductName/Store' 
@@ -251,6 +254,10 @@ class Index extends React.Component {
         <PrivateRoute  exact  path="/employee">
           <Employee />
         </PrivateRoute>
+
+        <PrivateRoute  exact  path="/commercial/contract/list">
+          <ContractList />
+        </PrivateRoute>
       
         <PrivateRoute  exact  path="/ticket/search">
           <TicketSearch />
@@ -265,9 +272,9 @@ class Index extends React.Component {
         <PrivateRoute exact path="/create/email">
             <CreateEmail />
         </PrivateRoute>
-        <PrivateRoute  exact  path="/email">
+        {/* <PrivateRoute  exact  path="/email">
           <Email />
-        </PrivateRoute>
+        </PrivateRoute> */}
         <PrivateRoute  exact  path="/mobile">
           <Phone />
         </PrivateRoute>
@@ -280,12 +287,7 @@ class Index extends React.Component {
         <PrivateRoute exact path="/fax">
             <Fax />
         </PrivateRoute>
-        <PrivateRoute exact path="/transport">
-            <Transport />
-        </PrivateRoute>
-        <PrivateRoute exact path="/create/transport">
-            <CreateTransport />
-        </PrivateRoute>
+       
         <PrivateRoute exact path="/calendar">
             <Calender />
         </PrivateRoute>
@@ -295,6 +297,18 @@ class Index extends React.Component {
           </PrivateRoute>
           <PrivateRoute path="/warehouse/product/list">
             <Product />
+          </PrivateRoute>
+          <PrivateRoute path="/warehouse/equipment/list">
+            <EquipmentList />
+          </PrivateRoute>
+          <PrivateRoute path="/warehouse/equipment/create">
+            <CreateEquipment />
+          </PrivateRoute>
+          <PrivateRoute path="/warehouse/transport/list">
+            <TransportList />
+          </PrivateRoute>
+          <PrivateRoute path="/warehouse/transport/create">
+            <CreateTransport />
           </PrivateRoute>
 
 
@@ -332,10 +346,10 @@ class Index extends React.Component {
         <PrivateRoute path="/PrivateRoute/companydetail">
           <CompanyDetail />
         </PrivateRoute>
-
+{/* 
           <PrivateRoute path="/PrivateRoute/productnamecreate">
             <CreateProductName />
-          </PrivateRoute>
+          </PrivateRoute> */}
           <PrivateRoute path="/commercial/offer/list">
             <Offer />
           </PrivateRoute>
@@ -349,10 +363,12 @@ class Index extends React.Component {
             <CreateOpportunity />
           </PrivateRoute>
           <PrivateRoute path="/service/create">
-            <Service/>
+            <CreateService />
+
           </PrivateRoute>
           <PrivateRoute path="/service/list">
-            <CreateService />
+          <Service/>
+
           </PrivateRoute>
         </Admin>
 

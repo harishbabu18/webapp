@@ -9,6 +9,9 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import {SERVER_URL} from '../config';
 import { Button } from '@material-ui/core';
+import { ButtonGroup} from '@material-ui/core';
+
+
 const useStyles = theme => ({
   root: {
     width: '100%',
@@ -28,7 +31,7 @@ class Opportunity extends React.Component {
         this.state = {
           offset:0,
           max:10,
-          task: [],
+          opportunity: [],
           filterList:[],
         
         }
@@ -40,7 +43,7 @@ class Opportunity extends React.Component {
        }
        loadTask = () => {
          const {offset,max,opportunity} = this.state
-        const url = SERVER_URL+'/opportunity?offset='+offset+'&max='+max
+        const url = SERVER_URL+'/company?offset='+offset+'&max='+max
         //const url = SERVER_URL+'/ticket'
          fetch(url)
          .then(r => r.json())
@@ -79,14 +82,14 @@ class Opportunity extends React.Component {
           function renderOpprtunityRow(opportunity) {
 
             return (<StyledTableRow key={opportunity.id}>
-             <StyledTableCell align="right">{opportunity.description}</StyledTableCell>
-             <StyledTableCell align="right">{opportunity.client}</StyledTableCell>
+             <StyledTableCell align="left">{opportunity.name}</StyledTableCell>
+             {/* <StyledTableCell align="right">{opportunity.client}</StyledTableCell>
              <StyledTableCell align="right">{opportunity.contact}</StyledTableCell>
              <StyledTableCell align="right">{opportunity.owner}</StyledTableCell>
              <StyledTableCell align="right">{opportunity.startingdate}</StyledTableCell>
              <StyledTableCell align="right">{opportunity.closingdate}</StyledTableCell>
              <StyledTableCell align="right">{opportunity.source}</StyledTableCell>
-             <StyledTableCell align="right">{opportunity.service}</StyledTableCell>
+             <StyledTableCell align="right">{opportunity.service}</StyledTableCell> */}
               
             </StyledTableRow>);
           }
@@ -98,7 +101,7 @@ class Opportunity extends React.Component {
   
             <ButtonGroup fullWidth aria-label="full width outlined button group">
             <Button href="/commercial/opportunity/list">List Opportunity</Button>
-            <Button href="/commercial/opportunity/create">Create Opprtunity</Button>
+            <Button href="/commercial/opportunity/create">Create Opportunity</Button>
             
           </ButtonGroup>
           </Grid>
@@ -121,7 +124,7 @@ class Opportunity extends React.Component {
           </TableRow>
         </TableHead>
         <TableBody>
-        {this.state.opportunity.map(renderOppotunityRow)}
+        {this.state.opportunity.map(renderOpprtunityRow)}
         </TableBody>
       </Table>
 
@@ -132,4 +135,4 @@ class Opportunity extends React.Component {
     }
 }
 
-export default  withStyles(useStyles);
+export default  withStyles(useStyles)(Opportunity);

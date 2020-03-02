@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import {SERVER_URL} from '../config';
 import { Button } from '@material-ui/core';
+import { ButtonGroup} from '@material-ui/core';
+
 const useStyles = theme => ({
   root: {
     width: '100%',
@@ -28,7 +30,7 @@ class Service extends React.Component {
         this.state = {
           offset:0,
           max:10,
-          task: [],
+          service: [],
           filterList:[],
         
         }
@@ -40,7 +42,7 @@ class Service extends React.Component {
        }
        loadTask = () => {
          const {offset,max,service} = this.state
-        const url = SERVER_URL+'/service?offset='+offset+'&max='+max
+        const url = SERVER_URL+'/company?offset='+offset+'&max='+max
         //const url = SERVER_URL+'/ticket'
          fetch(url)
          .then(r => r.json())
@@ -80,15 +82,15 @@ class Service extends React.Component {
 
             return (<StyledTableRow key={services.id}>
               <StyledTableCell component="th" scope="row">
-                {services.id}
+                {services.name}
               </StyledTableCell>
             
-              <StyledTableCell align="right">{services.servicename}</StyledTableCell>
+              {/* <StyledTableCell align="right">{services.servicename}</StyledTableCell>
               <StyledTableCell align="right">{services.unitprice}</StyledTableCell>
               <StyledTableCell align="right">{services.specification}</StyledTableCell>
               <StyledTableCell align="right">{services.deadline}</StyledTableCell>
               <StyledTableCell align="right">{services.dateCreated}</StyledTableCell>
-              <StyledTableCell align="right">{services.lastUpdated}</StyledTableCell>
+              <StyledTableCell align="right">{services.lastUpdated}</StyledTableCell> */}
             </StyledTableRow>);
           }
       

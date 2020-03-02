@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Button ,ButtonGroup} from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import {SERVER_URL} from '../config';
+import {SERVER_URL} from '../../config';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -25,11 +25,9 @@ const useStyles = theme => ({
     },
     [theme.breakpoints.up('md')]: {
         width:'100%',
-        justify:"center",
       },
       [theme.breakpoints.up('lg')]: {
         width: 305,
-        display:'Center',
 
     },
 
@@ -334,9 +332,9 @@ class CreateOffer extends React.Component {
                             onChange={this.handleChangeDurationValue.bind(this)}
                             variant="outlined"
                         >
-                            {this.state.duation.map(option =>(
+                            {['1 Year','2 Year', '3 Year', '5 Year'].map(option =>(
                                 <MenuItem key={option.id} value={option.id}>
-                                    {option.name}
+                                    {option}
                                 </MenuItem>
                             ))}
                         </TextField>
@@ -346,13 +344,13 @@ class CreateOffer extends React.Component {
                             id="demo-simple-select-outlined-label"
                             select 
                             label="Reference"
-                            value={this.state.referenceValue}
-                            onChange={this.handleChangeReferenceValue.bind(this)}
+                            // value={this.state.referenceValue}
+                            // onChange={this.handleChangeReferenceValue.bind(this)}
                             variant="outlined"
                         >
-                            {this.state.reference.map(option =>(
+                            {['Yaro','Neenu'].map(option =>(
                                 <MenuItem key={option.id} value={option.id}>
-                                    {option.firstName}
+                                    {option}
                                 </MenuItem>
                             ))}
                         </TextField>
@@ -362,7 +360,7 @@ class CreateOffer extends React.Component {
                             label="Reference Commission"
                             type="number"
                             margin="normal"
-                            onChange={this.handleChangeCommissionReferenceValue}
+                            // onChange={this.handleChangeCommissionReferenceValue}
                         
                             variant="outlined"
                         />
@@ -371,7 +369,7 @@ class CreateOffer extends React.Component {
                             id="outlined-uncontrolled"
                             label="General Information"
                             margin="normal"
-                            onChange={this.handleChangeGeneralInformationValue}
+                            // onChange={this.handleChangeGeneralInformationValue}
                             variant="outlined"
                         />
 
@@ -388,8 +386,8 @@ class CreateOffer extends React.Component {
                             id="demo-simple-select-outlined-label"
                             select 
                             label="Service"
-                            value={this.state.serviceValue}
-                            onChange={this.handleChangeServiceValue.bind(this)}
+                            // value={this.state.serviceValue}
+                            // onChange={this.handleChangeServiceValue.bind(this)}
                             variant="outlined"
                           >
                               {['DD45','KX67','GXC454'].map(option =>(
@@ -403,8 +401,8 @@ class CreateOffer extends React.Component {
                             id="demo-simple-select-outlined-label"
                             select 
                             label="Place"
-                            value={this.state.placeValue}
-                            onChange={this.handleChangePlaceValue.bind(this)}
+                            // value={this.state.placeValue}
+                            // onChange={this.handleChangePlaceValue.bind(this)}
                             variant="outlined"
                           >
                               {['Bengaluru', 'Mangaluru', 'Tumkuru', 'Mandya'].map(option =>(
@@ -450,8 +448,8 @@ class CreateOffer extends React.Component {
                             id="demo-simple-select-outlined-label"
                             select 
                             label="Crew"
-                            value={this.state.serviceValue}
-                            onChange={this.handleChangeServiceValue.bind(this)}
+                            // value={this.state.serviceValue}
+                            // onChange={this.handleChangeServiceValue.bind(this)}
                             variant="outlined"
                           >
                               {['DD45','KX67','GXC454'].map(option =>(
@@ -497,8 +495,8 @@ class CreateOffer extends React.Component {
                             id="demo-simple-select-outlined-label"
                             select 
                             label="Product"
-                            value={this.state.serviceValue}
-                            onChange={this.handleChangeServiceValue.bind(this)}
+                            // value={this.state.serviceValue}
+                            // onChange={this.handleChangeServiceValue.bind(this)}
                             variant="outlined"
                           >
                               {['DD45','KX67','GXC454'].map(option =>(
