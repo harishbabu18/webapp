@@ -27,17 +27,25 @@ import Calender from './pages/Calendar';
 import ContactDashboard from './pages/ContactDashboard';
 import FreeSolo from './components/SelectText';
 import CreateContact from './pages/CreateContact';
+import CreateService from './pages/CreateService';
+import CreateOpportunity from './pages/CreateOpportunity';
 import CreateTask from './pages/CreateTask';
 import CreateEmail from './pages/crud/CreateEmail';
-import Email from './pages/crud/EmailList';
+import Equipment from './pages/crud/EquipmentList';
+import Offer from './pages/crud/ListOffer';
 import CreatePhone from './pages/crud/CreatePhone';
 import CreateFax from './pages/crud/CreateFax';
 import Phone from './pages/crud/PhoneList';
 import Fax from './pages/crud/FaxList';
 import CreateTransport from './pages/crud/CreateTransport';
+import CreateEquipment from './pages/crud/CreateEquipment';
+import CreateOffer from './pages/crud/CreateOffer';
 import Transport from './pages/crud/TransportList';
 import Calendar from './pages/Calendar';
 import Task from './pages/Task';
+import Service from './pages/Service';
+import CreateService from './pages/CreateService';
+import Opportunity from './pages/Opportunity';
 import Admin from './layout/Admin';
 import allReducers from './reducers'
 import { createStore } from 'redux';
@@ -328,7 +336,24 @@ class Index extends React.Component {
           <PrivateRoute path="/PrivateRoute/productnamecreate">
             <CreateProductName />
           </PrivateRoute>
-
+          <PrivateRoute path="/commercial/offer/list">
+            <Offer />
+          </PrivateRoute>
+          <PrivateRoute path="/commercial/opportunity/list">
+            <Opportunity />
+          </PrivateRoute>
+          <PrivateRoute path="/commercial/offer/create">
+            <CreateOffer />
+          </PrivateRoute>
+          <PrivateRoute path="/commercial/opportunity/create">
+            <CreateOpportunity />
+          </PrivateRoute>
+          <PrivateRoute path="/service/create">
+            <Service/>
+          </PrivateRoute>
+          <PrivateRoute path="/service/list">
+            <CreateService />
+          </PrivateRoute>
         </Admin>
 
         </Switch>

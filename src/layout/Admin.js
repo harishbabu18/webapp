@@ -24,6 +24,7 @@ import TimerIcon from '@material-ui/icons/Timer';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Calendar from './../components/DropDownSide'
 import Address from './../components/AddressDropdown'
+import Commercial from './../components/CommercialDropdownDropdown'
 import Warehouse from './../components/WarehouseDropdown'
 import Sales from './../components/SalesDropdown'
 import Storage from './../components/StorageDropdown'
@@ -230,11 +231,13 @@ export default function MiniDrawer({logoutHandler,component: Component, ...rest}
             <Warehouse />  
             <Sales />      
             {/* <Storage /> */}
-            {/* <ListItem button component={Link} to="/admin/ticket/list">
+            <ListItem button component={Link} to="/services/list">
               <ListItemIcon> <ConfirmationNumberIcon /> </ListItemIcon>
-              <ListItemText primary="Ticket" />
-            </ListItem>         
-            <Opportunities />
+              <ListItemText primary="Services" />
+            </ListItem>  
+            <Commercial /> 
+
+            {/* <Opportunities />
             <ListItem button >
               <ListItemIcon> <BorderColorIcon /> </ListItemIcon>
               <ListItemText primary="Contracts" />
