@@ -100,7 +100,7 @@ class CreateServices extends React.Component {
 
     console.log("Verify",TicketDetails)
 
-    fetch(SERVER_URL+'/opportunity', { 
+    fetch(SERVER_URL+'/company', { 
       method: 'POST',
       headers: {
         'Accept': 'application/json',

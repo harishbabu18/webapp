@@ -216,8 +216,8 @@ class CreateOpportunity extends React.Component {
           <div  className={classes.root}  >
             <Grid sm={6} md={12}>
        <ButtonGroup fullWidth aria-label="full width outlined button group">
-       <Button className={classes.content} href="/commercial/opportunity/list">List Ticket</Button>
-       <Button className={classes.content} href="/commertial/opportunity/create">Create Ticket</Button>
+       <Button className={classes.content} href="/commercial/opportunity/list">List Opportunity</Button>
+       <Button className={classes.content} href="/commertial/opportunity/create">Create Opportunity</Button>
      </ButtonGroup>
      </Grid>
            </div>
@@ -326,13 +326,13 @@ class CreateOpportunity extends React.Component {
                           id="demo-simple-select-outlined-label"
                           select 
                           label="Service"
-                          value={this.state.servicesValue}
-                          onChange={this.handleChangeServices.bind(this)}
+                          // value={this.state.servicesValue}
+                          // onChange={this.handleChangeServices.bind(this)}
                           variant="outlined"
                           >
-                              {this.state.services.map(option =>(
+                              {['jhbhb','iuhgf','hgfxc'].map(option =>(
                                   <MenuItem key={option.id} value={option.id}>
-                                      {option.name}
+                                      {option}
                                   </MenuItem>
                               ))}
                           </TextField>
@@ -377,4 +377,4 @@ class CreateOpportunity extends React.Component {
   );
 }}
 
-export default  withStyles(useStyles)(CreateTicket);
+export default  withStyles(useStyles)(CreateOpportunity);

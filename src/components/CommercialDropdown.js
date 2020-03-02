@@ -43,7 +43,7 @@ export default function Commercial (props) {
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItem button className={classes.nested} component={Link} to="/commercial/offers/list">
+            <ListItem button className={classes.nested} component={Link} to="/commercial/offer/list">
               <ListItemIcon>
                 <BusinessIcon />
               </ListItemIcon>
@@ -60,7 +60,7 @@ export default function Commercial (props) {
 
 
 
-            <ListItem button className={classes.nested}  component={Link} to="/Commercial/contract/list">
+            <ListItem button className={classes.nested}  component={Link} to="/commercial/contract/list">
 
               <ListItemIcon>
                 <GroupWorkIcon  />
