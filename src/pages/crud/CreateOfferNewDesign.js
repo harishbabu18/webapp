@@ -220,7 +220,7 @@ const ContainedTabs = () => {
                           >
                             {['Qualifica','Teraret'].map(option =>(
                                 <MenuItem key={option.id} value={option.id}>
-                                    {option.name}
+                                    {option}
                                 </MenuItem>
                             ))}
                         </TextField>
@@ -235,7 +235,7 @@ const ContainedTabs = () => {
                         >
                             {['ticket1','ticket2'].map(option =>(
                                 <MenuItem key={option.id} value={option.id}>
-                                    {option.name}
+                                    {option}
                                 </MenuItem>
                             ))}
                         </TextField>
