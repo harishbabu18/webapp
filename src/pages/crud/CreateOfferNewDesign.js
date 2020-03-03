@@ -1,27 +1,19 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { containedTabsStylesHook } from '@mui-treasury/styles/tabs';
-import cx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Divider from '@material-ui/core/Divider';
-import Rating from '@material-ui/lab/Rating';
-import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
-import ModeComment from '@material-ui/icons/ModeComment';
-import Favorite from '@material-ui/icons/Favorite';
+// import SERVER_URL from '../../config';
+
 import { usePushingGutterStyles } from '@mui-treasury/styles/gutter/pushing';
-import { useLabelIconStyles } from '@mui-treasury/styles/icon/label';
-import { useRowFlexStyles } from '@mui-treasury/styles/flex/row';
+
 import CardHeader from '@material-ui/core/CardHeader';
 
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import MoreVert from '@material-ui/icons/MoreVert';
+
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
@@ -29,6 +21,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import Button from '@material-ui/core/Button';
 import { useFirebaseBtnStyles } from '@mui-treasury/styles/button/firebase';
+import { SERVER_URL } from '../../config';
+
+import axios from 'axios';
+import { ButtonGroup} from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+
 // import { usePushingGutterStyles } from '@mui-treasury/styles/gutter/pushing';
 
 
@@ -158,8 +156,7 @@ const ContainedTabs = () => {
   const styles = useStyles();
   const classes = style();
   const gutterStyles = usePushingGutterStyles({ space: 1.5 });
-  const labelStyles = useLabelIconStyles({ linked: true });
-  const flexStyles = useRowFlexStyles();
+
 
   const Buttonstyles = useFirebaseBtnStyles();
   // const gutterStyles = usePushingGutterStyles();
@@ -170,10 +167,27 @@ const ContainedTabs = () => {
     setValue(newValue);
   };
 
+  const [data, setData] = useState({ hits: [] });
+
+  // useEffect(async () => {
+  //   const result = await axios(
+  //     SERVER_URL+'/company',
+  //   );
+  //   setData(result.data);
+  // },);
+
 
   return (
         <div>
+                    <Grid item  sm={6} md={12} className={classes.root} >
 
+<ButtonGroup fullWidth aria-label="full width outlined button group">
+  <Button className={classes.content} href="/commercial/offer/list">List Offer</Button>
+  <Button className={classes.content} href="/commercial/offer/create">Create Offer</Button>
+</ButtonGroup>
+</Grid>
+
+<div className={classes.root}></div>
 <Card className={styles.card} elevation={0}>
 
     <form >
@@ -218,9 +232,9 @@ const ContainedTabs = () => {
                             // onChange={this.handleChangeCompanyValue.bind(this)}
                             variant="outlined"
                           >
-                            {['Qualifica','Teraret'].map(option =>(
+                            {['Qualifica','Teraret','Amazon','Google'].map(option =>(
                                 <MenuItem key={option.id} value={option.id}>
-                                    {option}
+                                    {option.name}
                                 </MenuItem>
                             ))}
                         </TextField>

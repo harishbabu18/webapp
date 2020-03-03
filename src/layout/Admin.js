@@ -29,6 +29,7 @@ import Menu from '@material-ui/core/Menu';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import TodayIcon from '@material-ui/icons/Today';
 
 
 const drawerWidth = 240;
@@ -206,7 +207,12 @@ export default function MiniDrawer({logoutHandler,component: Component, ...rest}
             <ListItem button component={Link} to="/service/list">
               <ListItemIcon> <AddCircleOutlineIcon /> </ListItemIcon>
               <ListItemText primary="Services" />
-            </ListItem>  
+            </ListItem> 
+
+            <ListItem button component={Link} to="/calendar">
+              <ListItemIcon> <TodayIcon /> </ListItemIcon>
+              <ListItemText primary="Calendar" />
+            </ListItem> 
             <Commercial /> 
 
         </List>

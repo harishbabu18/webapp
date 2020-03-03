@@ -360,7 +360,7 @@ class Index extends React.Component {
             <Opportunity />
           </PrivateRoute>
           <PrivateRoute path="/commercial/offer/create">
-            <CreateOffer />
+            <OfferDesign />
           </PrivateRoute>
           <PrivateRoute path="/commercial/opportunity/create">
             <CreateOpportunity />
@@ -380,8 +380,12 @@ class Index extends React.Component {
           <CreateProvider/>
           </PrivateRoute>
 
-          <PrivateRoute path="/offer/create">
+          {/* <PrivateRoute path="/offer/create">
           <OfferDesign/>
+          </PrivateRoute> */}
+
+          <PrivateRoute path="/calendar">
+          <Calendar/>
           </PrivateRoute>
 
 
