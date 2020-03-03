@@ -1,272 +1,212 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-
-import { Button ,ButtonGroup} from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import {SERVER_URL} from '../../config';
-import Grid from '@material-ui/core/Grid';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import { containedTabsStylesHook } from '@mui-treasury/styles/tabs';
+import cx from 'clsx';
+import { makeStyles } from '@material-ui/styles';
+import Box from '@material-ui/core/Box';
+import Link from '@material-ui/core/Link';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Divider from '@material-ui/core/Divider';
+import Rating from '@material-ui/lab/Rating';
+import ArrowForwardIos from '@material-ui/icons/ArrowForwardIos';
+import ModeComment from '@material-ui/icons/ModeComment';
+import Favorite from '@material-ui/icons/Favorite';
+import { usePushingGutterStyles } from '@mui-treasury/styles/gutter/pushing';
+import { useLabelIconStyles } from '@mui-treasury/styles/icon/label';
+import { useRowFlexStyles } from '@mui-treasury/styles/flex/row';
+import CardHeader from '@material-ui/core/CardHeader';
+
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import MoreVert from '@material-ui/icons/MoreVert';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
 import MenuItem from '@material-ui/core/MenuItem';
 
-
-const useStyles = theme => ({
-  root: {
-   
-    
-    '& .MuiTextField-root ': {
-      margin: theme.spacing(1),
-      marginBottom: 12,
-
-    [theme.breakpoints.down('sm')]: {
-        width: '100%',
-    },
-    [theme.breakpoints.up('md')]: {
-        width:'85%',
-      },
-      [theme.breakpoints.up('lg')]: {
-        width: 295,
-
-    },
-
-    }
-  },
+import Button from '@material-ui/core/Button';
+import { useFirebaseBtnStyles } from '@mui-treasury/styles/button/firebase';
+// import { usePushingGutterStyles } from '@mui-treasury/styles/gutter/pushing';
 
 
-  title: {
-    fontSize: 18,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(1,0),
-  },
-  Button: {
-    width: '100%',
-  }
 
-
-});
-
-class CreateOffer extends React.Component {
-
-
-    constructor(props) {
-      super(props);
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
   
-      this.state = {
-          
-          companyValue: '',
-          ticketValue:'',
-          dateValue:'',
-          deadlineValue:'',
-          durationValue:'',
-          referenceValue:'',
-          commissionValue: '',
-          generalInformationValue: '',
-          company:[],
-          ticket:[],
-          reference:[],
-          updatedValue:'',
-        
-          userValue:'',
-          
-      }
-    }
-
-
-
-
-
-    componentDidMount(){
-        
-    fetch(SERVER_URL+'/company')
-    .then(r => r.json())
-    .then(json => this.setState({company: json}))
-    .catch(error => console.error('Error retrieving company: ' + error));
-   
-    fetch(SERVER_URL+'/ticket')
-    .then(r => r.json())
-    .then(json => this.setState({ticket: json}))
-    .catch(error => console.error('Error retrieving ticket: ' + error));
-
-    fetch(SERVER_URL+'/employee')
-    .then(r => r.json())
-    .then(json => this.setState({reference: json}))
-    .catch(error => console.error('Error retrieving Offers: ' + error));
-
-    const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
-    fetch(url)
-    .then(r => r.json())
-    .then(json => this.setState({userValue: json.id}))
-    .catch(error => console.error('Error retrieving User: ' + error));
-
-    }
-
-
-    handleChangeCompanyValue =(event)=>{
-        this.setState({companyValue:event.target.value});
-    
+    return (
+      <Typography
+        component="div"
+        role="tabpanel"
+        hidden={value !== index}
+        id={`wrapped-tabpanel-${index}`}
+        aria-labelledby={`wrapped-tab-${index}`}
+        {...other}
+      >
+        {value === index && <Box p={3}>{children}</Box>}
+      </Typography>
+    );
   }
 
-    handleChangeTicketValue =(event)=>{
-        this.setState({ticketValue:event.target.value});
-    
-  }
-
-    handleChangeDateValue =(event)=>{
-    this.setState({dateValue:event.target.value});
-    
-  }
-
-    handleChangeDeadlineValue =(event)=>{
-    this.setState({deadlineValue:event.target.value});
-    
-  }
-
-    handleChangeDurationValue =(event)=>{
-    this.setState({durationValue:event.target.value})
-  }
-
-    handleChangeRefernceVaue =(event)=>{
-    this.setState({referenceValue:event.target.value})
-  }
-
-    handleChangeCommissionRefernceValue=(event)=>{
-    this.setState({commissionValue:event.target.value})
-  }
-
-    handleChangeGeneralInformationValue=(event)=>{
-    this.setState({generalInformationValue:event.target.value})
-  }
-
-    handleChangeServiceValue = (event) => {
-        this.setState({serialValue:event.target.value})
-    }
-
-
-
-  handleSubmit=(event)=>{
-    event.preventDefault()
-
-    
-   
-     let OfferDetail={
-      
-        name: this.state.nameValue,
-        description:this.state.descriptionValue,
-        type:this.state.typeValue,
-        serial:this.state.serialValue,
-
-        purchasePrice:this.state.purchasePriceValue,
-        salesPrice:this.state.saleValue,
-        
-        supplierValue:this.state.supplierValue,
-        thresholdValue:this.state.thresholdValue,
-        userValue:this.state.userValue,
-        
-    }
- 
-
-    fetch(SERVER_URL+'/equipment', { 
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(OfferDetail)
-    }).then(r=> r.json()).then(json =>{
-      let updatedValue = this.state.updatedValue;
-      if(typeof json.total==='undefined'){
-        updatedValue="";
-        if(typeof json.message==='undefined'){
-          updatedValue += "Offer is Added Successfully"
-        } 
-        else
-        {
-          updatedValue +=json.message;
-        }
-      }
-      else{
-         updatedValue = "Errors Are "
-         for(let i=0;i<json.total;i++){
-          updatedValue +=json._embedded.errors[i].message
-           
-         }
-
-      }
-      
-    this.setState({updatedValue})
-    }).catch(error =>{
-     
-      console.error("The Error Message is "+error)
-
-
-   
-    } )
-    
-
-    
-   
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
   };
 
 
-    handleclear=(event)=>{
-      event.preventDefault()
-      document.getElementById("create-course-form").reset()
-
-      this.setState( {
-         
-        nameValue: '',
-        descriptionValue:'',
-        serialValue:'',
-        typeValue:'',
-        purchasePriceValue:'',
-        saleValue:'',
-        supplierValue:'',
-        thresholdValue:'',
-        userValue:'',
-        
-      })
-
-    }
+function a11yProps(index) {
+    return {
+      id: `wrapped-tab-${index}`,
+      'aria-controls': `wrapped-tabpanel-${index}`,
+    };
+  }
 
 
+const useStyles = makeStyles( ({ spacing, palette })=> ({
+    card: {
+      display: 'contain',
+      padding: spacing(2),
+      borderRadius: 16,
+    },
+    media: {
+      minWidth: '25%',
+      maxWidth: '25%',
+      flexShrink: 0,
+      backgroundColor: palette.grey[200],
+      borderRadius: 12,
+      boxShadow: '0 2px 8px 0 #c1c9d7, 0 -2px 8px 0 #cce1e9',
+    },
+    rating: {
+      verticalAlign: 'text-top',
+    },
+    content: {
+      padding: spacing(0, 2, 0, 0),
+    },
+    heading: {
+      fontSize: 17,
+      fontWeight: 'bold',
+      letterSpacing: '0.5px',
+      marginBottom: 0,
+      marginRight: spacing(1.5),
+      display: 'inline-block',
+    },
+    body: {
+      fontSize: 14,
+      color: palette.grey[500],
+    },
+    divider: {
+      margin: spacing(1, 0),
+    },
+    textFooter: {
+      fontSize: 14,
+    },
+    icon: {
+      fontSize: '1.2rem',
+      verticalAlign: 'bottom',
+    },
+    avatar: {
+        backgroundColor: palette.primary.main,
+      },
+      action: {
+        marginLeft: 8,
+      },
+     
+  }));
 
-  render() {
-    const { classes } = this.props;
-   
-      return(
+  const style = makeStyles(theme => ({
+    root: {
+        '& .MuiTextField-root ': {
+          margin: theme.spacing(1),
+          marginBottom: 12,
+    
+        [theme.breakpoints.down('sm')]: {
+            width: '100%',
+        },
+        [theme.breakpoints.up('md')]: {
+            width:'80%',
+          },
+          [theme.breakpoints.up('lg')]: {
+            width: 280,
+    
+        },
+    
+        }
+      },
+    
+    
+      title: {
+        fontSize: 18,
+      },
+      content: {
+        flexGrow: 1,
+        padding: theme.spacing(1,0),
+      },
+      Button: {
+        width: '100%',
+      }
+  }));
 
-        <div  component="main" className={classes.root}  >
-        <div  className={classes.root}  >
-          <Grid sm={6} md={12}>
-          <ButtonGroup fullWidth aria-label="full width button group">
-
-          <Button className={classes.content} href="/commercial/offer/list">List Offer</Button>
 
 
-          <Button className={classes.content} href="/commercial/offer/create">Create Offer</Button>
-          </ButtonGroup>
+const ContainedTabs = () => {
+  const tabsStyles = containedTabsStylesHook.useTabs();
+  const tabItemStyles = containedTabsStylesHook.useTabItem();
 
-          </Grid>
-         </div>
+  const styles = useStyles();
+  const classes = style();
+  const gutterStyles = usePushingGutterStyles({ space: 1.5 });
+  const labelStyles = useLabelIconStyles({ linked: true });
+  const flexStyles = useRowFlexStyles();
 
-         <div className={classes.content}>
+  const Buttonstyles = useFirebaseBtnStyles();
+  // const gutterStyles = usePushingGutterStyles();
 
-         <Card>
-          <form id="create-course-form" onSubmit={this.handleSubmit} >
-            <CardContent >
-            <div className={classes.content}>
+  const [value, setValue] = React.useState('one');
 
-
-    <Grid container component="main">
-    <Grid item  sm={12} md={4} >
-      <div className={classes.root}>
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
 
-   <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+  return (
+        <div>
+
+<Card className={styles.card} elevation={0}>
+
+    <form >
+
+    <CardHeader
+      classes={{
+        action: styles.action,
+      }}
+    
+      title={
+        <Tabs
+        classes={tabsStyles}
+        value={value} onChange={handleChange} 
+        aria-label="wrapped label tabs example"
+      >
+        <Tab classes={tabItemStyles} value="one" label={'Create Offer'}  {...a11yProps('one')} />
+        <Tab classes={tabItemStyles} value="two" label={'Service'} {...a11yProps('two')}/>
+        <Tab classes={tabItemStyles} value="three" label={'Facility'} {...a11yProps('three')}/>
+        <Tab classes={tabItemStyles} value="four" label={'Product'} {...a11yProps('four')}/>
+        <Tab classes={tabItemStyles} value="five" label={' Payment '} {...a11yProps('five')}/>
+
+      </Tabs>
+      }
+    />
+
+<CardContent className={styles.content}>
+<div className={classes.root}>
+
+    <TabPanel  value={value} index="one">
+
+
+ 
+    <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
     Create Offer
    </Typography>
 
@@ -274,11 +214,11 @@ class CreateOffer extends React.Component {
                             id="demo-simple-select-outlined-label"
                             select 
                             label="Company"
-                            value={this.state.companyValue}
-                            onChange={this.handleChangeCompanyValue.bind(this)}
+                            // value={this.state.companyValue}
+                            // onChange={this.handleChangeCompanyValue.bind(this)}
                             variant="outlined"
                           >
-                            {this.state.company.map(option =>(
+                            {['Qualifica','Teraret'].map(option =>(
                                 <MenuItem key={option.id} value={option.id}>
                                     {option.name}
                                 </MenuItem>
@@ -289,11 +229,11 @@ class CreateOffer extends React.Component {
                             id="demo-simple-select-outlined-label"
                             select 
                             label="Ticket"
-                            value={this.state.ticketValue}
-                            onChange={this.handleChangeTicketValue.bind(this)}
+                            // value={this.state.ticketValue}
+                            // onChange={this.handleChangeTicketValue.bind(this)}
                             variant="outlined"
                         >
-                            {this.state.ticket.map(option =>(
+                            {['ticket1','ticket2'].map(option =>(
                                 <MenuItem key={option.id} value={option.id}>
                                     {option.name}
                                 </MenuItem>
@@ -305,7 +245,7 @@ class CreateOffer extends React.Component {
                             label="Created On"
                             type="date"
                             defaultValue=""
-                            onChange={this.handleChangeDateValue}
+                            // onChange={this.handleChangeDateValue}
                             className={classes.textField}
                             InputLabelProps={{
                             shrink: true,
@@ -317,7 +257,7 @@ class CreateOffer extends React.Component {
                             label="Deadline "
                             type="date"
                             defaultValue=""
-                            onChange={this.handeChangeDeadlineValue}
+                            // onChange={this.handeChangeDeadlineValue}
                             className={classes.textField}
                             InputLabelProps={{
                             shrink: true,
@@ -329,8 +269,8 @@ class CreateOffer extends React.Component {
                             id="demo-simple-select-outlined-label"
                             select 
                             label="Duration"
-                            value={this.state.durationValue}
-                            onChange={this.handleChangeDurationValue.bind(this)}
+                            // value={this.state.durationValue}
+                            // onChange={this.handleChangeDurationValue.bind(this)}
                             variant="outlined"
                         >
                             {['1 Year','2 Year', '3 Year', '5 Year'].map(option =>(
@@ -374,12 +314,17 @@ class CreateOffer extends React.Component {
                             variant="outlined"
                         />
 
-  </div>
-</Grid>
-                <Grid item  sm={12} md={4} className={classes.content}>
-                <div className={classes.content}>
+            </TabPanel>
+            </div>
 
-                <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+
+
+            <div className={classes.root}>
+
+    <TabPanel  value={value} index="two">
+
+
+    <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
                     Service
                 </Typography>
 
@@ -432,16 +377,17 @@ class CreateOffer extends React.Component {
                       
                           variant="outlined"
                           />
+            </TabPanel>
+            </div>
 
-                </div>
 
-               
-            </Grid>
+            <div className={classes.root}>
 
-            <Grid item  sm={12} md={4} className={classes.content}>
-                <div className={classes.content}>
+    <TabPanel  value={value} index="three">
 
-                <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+
+  
+    <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
                     Facility
                 </Typography>
 
@@ -479,16 +425,16 @@ class CreateOffer extends React.Component {
                       
                           variant="outlined"
                           />
+            </TabPanel>
+            </div>
 
-                </div>
 
-               
-            </Grid>
+            <div className={classes.root}>
 
-            <Grid item  sm={12} md={4} className={classes.content}>
-                <div className={classes.content}>
+    <TabPanel  value={value} index="four">
 
-                <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+
+    <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
                     Product
                 </Typography>
 
@@ -528,16 +474,18 @@ class CreateOffer extends React.Component {
                       
                           variant="outlined"
                           />
+            </TabPanel>
+            </div>
 
-                </div>
 
-               
-            </Grid>
 
-            <Grid item  sm={12} md={4} className={classes.content}>
-                <div className={classes.content}>
+            <div className={classes.root}>
 
-                <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
+    <TabPanel  value={value} index="five">
+
+
+  
+  <Typography className={classes.title} color="primary" variant="h2" component="h1" gutterBottom>
                     Payment
                 </Typography>
 
@@ -589,46 +537,27 @@ class CreateOffer extends React.Component {
                       
                           variant="outlined"
                           />
+            </TabPanel>
+            </div>
 
+  <Divider className={styles.divider} light />
+          <div className={gutterStyles.parent}>
 
-
-                </div>
-
-               
-            </Grid>
-
-</Grid>
-<CardActions>
-<ButtonGroup fullWidth aria-label="full width outlined button group">
-<Button type="Submit" className={classes.Button} variant="contained" size="Medium" color="primary">
-          Save
+      <Button classes={Buttonstyles} variant={'contained'} color={'primary'}>
+        Save
       </Button>
-      </ButtonGroup>
-
-      <ButtonGroup fullWidth aria-label="full width outlined button group">
-      <Button type='Submit' onClick={this.handleclear} variant="contained" size="Medium" color="primary">
-      {/* <input type="reset" defaultValue="Reset" /> */} Reset
-      </Button>
-      </ButtonGroup>
-    
-      <div className={classes.root}>
-          {this.state.updatedValue}
-          {/* <Alert severity="success" color="info">
-          {this.state.updatedValue}
-          </Alert> */}
       </div>
-      </CardActions>
+    
 
-  </div>
-  </CardContent>
 
+</CardContent>
 </form>
+
 </Card>
-</div>
-
 
 </div>
-);
-}}
 
-export default  withStyles(useStyles)(CreateOffer);
+  );
+};
+
+export default ContainedTabs;

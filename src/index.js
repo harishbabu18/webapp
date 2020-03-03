@@ -64,6 +64,8 @@ import Product from './pages/Product';
 import store from './pages/CreateProductName/Store';
 import CreateProvider from './pages/crud/CreateProviders';
 import ProviderList from './pages/crud/ProviderList';
+import OfferDesign from './pages/crud/CreateOfferNewDesign';
+
 
 
 const theme = createMuiTheme({
@@ -377,6 +379,12 @@ class Index extends React.Component {
           <PrivateRoute path="/addressbook/provider/create">
           <CreateProvider/>
           </PrivateRoute>
+
+          <PrivateRoute path="/offer/create">
+          <OfferDesign/>
+          </PrivateRoute>
+
+
         </Admin>
 
         </Switch>
