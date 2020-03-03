@@ -67,7 +67,7 @@ class Equipment extends React.Component {
       }
       loadContacts = () => {
         const {offset,max,offer} = this.state
-       const url = SERVER_URL+'/company?offset='+offset+'&max='+max
+       const url = SERVER_URL+'/offering?offset='+offset+'&max='+max
         fetch(url)
         .then(r => r.json())
         .then(json => this.setState({offer:[...offer,...json] }))
@@ -108,16 +108,17 @@ class Equipment extends React.Component {
             return (<StyledTableRow key={offer.id}>
               <StyledTableCell component="th" scope="row">
                 {/* {offer.protocol} */}
-                {offer.name}
+                {offer.protocol}
 
               </StyledTableCell>
-              {/* <StyledTableCell align="right">{offer.customer}</StyledTableCell>
-              <StyledTableCell align="right">{offer.dateCreated}</StyledTableCell>
-              <StyledTableCell align="right">{ offer.deadline}</StyledTableCell>
-              <StyledTableCell align="right">{offer.service}</StyledTableCell>
-              <StyledTableCell align="right">{offer.totalPrice}</StyledTableCell>
-              <StyledTableCell align="right">{offer.reference}</StyledTableCell>
-              <StyledTableCell align="right">{offer.commission}</StyledTableCell> */}
+              <StyledTableCell align="right">{offer.company}</StyledTableCell>
+              <StyledTableCell align="right">{ offer.dateCreated}</StyledTableCell>
+              <StyledTableCell align="right">{offer.endDate}</StyledTableCell>
+              {/* <StyledTableCell align="right">{offer.totalPrice}</StyledTableCell> */}
+              {/* <StyledTableCell align="right">{offer.reference}</StyledTableCell> */}
+              <StyledTableCell align="right">{offer.contact}</StyledTableCell>
+
+              {/* <StyledTableCell align="right">{offer.commission}</StyledTableCell> */}
 
 
               
@@ -145,12 +146,14 @@ class Equipment extends React.Component {
           <TableRow>
             <StyledTableCell align="right"> Protocol </StyledTableCell>
             <StyledTableCell align="right"> Customer </StyledTableCell>
+            {/* <StyledTableCell align="right"> Contact </StyledTableCell> */}
+
             <StyledTableCell align="right">  Date Created </StyledTableCell>
             <StyledTableCell align="right">  Deadline  </StyledTableCell>
-            <StyledTableCell align="right"> Service </StyledTableCell>
-            <StyledTableCell align="right"> Total Price </StyledTableCell>
+            {/* <StyledTableCell align="right"> Service </StyledTableCell> */}
+            {/* <StyledTableCell align="right"> Total Price </StyledTableCell> */}
             <StyledTableCell align="right"> Reference </StyledTableCell>
-            <StyledTableCell align="right"> Commission </StyledTableCell>
+            {/* <StyledTableCell align="right"> Commission </StyledTableCell> */}
 
            
           </TableRow>

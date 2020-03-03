@@ -71,10 +71,10 @@ class CreateTransport extends React.Component {
 
     componentDidMount() {
       
-      fetch(SERVER_URL+'/transport')
+      fetch(SERVER_URL+'/company')
       .then(r => r.json())
-      .then(json => this.setState({transport: json}))
-      .catch(error => console.error('Error retrieving Tickrts: ' + error));
+      .then(json => this.setState({address: json}))
+      .catch(error => console.error('Error retrieving company: ' + error));
       console.log("Logged In User is "+JSON.parse(localStorage.auth).username);
       console.log(this.state);
       const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
@@ -86,10 +86,6 @@ class CreateTransport extends React.Component {
 
 
     componentDidMount() {
-        fetch(SERVER_URL+'/address')
-        .then(r => r.json())
-        .then(json => this.setState({address: json}))
-        .catch(error => console.error('Error retrieving Transport: ' + error));
         }
  
   handleChangeUnloadingValue=(event)=>{
@@ -231,7 +227,7 @@ class CreateTransport extends React.Component {
                         >
                             {this.state.address.map(option =>(
                                 <MenuItem key={option.id} value={option.id}>
-                                    {option.name}
+                                    {option.addresslineone}
                                 </MenuItem>
                             ))}
                         </TextField>
@@ -246,7 +242,7 @@ class CreateTransport extends React.Component {
                         >
                             {this.state.address.map(option =>(
                                 <MenuItem key={option.id} value={option.id}>
-                                    {option.name}
+                                    {option.addresslineone}
                                 </MenuItem>
                             ))}
                         </TextField>

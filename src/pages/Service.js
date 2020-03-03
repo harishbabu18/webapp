@@ -64,7 +64,7 @@ class Service extends React.Component {
        }
        loadTask = () => {
          const {offset,max,service} = this.state
-        const url = SERVER_URL+'/company?offset='+offset+'&max='+max
+        const url = SERVER_URL+'/services?offset='+offset+'&max='+max
         //const url = SERVER_URL+'/ticket'
          fetch(url)
          .then(r => r.json())
@@ -104,15 +104,15 @@ class Service extends React.Component {
 
             return (<StyledTableRow key={services.id}>
               <StyledTableCell component="th" scope="row">
-                {services.name}
+                {services.id}
               </StyledTableCell>
             
-              {/* <StyledTableCell align="right">{services.servicename}</StyledTableCell>
-              <StyledTableCell align="right">{services.unitprice}</StyledTableCell>
-              <StyledTableCell align="right">{services.specification}</StyledTableCell>
+              <StyledTableCell align="right">{services.name}</StyledTableCell>
+              <StyledTableCell align="right">{services.price}</StyledTableCell>
+              <StyledTableCell align="right">{services.description}</StyledTableCell>
               <StyledTableCell align="right">{services.deadline}</StyledTableCell>
               <StyledTableCell align="right">{services.dateCreated}</StyledTableCell>
-              <StyledTableCell align="right">{services.lastUpdated}</StyledTableCell> */}
+              <StyledTableCell align="right">{services.lastUpdated}</StyledTableCell>
             </StyledTableRow>);
           }
       
@@ -132,12 +132,11 @@ class Service extends React.Component {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Task</StyledTableCell>
-            <StyledTableCell align="right">Service Id</StyledTableCell>
+            <StyledTableCell>Id</StyledTableCell>
             <StyledTableCell align="right">Service Name</StyledTableCell>
-            <StyledTableCell align="right">Unit Price</StyledTableCell>
+            <StyledTableCell align="right"> Price</StyledTableCell>
             <StyledTableCell align="right">Technical Specification</StyledTableCell>
-            <StyledTableCell align="right">Deadline date</StyledTableCell>
+            <StyledTableCell align="right">Deadline </StyledTableCell>
             <StyledTableCell align="right">Date Created</StyledTableCell>
             <StyledTableCell align="right">Last Updated</StyledTableCell>
           </TableRow>

@@ -68,6 +68,7 @@ class CreateOpportunity extends React.Component {
      source:'',
      services:[],
      servicesValue:'',
+     userValue:'',
       updatedValue:'Status',
       
     }
@@ -88,11 +89,18 @@ class CreateOpportunity extends React.Component {
     .then(json => this.setState({owner: json}))
     .catch(error => console.error('Error retrieving Tickrts: ' + error));
 
-    fetch(SERVER_URL+'/service')
+    fetch(SERVER_URL+'/services')
     .then(r => r.json())
     .then(json => this.setState({services: json}))
     .catch(error => console.error('Error retrieving Tickrts: ' + error));
    
+    const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
+    fetch(url)
+    .then(r => r.json())
+    .then(json => this.setState({userValue: json.id}))
+    .catch(error => console.error('Error retrieving User: ' + error));
+
+
   }
 
   handleChange=(event)=>{
@@ -135,20 +143,19 @@ class CreateOpportunity extends React.Component {
 
   handleSubmit=(event)=>{
     event.preventDefault()
-    let TicketDetails={
+    let OpportunityDetails={
       description:this.state.descriptionValue,
-      urgent:false,
-      import:false,
-      ticketSource:this.state.ticketSourceValue,
-      ticketStatus:this.state.ticketStatusTypeValue,
-      createdBy:this.state.employeeValue,
-      assignedTo:this.state.employeeValue,
-      company:this.state.companyValue,
+    
+      client:this.state.clientValue,
       contact:this.state.contactValue,
+      owner:this.state.ownerValue,
+      startDate:this.state.startingdate,
+      source:this.state.source,
+      services:this.state.servicesValue,
       user:this.state.userValue,
     }
 
-    console.log("Verify",TicketDetails)
+    console.log("Verify",OpportunityDetails)
 
     fetch(SERVER_URL+'/opportunity', { 
       method: 'POST',
@@ -156,13 +163,13 @@ class CreateOpportunity extends React.Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(TicketDetails)
+      body: JSON.stringify(OpportunityDetails)
     }).then(r=> r.json()).then(json =>{
       let updatedValue = this.state.updatedValue;
       if(typeof json.total==='undefined'){
         updatedValue="";
         if(typeof json.message==='undefined'){
-          updatedValue += "Employee is Added Successfully"
+          updatedValue += "Opportunity is Added Successfully"
         } 
         else
         {

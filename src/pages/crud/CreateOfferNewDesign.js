@@ -204,10 +204,10 @@ const ContainedTabs = () => {
         aria-label="wrapped label tabs example"
       >
         <Tab classes={tabItemStyles} value="one" label={'Create Offer'}  {...a11yProps('one')} />
-        <Tab classes={tabItemStyles} value="two" label={'Service'} {...a11yProps('two')}/>
-        <Tab classes={tabItemStyles} value="three" label={'Facility'} {...a11yProps('three')}/>
-        <Tab classes={tabItemStyles} value="four" label={'Product'} {...a11yProps('four')}/>
-        <Tab classes={tabItemStyles} value="five" label={' Payment '} {...a11yProps('five')}/>
+        <Tab classes={tabItemStyles} value="two" label={'Service'} {...a11yProps('two')} disabled />
+        <Tab classes={tabItemStyles} value="three" label={'Facility'} {...a11yProps('three')} disabled />
+        <Tab classes={tabItemStyles} value="four" label={'Product'} {...a11yProps('four')} disabled />
+        <Tab classes={tabItemStyles} value="five" label={' Payment '} {...a11yProps('five')} disabled />
 
       </Tabs>
       }

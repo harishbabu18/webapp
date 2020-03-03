@@ -57,10 +57,18 @@ class CreateServices extends React.Component {
        
           servicename :'',
           specification:'',
-          
           price: '',
-          deadlinedate: ''
+          deadlinedate: '',
+          userValue:'',
         }
+      }
+
+      componentDidMount(){
+        const url = SERVER_URL+"/userByUsername?username="+JSON.parse(localStorage.auth).username;
+        fetch(url)
+        .then(r => r.json())
+        .then(json => this.setState({userValue: json.id}))
+        .catch(error => console.error('Error retrieving User: ' + error));
       }
     
 
@@ -88,34 +96,30 @@ class CreateServices extends React.Component {
 
     handleSubmit=(event)=>{
     event.preventDefault()
-    let TicketDetails={
-      description:this.state.descriptionValue,
-      urgent:false,
-      import:false,
-      ticketSource:this.state.ticketSourceValue,
-      ticketStatus:this.state.ticketStatusTypeValue,
-      createdBy:this.state.employeeValue,
-      assignedTo:this.state.employeeValue,
-      company:this.state.companyValue,
-      contact:this.state.contactValue,
-      user:this.state.userValue,
+    let ServiceDetails={
+      description:this.state.specification,
+     
+      name:this.state.servicename,
+      price:this.state.price,
+      deadline:this.state.deadlinedate,
+      userValue:this.state.userValue
     }
 
-    console.log("Verify",TicketDetails)
+    console.log("Verify",ServiceDetails)
 
-    fetch(SERVER_URL+'/company', { 
+    fetch(SERVER_URL+'/services', { 
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(TicketDetails)
+      body: JSON.stringify(ServiceDetails)
     }).then(r=> r.json()).then(json =>{
       let updatedValue = this.state.updatedValue;
       if(typeof json.total==='undefined'){
         updatedValue="";
         if(typeof json.message==='undefined'){
-          updatedValue += "Employee is Added Successfully"
+          updatedValue += "Service is Added Successfully"
         } 
         else
         {
@@ -148,8 +152,6 @@ class CreateServices extends React.Component {
 
       this.setState( {
           servicename:'',
-          urgent:false,
-          import:false,
           specification:'',
           price:'',
           deadline:'',

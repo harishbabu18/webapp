@@ -176,7 +176,7 @@ class CreateProduct extends React.Component {
       if(typeof json.total==='undefined'){
         updatedValue="";
         if(typeof json.message==='undefined'){
-          updatedValue += "Employee is Added Successfully"
+          updatedValue += "Product is Added Successfully"
         } 
         else
         {
@@ -367,7 +367,7 @@ class CreateProduct extends React.Component {
                                 </MenuItem>
                             ))}
                         </TextField>
-
+                            <h3>Total : {Total}</h3>
 
                         <CardActions>
 <ButtonGroup fullWidth aria-label="full width outlined button group">
